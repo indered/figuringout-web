@@ -51,24 +51,38 @@ export default function FlavorTeaser() {
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -5, boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
             >
-              {/* Color dot */}
-              <div
-                className="w-12 h-12 rounded-full mb-4 shadow-md"
-                style={{ backgroundColor: flavor.color }}
-              />
+              {/* Sachet */}
+              <div className="mb-4 flex justify-center">
+                <svg width="70" height="90" viewBox="0 0 70 90" fill="none">
+                  {/* Sachet body */}
+                  <rect x="5" y="10" width="60" height="75" rx="4" fill={flavor.color} />
+                  {/* Top seal */}
+                  <rect x="5" y="10" width="60" height="12" rx="2" fill={flavor.color} style={{ filter: 'brightness(0.85)' }} />
+                  <path d="M10 10 L15 0 L55 0 L60 10" fill={flavor.color} style={{ filter: 'brightness(0.85)' }} />
+                  {/* Tear notch */}
+                  <circle cx="60" cy="16" r="3" fill="white" fillOpacity="0.4" />
+                  {/* Brand text */}
+                  <text x="35" y="45" textAnchor="middle" fill="white" fontSize="7" fontWeight="bold" fontFamily="sans-serif">FIGURING</text>
+                  <text x="35" y="54" textAnchor="middle" fill="white" fontSize="7" fontWeight="bold" fontFamily="sans-serif">OUT</text>
+                  {/* Decorative wave */}
+                  <path d="M10 65 Q25 60 35 65 Q45 70 60 65" stroke="white" strokeWidth="1.5" fill="none" strokeOpacity="0.5" />
+                  {/* Bottom highlight */}
+                  <rect x="10" y="75" width="50" height="6" rx="2" fill="white" fillOpacity="0.15" />
+                </svg>
+              </div>
 
               {/* Flavor name */}
-              <h3 className="text-lg font-bold mb-1" style={{ color: '#1A1A1A' }}>
+              <h3 className="text-lg font-bold mb-1 text-center" style={{ color: '#1A1A1A' }}>
                 {flavor.name}
               </h3>
 
               {/* Taste profile */}
-              <p className="text-xs font-semibold mb-3 tracking-wide uppercase" style={{ color: '#14B8A6' }}>
+              <p className="text-xs font-semibold mb-3 tracking-wide uppercase text-center" style={{ color: '#14B8A6' }}>
                 {flavor.taste}
               </p>
 
               {/* Tagline */}
-              <p className="text-sm leading-relaxed" style={{ color: '#6B7280' }}>
+              <p className="text-sm leading-relaxed text-center" style={{ color: '#6B7280' }}>
                 {flavor.tagline}
               </p>
             </motion.div>

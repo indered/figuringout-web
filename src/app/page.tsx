@@ -2,7 +2,7 @@ import Navbar from '@/components/layout/Navbar'
 import CoastalHero from '@/components/home/CoastalHero'
 import FlavorTeaser from '@/components/home/FlavorTeaser'
 import Manifesto from '@/components/home/Manifesto'
-import RunClubTeaser from '@/components/home/RunClubTeaser'
+import OurStory from '@/components/home/OurStory'
 import Footer from '@/components/layout/Footer'
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
       <CoastalHero />
       <FlavorTeaser />
       <Manifesto />
-      <RunClubTeaser />
+      <OurStory />
       <Footer />
     </main>
   )

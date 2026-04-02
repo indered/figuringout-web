@@ -129,7 +129,7 @@ export default function CoastalHero() {
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-50 max-w-4xl mx-auto px-6 text-center pt-24">
+      <div className="relative z-[60] max-w-4xl mx-auto px-6 text-center pt-20 pb-40">
         {/* Coming Soon Badge */}
         <motion.div
           className="flex justify-center mb-6"
@@ -191,15 +191,15 @@ export default function CoastalHero() {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-2"
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-[70] flex flex-col items-center gap-2"
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
-        <span className="text-xs tracking-widest uppercase" style={{ color: '#6B7280' }}>Scroll to explore</span>
-        <div className="w-6 h-10 rounded-full border-2 flex justify-center pt-2" style={{ borderColor: '#14B8A6' }}>
+        <span className="text-xs tracking-widest uppercase" style={{ color: '#1A1A1A' }}>Scroll to explore</span>
+        <div className="w-6 h-10 rounded-full border-2 flex justify-center pt-2" style={{ borderColor: '#1A1A1A' }}>
           <motion.div
             className="w-1.5 h-1.5 rounded-full"
-            style={{ backgroundColor: '#14B8A6' }}
+            style={{ backgroundColor: '#1A1A1A' }}
             animate={{ y: [0, 12, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
           />
