@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { connectToDatabase } from '@/lib/mongodb'
 
-// In-memory storage for demo (resets on cold start)
-// TODO: Replace with MongoDB Atlas for production
-const waitlistSet = new Set<string>()
+// Force dynamic rendering (skip pre-rendering at build time)
+export const dynamic = 'force-dynamic'
+
+interface WaitlistEntry {
+  phone: string
+  createdAt: Date
+  ip?: string
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -25,24 +31,43 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    const { db } = await connectToDatabase()
+    const collection = db.collection<WaitlistEntry>('waitlist')
+
     // Check if already exists
-    if (waitlistSet.has(cleanPhone)) {
+    const existing = await collection.findOne({ phone: cleanPhone })
+    if (existing) {
+      const position = await collection.countDocuments({ createdAt: { $lte: existing.createdAt } })
       return NextResponse.json({
-        message: 'You\'re already on the list!',
+        message: "You're already on the list!",
         alreadyExists: true,
+        position,
       })
     }
 
-    // Add to waitlist
-    waitlistSet.add(cleanPhone)
+    // Check if we've hit 1000
+    const count = await collection.countDocuments()
+    if (count >= 1000) {
+      return NextResponse.json(
+        { error: 'Waitlist is full!' },
+        { status: 400 }
+      )
+    }
 
-    // For demo, generate a realistic position
-    const position = Math.floor(Math.random() * 200) + 50
+    // Add to waitlist
+    const entry: WaitlistEntry = {
+      phone: cleanPhone,
+      createdAt: new Date(),
+      ip: request.headers.get('x-forwarded-for') || undefined,
+    }
+
+    await collection.insertOne(entry)
+    const position = count + 1
 
     return NextResponse.json({
       message: 'Successfully joined the waitlist!',
       position,
-      spotsLeft: Math.max(0, 1000 - position),
+      spotsLeft: 1000 - position,
     })
   } catch (error) {
     console.error('Waitlist error:', error)
@@ -54,10 +79,17 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-  // Return demo data
-  const count = waitlistSet.size || Math.floor(Math.random() * 200) + 100
-  return NextResponse.json({
-    count,
-    spotsLeft: Math.max(0, 1000 - count),
-  })
+  try {
+    const { db } = await connectToDatabase()
+    const collection = db.collection('waitlist')
+    const count = await collection.countDocuments()
+
+    return NextResponse.json({
+      count,
+      spotsLeft: Math.max(0, 1000 - count),
+    })
+  } catch (error) {
+    console.error('Waitlist GET error:', error)
+    return NextResponse.json({ count: 0, spotsLeft: 1000 })
+  }
 }
