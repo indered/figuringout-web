@@ -4,15 +4,101 @@ import { connectToDatabase } from '@/lib/mongodb'
 // Force dynamic rendering (skip pre-rendering at build time)
 export const dynamic = 'force-dynamic'
 
+// Country code to name mapping
+const COUNTRY_MAP: Record<string, string> = {
+  '+91': 'India',
+  '+1': 'United States',
+  '+44': 'United Kingdom',
+  '+971': 'United Arab Emirates',
+  '+65': 'Singapore',
+  '+61': 'Australia',
+  '+49': 'Germany',
+  '+33': 'France',
+  '+81': 'Japan',
+  '+86': 'China',
+  '+7': 'Russia',
+  '+55': 'Brazil',
+  '+52': 'Mexico',
+  '+39': 'Italy',
+  '+34': 'Spain',
+  '+31': 'Netherlands',
+  '+46': 'Sweden',
+  '+41': 'Switzerland',
+  '+82': 'South Korea',
+  '+60': 'Malaysia',
+  '+66': 'Thailand',
+  '+62': 'Indonesia',
+  '+63': 'Philippines',
+  '+84': 'Vietnam',
+  '+92': 'Pakistan',
+  '+880': 'Bangladesh',
+  '+94': 'Sri Lanka',
+  '+977': 'Nepal',
+  '+27': 'South Africa',
+  '+234': 'Nigeria',
+  '+254': 'Kenya',
+  '+20': 'Egypt',
+  '+966': 'Saudi Arabia',
+  '+974': 'Qatar',
+  '+973': 'Bahrain',
+  '+968': 'Oman',
+  '+965': 'Kuwait',
+}
+
+interface IpGeoResponse {
+  country?: string
+  city?: string
+  region?: string
+  status?: string
+}
+
+async function getCountryFromIp(ip: string): Promise<{ country: string; city?: string; region?: string } | null> {
+  try {
+    // Skip localhost/private IPs
+    if (!ip || ip === '::1' || ip.startsWith('127.') || ip.startsWith('192.168.') || ip.startsWith('10.')) {
+      return null
+    }
+
+    // Use ip-api.com (free, no API key needed, 45 requests/minute)
+    const response = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,city,regionName`, {
+      signal: AbortSignal.timeout(3000), // 3 second timeout
+    })
+
+    if (!response.ok) return null
+
+    const data: IpGeoResponse = await response.json()
+
+    if (data.status === 'success' && data.country) {
+      return {
+        country: data.country,
+        city: data.city,
+        region: data.region,
+      }
+    }
+
+    return null
+  } catch {
+    // Silently fail - geolocation is best-effort
+    return null
+  }
+}
+
 interface PhoneEntry {
   phone: string
   countryCode: string
+  country: string
+  ipCountry?: string
+  ipCity?: string
+  ipRegion?: string
   createdAt: Date
   ip?: string
 }
 
 interface EmailEntry {
   email: string
+  ipCountry?: string
+  ipCity?: string
+  ipRegion?: string
   createdAt: Date
   ip?: string
 }
@@ -23,7 +109,13 @@ export async function POST(request: NextRequest) {
     const { type } = body
 
     const { db } = await connectToDatabase()
-    const ip = request.headers.get('x-forwarded-for') || undefined
+
+    // Get IP from headers
+    const forwardedFor = request.headers.get('x-forwarded-for')
+    const ip = forwardedFor ? forwardedFor.split(',')[0].trim() : undefined
+
+    // Get country from IP (best-effort, don't block on failure)
+    const geoData = ip ? await getCountryFromIp(ip) : null
 
     if (type === 'email') {
       // Email signup
@@ -57,6 +149,9 @@ export async function POST(request: NextRequest) {
         email: cleanEmail,
         createdAt: new Date(),
         ip,
+        ipCountry: geoData?.country,
+        ipCity: geoData?.city,
+        ipRegion: geoData?.region,
       }
 
       await emailCollection.insertOne(entry)
@@ -87,11 +182,13 @@ export async function POST(request: NextRequest) {
       }
 
       const phoneCollection = db.collection<PhoneEntry>('fig_out_mobile')
+      const code = countryCode || '+91'
+      const countryName = COUNTRY_MAP[code] || 'Unknown'
 
       // Check if already exists (same phone + country code)
       const existing = await phoneCollection.findOne({
         phone: cleanPhone,
-        countryCode: countryCode || '+91'
+        countryCode: code
       })
 
       if (existing) {
@@ -106,9 +203,13 @@ export async function POST(request: NextRequest) {
       // Add to waitlist
       const entry: PhoneEntry = {
         phone: cleanPhone,
-        countryCode: countryCode || '+91',
+        countryCode: code,
+        country: countryName,
         createdAt: new Date(),
         ip,
+        ipCountry: geoData?.country,
+        ipCity: geoData?.city,
+        ipRegion: geoData?.region,
       }
 
       await phoneCollection.insertOne(entry)
