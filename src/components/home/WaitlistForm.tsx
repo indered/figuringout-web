@@ -126,10 +126,10 @@ export default function WaitlistForm() {
   }
 
   return (
-    <div className="max-w-lg mx-auto">
+    <div className="max-w-lg mx-auto px-2 sm:px-0">
       {/* Glass card container */}
       <motion.div
-        className="rounded-3xl p-8 shadow-2xl relative overflow-hidden"
+        className="rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl relative overflow-hidden"
         style={{
           background: 'rgba(255, 255, 255, 0.95)',
           backdropFilter: 'blur(20px)',
@@ -140,42 +140,42 @@ export default function WaitlistForm() {
       >
         {/* Decorative gradient blob */}
         <div
-          className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-3xl opacity-30"
+          className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-3xl opacity-30 hidden sm:block"
           style={{ background: 'linear-gradient(135deg, #14B8A6, #FFD700)' }}
         />
 
         {/* Badge */}
         <motion.div
-          className="flex justify-center mb-6"
+          className="flex justify-center mb-4 sm:mb-6"
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.1 }}
         >
           <span
-            className="inline-flex items-center gap-2 text-sm font-bold px-5 py-2.5 rounded-full shadow-lg"
+            className="inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold px-3 sm:px-5 py-2 sm:py-2.5 rounded-full shadow-lg"
             style={{
               background: 'linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%)',
               color: 'white',
             }}
           >
-            <span className="text-lg">🎁</span>
+            <span className="text-base sm:text-lg">🎁</span>
             First 1000 get FREE box
           </span>
         </motion.div>
 
         {/* Headline */}
-        <h3 className="text-xl font-bold text-center mb-2" style={{ color: '#1A1A1A' }}>
+        <h3 className="text-lg sm:text-xl font-bold text-center mb-1 sm:mb-2" style={{ color: '#1A1A1A' }}>
           Join the waitlist
         </h3>
-        <p className="text-sm text-center mb-6" style={{ color: '#6B7280' }}>
+        <p className="text-xs sm:text-sm text-center mb-4 sm:mb-6" style={{ color: '#6B7280' }}>
           Be first to know when we launch
         </p>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
           <div className="relative">
             <div
-              className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-1 font-semibold text-sm"
+              className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 flex items-center gap-1 font-semibold text-xs sm:text-sm"
               style={{ color: '#14B8A6' }}
             >
               <span>🇮🇳</span>
@@ -190,7 +190,7 @@ export default function WaitlistForm() {
                 setPhone(value)
                 if (status === 'error') setStatus('idle')
               }}
-              className="w-full pl-20 pr-4 py-4 rounded-2xl text-lg font-medium outline-none transition-all"
+              className="w-full pl-16 sm:pl-20 pr-12 sm:pr-14 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg font-medium outline-none transition-all"
               style={{
                 backgroundColor: '#F8F9FA',
                 border: status === 'error' ? '2px solid #FF6B6B' : '2px solid transparent',
@@ -207,7 +207,7 @@ export default function WaitlistForm() {
             />
             {phone.length > 0 && (
               <motion.div
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-medium"
+                className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-[10px] sm:text-xs font-medium"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 style={{ color: phone.length === 10 ? '#14B8A6' : '#9CA3AF' }}
@@ -220,7 +220,7 @@ export default function WaitlistForm() {
           <motion.button
             type="submit"
             disabled={status === 'loading'}
-            className="w-full py-4 rounded-2xl text-lg font-bold transition-all disabled:opacity-70"
+            className="w-full py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg font-bold transition-all disabled:opacity-70"
             style={{
               background: 'linear-gradient(135deg, #14B8A6 0%, #0D9488 100%)',
               color: 'white',
@@ -232,7 +232,7 @@ export default function WaitlistForm() {
             {status === 'loading' ? (
               <span className="flex items-center justify-center gap-2">
                 <motion.span
-                  className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                  className="w-4 sm:w-5 h-4 sm:h-5 border-2 border-white border-t-transparent rounded-full"
                   animate={{ rotate: 360 }}
                   transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
                 />
@@ -247,7 +247,7 @@ export default function WaitlistForm() {
         <AnimatePresence>
           {status === 'error' && errorMsg && (
             <motion.p
-              className="text-center text-sm mt-3 font-medium"
+              className="text-center text-xs sm:text-sm mt-2 sm:mt-3 font-medium"
               style={{ color: '#FF6B6B' }}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -258,25 +258,25 @@ export default function WaitlistForm() {
           )}
         </AnimatePresence>
 
-        <p className="text-center text-xs mt-5" style={{ color: '#9CA3AF' }}>
+        <p className="text-center text-[10px] sm:text-xs mt-4 sm:mt-5" style={{ color: '#9CA3AF' }}>
           No spam. Just one message when we launch.
         </p>
 
         {/* Social proof */}
-        <div className="mt-6 pt-5 flex items-center justify-center gap-3" style={{ borderTop: '1px solid #E5E7EB' }}>
-          <div className="flex -space-x-2">
+        <div className="mt-4 sm:mt-6 pt-4 sm:pt-5 flex items-center justify-center gap-2 sm:gap-3" style={{ borderTop: '1px solid #E5E7EB' }}>
+          <div className="flex -space-x-1.5 sm:-space-x-2">
             {['🏃', '🏃‍♀️', '🏃‍♂️', '💪'].map((emoji, i) => (
               <div
                 key={i}
-                className="w-8 h-8 rounded-full flex items-center justify-center text-sm border-2 border-white"
+                className="w-6 sm:w-8 h-6 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm border-2 border-white"
                 style={{ backgroundColor: ['#FFE4B5', '#E8DFD5', '#87CEEB', '#FFB6C1'][i] }}
               >
                 {emoji}
               </div>
             ))}
           </div>
-          <p className="text-xs" style={{ color: '#6B7280' }}>
-            <span className="font-semibold" style={{ color: '#1A1A1A' }}>153+ runners</span> already waiting
+          <p className="text-[10px] sm:text-xs" style={{ color: '#6B7280' }}>
+            <span className="font-semibold" style={{ color: '#1A1A1A' }}>153+</span> already waiting
           </p>
         </div>
       </motion.div>

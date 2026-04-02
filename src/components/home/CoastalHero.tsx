@@ -129,16 +129,16 @@ export default function CoastalHero() {
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-[60] max-w-4xl mx-auto px-6 text-center pt-20 pb-40">
+      <div className="relative z-[60] max-w-4xl mx-auto px-4 sm:px-6 text-center pt-16 sm:pt-20 pb-28 sm:pb-40">
         {/* Coming Soon Badge */}
         <motion.div
-          className="flex justify-center mb-6"
+          className="flex justify-center mb-4 sm:mb-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
           <span
-            className="text-xs font-semibold px-4 py-2 rounded-full uppercase tracking-widest"
+            className="text-[10px] sm:text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full uppercase tracking-widest"
             style={{ backgroundColor: '#14B8A6', color: 'white' }}
           >
             Coming October 2026
@@ -147,31 +147,30 @@ export default function CoastalHero() {
 
         {/* Main Headline */}
         <motion.h1
-          className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4"
+          className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-3 sm:mb-4"
           style={{ color: '#1A1A1A' }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          In a world where everyone is figuring out,
-          <br />
+          <span className="block sm:inline">In a world where everyone is figuring out,</span>{' '}
           <span style={{ color: '#14B8A6' }}>at least we figured out the hydration.</span>
         </motion.h1>
 
         {/* Subline */}
         <motion.p
-          className="text-lg md:text-xl max-w-2xl mx-auto mb-10"
+          className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-6 sm:mb-10"
           style={{ color: '#6B7280' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
         >
-          India's first electrolyte for everyone running through life. 🌴
+          India's first electrolyte for everyone running through life.
         </motion.p>
 
         {/* Countdown Timer */}
         <motion.div
-          className="flex justify-center mb-12"
+          className="flex justify-center mb-6 sm:mb-10"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.8 }}

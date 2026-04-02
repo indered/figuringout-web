@@ -48,16 +48,16 @@ export default function CountdownTimer() {
   ]
 
   return (
-    <div className="flex gap-3 md:gap-4">
+    <div className="flex gap-2 sm:gap-3 md:gap-4">
       {blocks.map(({ value, label }) => (
         <div key={label} className="flex flex-col items-center">
           <div
-            className="w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center text-2xl md:text-3xl font-bold shadow-lg"
+            className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl flex items-center justify-center text-lg sm:text-2xl md:text-3xl font-bold shadow-lg"
             style={{ backgroundColor: 'white', border: '2px solid #14B8A6', color: '#14B8A6' }}
           >
             {String(value).padStart(2, '0')}
           </div>
-          <span className="text-xs mt-2 uppercase tracking-widest font-medium" style={{ color: '#6B7280' }}>
+          <span className="text-[10px] sm:text-xs mt-1.5 sm:mt-2 uppercase tracking-wide sm:tracking-widest font-medium" style={{ color: '#6B7280' }}>
             {label}
           </span>
         </div>
