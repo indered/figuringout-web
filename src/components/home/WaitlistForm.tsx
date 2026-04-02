@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const COUNTRY_CODES = [
@@ -14,6 +14,33 @@ const COUNTRY_CODES = [
   { code: '+33', country: 'FR', flag: '🇫🇷', name: 'France' },
   { code: '+81', country: 'JP', flag: '🇯🇵', name: 'Japan' },
   { code: '+86', country: 'CN', flag: '🇨🇳', name: 'China' },
+  { code: '+82', country: 'KR', flag: '🇰🇷', name: 'South Korea' },
+  { code: '+55', country: 'BR', flag: '🇧🇷', name: 'Brazil' },
+  { code: '+52', country: 'MX', flag: '🇲🇽', name: 'Mexico' },
+  { code: '+39', country: 'IT', flag: '🇮🇹', name: 'Italy' },
+  { code: '+34', country: 'ES', flag: '🇪🇸', name: 'Spain' },
+  { code: '+31', country: 'NL', flag: '🇳🇱', name: 'Netherlands' },
+  { code: '+46', country: 'SE', flag: '🇸🇪', name: 'Sweden' },
+  { code: '+41', country: 'CH', flag: '🇨🇭', name: 'Switzerland' },
+  { code: '+60', country: 'MY', flag: '🇲🇾', name: 'Malaysia' },
+  { code: '+66', country: 'TH', flag: '🇹🇭', name: 'Thailand' },
+  { code: '+62', country: 'ID', flag: '🇮🇩', name: 'Indonesia' },
+  { code: '+63', country: 'PH', flag: '🇵🇭', name: 'Philippines' },
+  { code: '+84', country: 'VN', flag: '🇻🇳', name: 'Vietnam' },
+  { code: '+92', country: 'PK', flag: '🇵🇰', name: 'Pakistan' },
+  { code: '+880', country: 'BD', flag: '🇧🇩', name: 'Bangladesh' },
+  { code: '+94', country: 'LK', flag: '🇱🇰', name: 'Sri Lanka' },
+  { code: '+977', country: 'NP', flag: '🇳🇵', name: 'Nepal' },
+  { code: '+27', country: 'ZA', flag: '🇿🇦', name: 'South Africa' },
+  { code: '+234', country: 'NG', flag: '🇳🇬', name: 'Nigeria' },
+  { code: '+254', country: 'KE', flag: '🇰🇪', name: 'Kenya' },
+  { code: '+20', country: 'EG', flag: '🇪🇬', name: 'Egypt' },
+  { code: '+966', country: 'SA', flag: '🇸🇦', name: 'Saudi Arabia' },
+  { code: '+974', country: 'QA', flag: '🇶🇦', name: 'Qatar' },
+  { code: '+973', country: 'BH', flag: '🇧🇭', name: 'Bahrain' },
+  { code: '+968', country: 'OM', flag: '🇴🇲', name: 'Oman' },
+  { code: '+965', country: 'KW', flag: '🇰🇼', name: 'Kuwait' },
+  { code: '+7', country: 'RU', flag: '🇷🇺', name: 'Russia' },
 ]
 
 type SignupMethod = 'phone' | 'email'
@@ -27,6 +54,48 @@ export default function WaitlistForm() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [position, setPosition] = useState<number | null>(null)
   const [errorMsg, setErrorMsg] = useState('')
+
+  // Auto-detect country code based on user's location
+  useEffect(() => {
+    const detectCountry = async () => {
+      try {
+        // Try IP-based detection first (more accurate)
+        const response = await fetch('https://ipapi.co/json/', {
+          signal: AbortSignal.timeout(3000),
+        })
+        if (response.ok) {
+          const data = await response.json()
+          if (data.country_calling_code) {
+            const detected = COUNTRY_CODES.find(
+              c => c.code === data.country_calling_code || c.country === data.country_code
+            )
+            if (detected) {
+              setCountryCode(detected)
+              return
+            }
+          }
+        }
+      } catch {
+        // Fallback to browser locale
+        try {
+          const locale = navigator.language || navigator.languages?.[0]
+          if (locale) {
+            const countryFromLocale = locale.split('-')[1]?.toUpperCase()
+            if (countryFromLocale) {
+              const detected = COUNTRY_CODES.find(c => c.country === countryFromLocale)
+              if (detected) {
+                setCountryCode(detected)
+              }
+            }
+          }
+        } catch {
+          // Keep default (India)
+        }
+      }
+    }
+
+    detectCountry()
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -273,6 +342,9 @@ export default function WaitlistForm() {
               {/* Phone Input */}
               <input
                 type="tel"
+                inputMode="tel"
+                autoComplete="tel"
+                name="phone"
                 placeholder="Phone number"
                 value={phone}
                 onChange={(e) => {
@@ -296,6 +368,9 @@ export default function WaitlistForm() {
           ) : (
             <input
               type="email"
+              inputMode="email"
+              autoComplete="email"
+              name="email"
               placeholder="Enter your email"
               value={email}
               onChange={(e) => {
