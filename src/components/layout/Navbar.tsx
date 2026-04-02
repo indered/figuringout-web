@@ -30,9 +30,8 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8 text-sm font-medium" style={{ color: '#1A1A1A' }}>
-          <Link href="/products" className="hover:text-[#14B8A6] transition-colors">Flavors</Link>
-          <Link href="/run-club" className="hover:text-[#14B8A6] transition-colors">Run Club</Link>
-          <Link href="/our-story" className="hover:text-[#14B8A6] transition-colors">Our Story</Link>
+          <Link href="#flavors" className="hover:text-[#14B8A6] transition-colors">Flavors</Link>
+          <Link href="/story" className="hover:text-[#14B8A6] transition-colors">Our Story</Link>
         </div>
 
         {/* CTA */}
@@ -61,9 +60,8 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="md:hidden px-6 pb-6 flex flex-col gap-6 text-lg font-medium" style={{ backgroundColor: 'white', color: '#1A1A1A' }}>
-          <Link href="/products" onClick={() => setMenuOpen(false)}>Flavors</Link>
-          <Link href="/run-club" onClick={() => setMenuOpen(false)}>Run Club</Link>
-          <Link href="/our-story" onClick={() => setMenuOpen(false)}>Our Story</Link>
+          <Link href="#flavors" onClick={() => setMenuOpen(false)}>Flavors</Link>
+          <Link href="/story" onClick={() => setMenuOpen(false)}>Our Story</Link>
           <Link
             href="#waitlist"
             onClick={() => setMenuOpen(false)}

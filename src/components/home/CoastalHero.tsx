@@ -116,16 +116,30 @@ export default function CoastalHero() {
 
       {/* Animated runner silhouette */}
       <motion.div
-        className="absolute bottom-[22%] z-50"
-        initial={{ left: '-10%' }}
-        animate={{ left: '110%' }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+        className="absolute bottom-[26%] sm:bottom-[22%] z-[55]"
+        initial={{ left: '-15%' }}
+        animate={{ left: '115%' }}
+        transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
       >
-        <svg width="40" height="60" viewBox="0 0 40 60" fill="#1A1A1A" opacity="0.7">
+        <motion.svg
+          className="w-8 h-12 sm:w-10 sm:h-14 md:w-12 md:h-16"
+          viewBox="0 0 40 60"
+          fill="#1A1A1A"
+          opacity="0.8"
+          animate={{ y: [0, -3, 0] }}
+          transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          {/* Head */}
           <circle cx="20" cy="8" r="6" />
-          <path d="M20,14 L20,32 M20,20 L10,28 M20,20 L30,26 M20,32 L12,50 M20,32 L28,48"
-                stroke="#1A1A1A" strokeWidth="3" strokeLinecap="round" fill="none"/>
-        </svg>
+          {/* Body & limbs in running pose */}
+          <path
+            d="M20,14 L20,30 M20,18 L12,26 M20,18 L28,22 M20,30 L14,46 M20,30 L26,44"
+            stroke="#1A1A1A"
+            strokeWidth="3"
+            strokeLinecap="round"
+            fill="none"
+          />
+        </motion.svg>
       </motion.div>
 
       {/* Content */}
@@ -180,6 +194,7 @@ export default function CoastalHero() {
 
         {/* Waitlist Form */}
         <motion.div
+          id="waitlist"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1 }}
