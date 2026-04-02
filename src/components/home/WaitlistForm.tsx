@@ -3,8 +3,27 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
+const COUNTRY_CODES = [
+  { code: '+91', country: 'IN', flag: '🇮🇳', name: 'India' },
+  { code: '+1', country: 'US', flag: '🇺🇸', name: 'USA' },
+  { code: '+44', country: 'GB', flag: '🇬🇧', name: 'UK' },
+  { code: '+971', country: 'AE', flag: '🇦🇪', name: 'UAE' },
+  { code: '+65', country: 'SG', flag: '🇸🇬', name: 'Singapore' },
+  { code: '+61', country: 'AU', flag: '🇦🇺', name: 'Australia' },
+  { code: '+49', country: 'DE', flag: '🇩🇪', name: 'Germany' },
+  { code: '+33', country: 'FR', flag: '🇫🇷', name: 'France' },
+  { code: '+81', country: 'JP', flag: '🇯🇵', name: 'Japan' },
+  { code: '+86', country: 'CN', flag: '🇨🇳', name: 'China' },
+]
+
+type SignupMethod = 'phone' | 'email'
+
 export default function WaitlistForm() {
+  const [method, setMethod] = useState<SignupMethod>('phone')
   const [phone, setPhone] = useState('')
+  const [email, setEmail] = useState('')
+  const [countryCode, setCountryCode] = useState(COUNTRY_CODES[0])
+  const [showCountryPicker, setShowCountryPicker] = useState(false)
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [position, setPosition] = useState<number | null>(null)
   const [errorMsg, setErrorMsg] = useState('')
@@ -13,11 +32,20 @@ export default function WaitlistForm() {
     e.preventDefault()
     setErrorMsg('')
 
-    const cleanPhone = phone.replace(/\D/g, '')
-    if (cleanPhone.length !== 10) {
-      setStatus('error')
-      setErrorMsg('Enter a valid 10-digit number')
-      return
+    if (method === 'phone') {
+      const cleanPhone = phone.replace(/\D/g, '')
+      if (cleanPhone.length < 7 || cleanPhone.length > 15) {
+        setStatus('error')
+        setErrorMsg('Enter a valid phone number')
+        return
+      }
+    } else {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(email)) {
+        setStatus('error')
+        setErrorMsg('Enter a valid email address')
+        return
+      }
     }
 
     setStatus('loading')
@@ -26,7 +54,11 @@ export default function WaitlistForm() {
       const res = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: cleanPhone }),
+        body: JSON.stringify(
+          method === 'phone'
+            ? { type: 'phone', phone: phone.replace(/\D/g, ''), countryCode: countryCode.code }
+            : { type: 'email', email: email.toLowerCase().trim() }
+        ),
       })
 
       const data = await res.json()
@@ -47,7 +79,7 @@ export default function WaitlistForm() {
   if (status === 'success') {
     return (
       <motion.div
-        className="relative max-w-md mx-auto"
+        className="relative max-w-md mx-auto px-2 sm:px-0"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ type: 'spring', duration: 0.6 }}
@@ -75,12 +107,11 @@ export default function WaitlistForm() {
         </div>
 
         <div
-          className="rounded-3xl p-8 text-center shadow-2xl relative overflow-hidden"
+          className="rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-center shadow-2xl relative overflow-hidden"
           style={{
             background: 'linear-gradient(135deg, #14B8A6 0%, #0D9488 100%)',
           }}
         >
-          {/* Decorative circles */}
           <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-white opacity-10" />
           <div className="absolute -bottom-8 -left-8 w-24 h-24 rounded-full bg-white opacity-10" />
 
@@ -90,9 +121,9 @@ export default function WaitlistForm() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center mx-auto mb-5 shadow-lg">
+            <div className="w-16 sm:w-20 h-16 sm:h-20 rounded-full bg-white flex items-center justify-center mx-auto mb-4 sm:mb-5 shadow-lg">
               <motion.span
-                className="text-4xl"
+                className="text-3xl sm:text-4xl"
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: 'spring', delay: 0.3 }}
@@ -101,24 +132,20 @@ export default function WaitlistForm() {
               </motion.span>
             </div>
 
-            <h3 className="text-2xl font-bold mb-2 text-white">
+            <h3 className="text-xl sm:text-2xl font-bold mb-2 text-white">
               You're in!
             </h3>
 
-            <p className="text-white/90 mb-4">
+            <p className="text-white/90 mb-4 text-sm sm:text-base">
               Position <span className="font-bold text-yellow-300">#{position}</span> on the waitlist
             </p>
 
-            <div className="bg-white/20 rounded-2xl p-4 backdrop-blur-sm">
-              <p className="text-sm text-white/90">
-                We'll WhatsApp you when we launch.<br />
-                <span className="font-semibold text-yellow-300">First 1000 get a free box.</span> You're one of them.
+            <div className="bg-white/20 rounded-xl sm:rounded-2xl p-3 sm:p-4 backdrop-blur-sm">
+              <p className="text-xs sm:text-sm text-white/90">
+                We'll notify you when we launch.<br />
+                <span className="font-semibold text-yellow-300">First 1000 get a free box.</span>
               </p>
             </div>
-
-            <p className="text-xs text-white/60 mt-4">
-              Share with friends running through life
-            </p>
           </motion.div>
         </div>
       </motion.div>
@@ -127,7 +154,6 @@ export default function WaitlistForm() {
 
   return (
     <div className="max-w-lg mx-auto px-2 sm:px-0">
-      {/* Glass card container */}
       <motion.div
         className="rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl relative overflow-hidden"
         style={{
@@ -138,7 +164,6 @@ export default function WaitlistForm() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        {/* Decorative gradient blob */}
         <div
           className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-3xl opacity-30 hidden sm:block"
           style={{ background: 'linear-gradient(135deg, #14B8A6, #FFD700)' }}
@@ -167,30 +192,117 @@ export default function WaitlistForm() {
         <h3 className="text-lg sm:text-xl font-bold text-center mb-1 sm:mb-2" style={{ color: '#1A1A1A' }}>
           Join the waitlist
         </h3>
-        <p className="text-xs sm:text-sm text-center mb-4 sm:mb-6" style={{ color: '#6B7280' }}>
+        <p className="text-xs sm:text-sm text-center mb-4 sm:mb-5" style={{ color: '#6B7280' }}>
           Be first to know when we launch
         </p>
 
+        {/* Method Toggle */}
+        <div className="flex justify-center mb-4 sm:mb-5">
+          <div className="inline-flex rounded-xl p-1" style={{ backgroundColor: '#F3F4F6' }}>
+            <button
+              type="button"
+              onClick={() => setMethod('phone')}
+              className={`px-4 sm:px-6 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
+                method === 'phone' ? 'bg-white shadow-md' : ''
+              }`}
+              style={{ color: method === 'phone' ? '#14B8A6' : '#6B7280' }}
+            >
+              📱 Phone
+            </button>
+            <button
+              type="button"
+              onClick={() => setMethod('email')}
+              className={`px-4 sm:px-6 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
+                method === 'email' ? 'bg-white shadow-md' : ''
+              }`}
+              style={{ color: method === 'email' ? '#14B8A6' : '#6B7280' }}
+            >
+              ✉️ Email
+            </button>
+          </div>
+        </div>
+
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
-          <div className="relative">
-            <div
-              className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 flex items-center gap-1 font-semibold text-xs sm:text-sm"
-              style={{ color: '#14B8A6' }}
-            >
-              <span>🇮🇳</span>
-              <span>+91</span>
+          {method === 'phone' ? (
+            <div className="flex gap-2">
+              {/* Country Code Picker */}
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setShowCountryPicker(!showCountryPicker)}
+                  className="h-full px-3 sm:px-4 py-3 sm:py-4 rounded-xl sm:rounded-2xl flex items-center gap-1 sm:gap-2 text-sm font-medium transition-all"
+                  style={{ backgroundColor: '#F8F9FA', border: '2px solid transparent' }}
+                >
+                  <span className="text-lg">{countryCode.flag}</span>
+                  <span className="hidden sm:inline" style={{ color: '#1A1A1A' }}>{countryCode.code}</span>
+                  <span className="text-xs" style={{ color: '#9CA3AF' }}>▼</span>
+                </button>
+
+                <AnimatePresence>
+                  {showCountryPicker && (
+                    <motion.div
+                      className="absolute top-full left-0 mt-2 w-48 sm:w-56 bg-white rounded-xl shadow-2xl border overflow-hidden z-50"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      style={{ borderColor: '#E5E7EB' }}
+                    >
+                      <div className="max-h-60 overflow-y-auto">
+                        {COUNTRY_CODES.map((cc) => (
+                          <button
+                            key={cc.code}
+                            type="button"
+                            onClick={() => {
+                              setCountryCode(cc)
+                              setShowCountryPicker(false)
+                            }}
+                            className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-colors text-left"
+                          >
+                            <span className="text-xl">{cc.flag}</span>
+                            <span className="text-sm font-medium" style={{ color: '#1A1A1A' }}>{cc.name}</span>
+                            <span className="text-sm ml-auto" style={{ color: '#6B7280' }}>{cc.code}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Phone Input */}
+              <input
+                type="tel"
+                placeholder="Phone number"
+                value={phone}
+                onChange={(e) => {
+                  setPhone(e.target.value.replace(/[^\d\s-]/g, ''))
+                  if (status === 'error') setStatus('idle')
+                }}
+                className="flex-1 px-4 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base font-medium outline-none transition-all"
+                style={{
+                  backgroundColor: '#F8F9FA',
+                  border: status === 'error' ? '2px solid #FF6B6B' : '2px solid transparent',
+                  color: '#1A1A1A',
+                }}
+                onFocus={(e) => {
+                  e.target.style.border = '2px solid #14B8A6'
+                }}
+                onBlur={(e) => {
+                  e.target.style.border = status === 'error' ? '2px solid #FF6B6B' : '2px solid transparent'
+                }}
+              />
             </div>
+          ) : (
             <input
-              type="tel"
-              placeholder="Enter your number"
-              value={phone}
+              type="email"
+              placeholder="Enter your email"
+              value={email}
               onChange={(e) => {
-                const value = e.target.value.replace(/\D/g, '').slice(0, 10)
-                setPhone(value)
+                setEmail(e.target.value)
                 if (status === 'error') setStatus('idle')
               }}
-              className="w-full pl-16 sm:pl-20 pr-12 sm:pr-14 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg font-medium outline-none transition-all"
+              className="w-full px-4 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base font-medium outline-none transition-all"
               style={{
                 backgroundColor: '#F8F9FA',
                 border: status === 'error' ? '2px solid #FF6B6B' : '2px solid transparent',
@@ -198,24 +310,12 @@ export default function WaitlistForm() {
               }}
               onFocus={(e) => {
                 e.target.style.border = '2px solid #14B8A6'
-                e.target.style.boxShadow = '0 0 0 4px rgba(20, 184, 166, 0.1)'
               }}
               onBlur={(e) => {
                 e.target.style.border = status === 'error' ? '2px solid #FF6B6B' : '2px solid transparent'
-                e.target.style.boxShadow = 'none'
               }}
             />
-            {phone.length > 0 && (
-              <motion.div
-                className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-[10px] sm:text-xs font-medium"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                style={{ color: phone.length === 10 ? '#14B8A6' : '#9CA3AF' }}
-              >
-                {phone.length}/10
-              </motion.div>
-            )}
-          </div>
+          )}
 
           <motion.button
             type="submit"
