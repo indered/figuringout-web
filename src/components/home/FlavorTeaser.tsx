@@ -1,207 +1,205 @@
 'use client'
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { coreFlavors } from '@/data/flavors'
 
-function FlavorBox({ flavor, index }: { flavor: typeof coreFlavors[0]; index: number }) {
-  const [isOpen, setIsOpen] = useState(false)
-
+function Sachet({ color, name }: { color: string; name: string }) {
   return (
     <motion.div
-      className="relative cursor-pointer"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ delay: index * 0.15 }}
-      onViewportEnter={() => {
-        setTimeout(() => setIsOpen(true), 300 + index * 200)
-      }}
-      onHoverStart={() => setIsOpen(true)}
+      className="relative mx-auto"
+      style={{ width: 90, height: 120 }}
+      whileHover={{ scale: 1.05 }}
+      transition={{ type: 'spring', stiffness: 300 }}
     >
-      {/* Box Container */}
-      <div
-        className="relative rounded-2xl sm:rounded-3xl overflow-visible"
-        style={{ perspective: '600px' }}
+      <motion.svg
+        width="90"
+        height="120"
+        viewBox="0 0 90 120"
+        fill="none"
+        initial={{ rotate: -3 }}
+        animate={{ rotate: [-3, 3, -3] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
       >
-        {/* Box Body */}
-        <div
-          className="relative rounded-2xl sm:rounded-3xl p-4 sm:p-5 pt-16 sm:pt-20 pb-4 sm:pb-5"
-          style={{
-            backgroundColor: flavor.color,
-            minHeight: '200px',
-          }}
-        >
-          {/* Box interior shadow */}
-          <div
-            className="absolute inset-x-2 top-12 bottom-2 rounded-xl"
-            style={{ backgroundColor: 'rgba(0,0,0,0.1)' }}
-          />
+        {/* Shadow */}
+        <ellipse cx="45" cy="115" rx="30" ry="5" fill="black" fillOpacity="0.08" />
 
-          {/* Sachet popping out */}
-          <AnimatePresence>
-            {isOpen && (
-              <motion.div
-                className="absolute left-1/2 -translate-x-1/2"
-                style={{ top: '-40px' }}
-                initial={{ y: 60, opacity: 0, scale: 0.8 }}
-                animate={{ y: 0, opacity: 1, scale: 1 }}
-                transition={{
-                  type: 'spring',
-                  stiffness: 300,
-                  damping: 20,
-                  delay: 0.2
-                }}
-              >
-                <motion.div
-                  animate={{ y: [0, -6, 0], rotate: [-2, 2, -2] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                >
-                  <Sachet color={flavor.color} />
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+        {/* Back of sachet (folded top) */}
+        <path
+          d="M12 18 L20 6 L70 6 L78 18"
+          fill={color}
+          style={{ filter: 'brightness(0.7)' }}
+        />
 
-          {/* Flavor info at bottom of box */}
-          <div className="relative z-10 text-center mt-auto pt-8">
-            <h3 className="text-sm sm:text-base font-bold text-white mb-1 drop-shadow-sm">
-              {flavor.name}
-            </h3>
-            <p className="text-[10px] sm:text-xs text-white/80 font-medium">
-              {flavor.taste}
-            </p>
-          </div>
-        </div>
+        {/* Main sachet body */}
+        <rect x="10" y="18" width="70" height="95" rx="4" fill={color} />
 
-        {/* Box Lid */}
-        <motion.div
-          className="absolute top-0 left-0 right-0 rounded-t-2xl sm:rounded-t-3xl overflow-hidden"
-          style={{
-            height: '50px',
-            backgroundColor: flavor.color,
-            transformOrigin: 'top center',
-            transformStyle: 'preserve-3d',
-            filter: 'brightness(1.1)',
-          }}
-          initial={{ rotateX: 0 }}
-          animate={{ rotateX: isOpen ? -130 : 0 }}
-          transition={{
-            type: 'spring',
-            stiffness: 100,
-            damping: 15,
-          }}
-        >
-          {/* Lid top design */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-2xl">🌴</div>
-          </div>
+        {/* Left edge shadow */}
+        <rect x="10" y="18" width="8" height="95" rx="2" fill="black" fillOpacity="0.12" />
 
-          {/* Lid edge */}
-          <div
-            className="absolute bottom-0 left-0 right-0 h-2"
-            style={{ backgroundColor: 'rgba(0,0,0,0.15)' }}
-          />
+        {/* Top seal line */}
+        <rect x="10" y="18" width="70" height="12" fill={color} style={{ filter: 'brightness(0.85)' }} />
+        <line x1="10" y1="30" x2="80" y2="30" stroke="black" strokeOpacity="0.08" strokeWidth="1" />
 
-          {/* Lid inner surface */}
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundColor: '#f5f5f5',
-              transform: 'rotateX(180deg)',
-              backfaceVisibility: 'hidden',
-            }}
-          />
-        </motion.div>
-      </div>
+        {/* Tear notch */}
+        <path d="M73 20 L80 14 L80 26 Z" fill="white" fillOpacity="0.25" />
+        <circle cx="76" cy="23" r="2.5" fill="white" fillOpacity="0.4" />
+
+        {/* Brand logo area - larger */}
+        <rect x="18" y="36" width="54" height="44" rx="5" fill="white" fillOpacity="0.95" />
+
+        {/* Brand text - LARGER */}
+        <text x="45" y="54" textAnchor="middle" fill={color} fontSize="11" fontWeight="800" fontFamily="system-ui, sans-serif">
+          FIGURING
+        </text>
+        <text x="45" y="68" textAnchor="middle" fill={color} fontSize="11" fontWeight="800" fontFamily="system-ui, sans-serif">
+          OUT.
+        </text>
+
+        {/* Decorative wave pattern */}
+        <path
+          d="M15 88 Q32 82 45 88 Q58 94 75 88"
+          stroke="white"
+          strokeWidth="2.5"
+          fill="none"
+          strokeOpacity="0.5"
+        />
+        <path
+          d="M15 96 Q32 90 45 96 Q58 102 75 96"
+          stroke="white"
+          strokeWidth="2"
+          fill="none"
+          strokeOpacity="0.3"
+        />
+
+        {/* Bottom highlight */}
+        <rect x="18" y="102" width="54" height="6" rx="3" fill="white" fillOpacity="0.15" />
+
+        {/* Shine effect */}
+        <rect x="62" y="35" width="10" height="50" rx="5" fill="white" fillOpacity="0.12" transform="rotate(12, 67, 60)" />
+      </motion.svg>
     </motion.div>
-  )
-}
-
-function Sachet({ color }: { color: string }) {
-  return (
-    <svg width="70" height="95" viewBox="0 0 90 120" fill="none">
-      {/* Shadow */}
-      <ellipse cx="45" cy="115" rx="25" ry="4" fill="black" fillOpacity="0.1" />
-
-      {/* Back fold */}
-      <path d="M15 18 L22 8 L68 8 L75 18" fill={color} style={{ filter: 'brightness(0.75)' }} />
-
-      {/* Main body */}
-      <rect x="12" y="18" width="66" height="92" rx="4" fill="white" />
-
-      {/* Color strip */}
-      <rect x="12" y="18" width="66" height="25" rx="4" fill={color} />
-      <rect x="12" y="40" width="66" height="3" fill={color} style={{ filter: 'brightness(0.9)' }} />
-
-      {/* Brand */}
-      <text x="45" y="68" textAnchor="middle" fill={color} fontSize="9" fontWeight="800" fontFamily="system-ui">
-        FIGURING
-      </text>
-      <text x="45" y="80" textAnchor="middle" fill={color} fontSize="9" fontWeight="800" fontFamily="system-ui">
-        OUT.
-      </text>
-
-      {/* Bottom decoration */}
-      <rect x="20" y="92" width="50" height="12" rx="2" fill={color} fillOpacity="0.15" />
-
-      {/* Shine */}
-      <rect x="58" y="45" width="8" height="35" rx="4" fill={color} fillOpacity="0.1" />
-
-      {/* Tear notch */}
-      <circle cx="70" cy="25" r="3" fill="white" fillOpacity="0.5" />
-    </svg>
   )
 }
 
 export default function FlavorTeaser() {
   return (
-    <section id="flavors" className="py-12 sm:py-20 px-4 sm:px-6" style={{ backgroundColor: '#FDF8F3' }}>
-      <div className="max-w-4xl mx-auto text-center">
+    <section id="flavors" className="py-16 sm:py-24 px-4 sm:px-6" style={{ backgroundColor: '#FDF8F3' }}>
+      <div className="max-w-5xl mx-auto text-center">
         {/* Header */}
-        <motion.h2
-          className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight mb-3 sm:mb-4"
-          style={{ color: '#1A1A1A' }}
+        <motion.p
+          className="text-xs sm:text-sm font-medium tracking-widest uppercase mb-3 sm:mb-4"
+          style={{ color: '#14B8A6' }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          What's inside?
+          The Lineup
+        </motion.p>
+        <motion.h2
+          className="text-2xl sm:text-3xl md:text-5xl font-bold leading-tight mb-4 sm:mb-6"
+          style={{ color: '#1A1A1A' }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+        >
+          What are you figuring out today?
         </motion.h2>
         <motion.p
-          className="text-sm sm:text-base max-w-md mx-auto mb-8 sm:mb-12"
+          className="text-sm sm:text-base max-w-xl mx-auto mb-10 sm:mb-16 px-4"
           style={{ color: '#6B7280' }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
         >
-          Four moods. Four flavors. Zero sugar.
+          Four flavors. Each one named after something you're probably dealing with right now.
         </motion.p>
 
-        {/* Flavor Boxes Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        {/* Flavor Cards */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
           {coreFlavors.map((flavor, index) => (
-            <FlavorBox key={flavor.slug} flavor={flavor} index={index} />
+            <motion.div
+              key={flavor.slug}
+              className="rounded-2xl sm:rounded-3xl p-4 sm:p-6 pb-5 sm:pb-8 transition-all group cursor-pointer"
+              style={{
+                backgroundColor: 'white',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+              }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{
+                y: -8,
+                boxShadow: '0 20px 40px rgba(0,0,0,0.12)',
+              }}
+            >
+              {/* Sachet */}
+              <motion.div
+                className="mb-4 sm:mb-6 pt-2"
+                initial={{ y: 0 }}
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: index * 0.5 }}
+              >
+                <Sachet color={flavor.color} name={flavor.name} />
+              </motion.div>
+
+              {/* Flavor name - LARGER */}
+              <h3 className="text-sm sm:text-base md:text-lg font-bold mb-1" style={{ color: '#1A1A1A' }}>
+                {flavor.name}
+              </h3>
+
+              {/* Taste profile - MORE VISIBLE */}
+              <p
+                className="text-[10px] sm:text-xs font-bold mb-2 sm:mb-3 tracking-wide uppercase"
+                style={{ color: flavor.color }}
+              >
+                {flavor.taste}
+              </p>
+
+              {/* Tagline - hidden on very small screens */}
+              <p className="text-xs sm:text-sm leading-relaxed hidden sm:block" style={{ color: '#6B7280' }}>
+                {flavor.tagline}
+              </p>
+            </motion.div>
           ))}
         </div>
 
         {/* Limited drops teaser */}
         <motion.div
-          className="mt-10 sm:mt-14 flex flex-wrap justify-center gap-2 sm:gap-3"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          className="mt-8 sm:mt-10 rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 relative overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, #14B8A6 0%, #0D9488 100%)',
+          }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <span className="text-xs text-gray-400 mr-2">Coming soon:</span>
-          {['Ghosted', 'Sunday Scaries', 'Chai Can Wait'].map((name) => (
-            <span
-              key={name}
-              className="text-[10px] sm:text-xs font-medium px-3 py-1.5 rounded-full"
-              style={{ backgroundColor: '#14B8A6', color: 'white', opacity: 0.7 }}
-            >
-              {name}
-            </span>
-          ))}
+          {/* Decorative elements */}
+          <div className="absolute top-0 right-0 w-24 sm:w-32 h-24 sm:h-32 rounded-full bg-white opacity-5 -translate-y-1/2 translate-x-1/2" />
+          <div className="absolute bottom-0 left-0 w-20 sm:w-24 h-20 sm:h-24 rounded-full bg-white opacity-5 translate-y-1/2 -translate-x-1/2" />
+
+          <div className="relative z-10">
+            <p className="text-xs sm:text-sm font-bold text-white/80 mb-3">
+              Coming Soon: Limited Drops
+            </p>
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+              {['Broke But Hydrated', 'Ghosted', 'Sunday Scaries', 'Chai Can Wait'].map((name, i) => (
+                <motion.span
+                  key={name}
+                  className="text-[10px] sm:text-xs md:text-sm font-bold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/20 text-white backdrop-blur-sm"
+                  whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.3)' }}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 + i * 0.1 }}
+                >
+                  {name}
+                </motion.span>
+              ))}
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

@@ -7,176 +7,120 @@ export default function StoryPage() {
   return (
     <main className="min-h-screen" style={{ backgroundColor: '#FDF8F3' }}>
       {/* Header */}
-      <nav className="fixed top-0 left-0 right-0 z-50 px-4 py-4">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-full transition-all hover:scale-105"
-          style={{ backgroundColor: 'white', color: '#1A1A1A', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}
-        >
-          ← Back
-        </Link>
+      <nav className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 py-4">
+        <div className="max-w-3xl mx-auto flex justify-between items-center">
+          <Link
+            href="/"
+            className="text-sm font-medium px-4 py-2 rounded-full transition-all hover:scale-105"
+            style={{ backgroundColor: 'white', color: '#1A1A1A', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}
+          >
+            ← Back
+          </Link>
+          <Link
+            href="/#waitlist"
+            className="text-sm font-bold px-4 py-2 rounded-full transition-all hover:scale-105"
+            style={{ backgroundColor: '#14B8A6', color: 'white' }}
+          >
+            Join Waitlist
+          </Link>
+        </div>
       </nav>
 
-      {/* Hero */}
-      <section className="pt-24 pb-12 px-4 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-6xl sm:text-8xl mb-6"
-        >
-          🏃‍♂️
-        </motion.div>
-        <motion.h1
-          className="text-3xl sm:text-5xl font-bold mb-4"
-          style={{ color: '#1A1A1A' }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-        >
-          Why we run
-        </motion.h1>
-        <motion.p
-          className="text-lg sm:text-xl max-w-md mx-auto"
-          style={{ color: '#6B7280' }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-        >
-          Not for medals. For sanity.
-        </motion.p>
-      </section>
-
-      {/* Story blocks */}
-      <section className="max-w-2xl mx-auto px-6 pb-20">
-        <div className="space-y-16">
-          {/* Block 1 */}
-          <motion.div
-            className="text-center"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+      {/* Content */}
+      <section className="pt-24 sm:pt-32 pb-20 px-4 sm:px-6">
+        <div className="max-w-2xl mx-auto">
+          <motion.p
+            className="text-xs sm:text-sm font-medium tracking-widest uppercase mb-4 sm:mb-6"
+            style={{ color: '#14B8A6' }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
           >
-            <div className="text-4xl mb-4">🤷</div>
-            <p className="text-xl sm:text-2xl font-medium" style={{ color: '#1A1A1A' }}>
-              Job? Confusing.
-            </p>
-          </motion.div>
+            Our Story
+          </motion.p>
 
-          {/* Block 2 */}
-          <motion.div
-            className="text-center"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <motion.h1
+            className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight mb-8 sm:mb-10"
+            style={{ color: '#1A1A1A' }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
           >
-            <div className="text-4xl mb-4">💔</div>
-            <p className="text-xl sm:text-2xl font-medium" style={{ color: '#1A1A1A' }}>
-              Relationship? Complicated.
-            </p>
-          </motion.div>
+            We started running because we had no answers.
+          </motion.h1>
 
-          {/* Block 3 */}
-          <motion.div
-            className="text-center"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="text-4xl mb-4">🧠</div>
-            <p className="text-xl sm:text-2xl font-medium" style={{ color: '#1A1A1A' }}>
-              Life? Still loading.
-            </p>
-          </motion.div>
+          <div className="space-y-6 text-base sm:text-lg leading-relaxed" style={{ color: '#4B5563' }}>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              Not sure about the job. Not sure about the relationship. Not sure about anything, really.
+            </motion.p>
 
-          {/* Divider */}
-          <motion.div
-            className="flex justify-center"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            <div className="w-16 h-1 rounded-full" style={{ backgroundColor: '#14B8A6' }} />
-          </motion.div>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              So we ran. At 5am when the city was still asleep. At 10pm when the thoughts got too loud. On weekends when everyone else was "living their best life."
+            </motion.p>
 
-          {/* Block 4 */}
-          <motion.div
-            className="text-center"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="text-4xl mb-4">👟</div>
-            <p className="text-xl sm:text-2xl font-medium" style={{ color: '#1A1A1A' }}>
-              So we run.
-            </p>
-            <p className="text-base mt-2" style={{ color: '#6B7280' }}>
-              At 5am when everyone's asleep.<br />
-              At 10pm when the thoughts get loud.
-            </p>
-          </motion.div>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              Running didn't give us answers. But it gave us something better — <span className="font-semibold" style={{ color: '#1A1A1A' }}>clarity</span>. The kind that comes when your legs are tired and your mind finally shuts up.
+            </motion.p>
 
-          {/* Block 5 */}
-          <motion.div
-            className="text-center"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="text-4xl mb-4">💡</div>
-            <p className="text-xl sm:text-2xl font-medium" style={{ color: '#1A1A1A' }}>
-              Running doesn't give answers.
-            </p>
-            <p className="text-base mt-2" style={{ color: '#6B7280' }}>
-              But it gives clarity.
-            </p>
-          </motion.div>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              We built Figuring Out for everyone who's in that messy middle. The quarter-life crisis crowd. The mid-life pivot people. The "I don't know what I'm doing but I'm doing it anyway" tribe.
+            </motion.p>
 
-          {/* Final block */}
-          <motion.div
-            className="text-center rounded-3xl p-8 sm:p-12"
-            style={{ backgroundColor: '#14B8A6' }}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="text-4xl mb-4">🌴</div>
-            <p className="text-xl sm:text-2xl font-bold text-white mb-2">
-              Figuring Out
-            </p>
-            <p className="text-base text-white/80">
-              You might not have life figured out.<br />
-              But at least you'll be hydrated.
-            </p>
-          </motion.div>
+            <motion.p
+              className="text-lg sm:text-xl font-semibold pt-4"
+              style={{ color: '#1A1A1A' }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+            >
+              You might not have life figured out. But at least you'll be hydrated while you're figuring it out.
+            </motion.p>
+          </div>
 
           {/* Founder */}
           <motion.div
-            className="flex items-center justify-center gap-3"
+            className="mt-12 pt-8 flex items-center gap-4"
+            style={{ borderTop: '2px solid rgba(0,0,0,0.1)' }}
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7 }}
           >
             <div
-              className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm"
+              className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold"
               style={{ backgroundColor: '#14B8A6' }}
             >
               M
             </div>
-            <div className="text-left">
-              <p className="font-semibold text-sm" style={{ color: '#1A1A1A' }}>Mahesh</p>
-              <p className="text-xs" style={{ color: '#6B7280' }}>Still figuring it out</p>
+            <div>
+              <p className="font-semibold" style={{ color: '#1A1A1A' }}>Mahesh</p>
+              <p className="text-sm" style={{ color: '#6B7280' }}>Founder, still figuring it out</p>
             </div>
           </motion.div>
 
           {/* CTA */}
           <motion.div
-            className="text-center"
+            className="mt-12 text-center"
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
           >
             <Link
-              href="/"
+              href="/#waitlist"
               className="inline-block px-8 py-4 rounded-full font-semibold text-white transition-all hover:scale-105"
               style={{
                 background: 'linear-gradient(135deg, #14B8A6 0%, #0D9488 100%)',

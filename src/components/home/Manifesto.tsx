@@ -74,7 +74,7 @@ export default function Manifesto() {
             And we're hydrated.
           </p>
           <Link
-            href="/our-story"
+            href="/story"
             className="inline-block mt-6 sm:mt-8 text-xs sm:text-sm font-bold px-5 sm:px-6 py-2.5 sm:py-3 rounded-full transition-all hover:scale-105"
             style={{ backgroundColor: 'white', color: '#0D9488' }}
           >
