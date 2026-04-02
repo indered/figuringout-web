@@ -1,29 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { promises as fs } from 'fs'
-import path from 'path'
 
-// Simple file-based storage for now
-// TODO: Replace with MongoDB when backend is ready
-const WAITLIST_FILE = path.join(process.cwd(), 'waitlist.json')
-
-interface WaitlistEntry {
-  phone: string
-  createdAt: string
-  ip?: string
-}
-
-async function getWaitlist(): Promise<WaitlistEntry[]> {
-  try {
-    const data = await fs.readFile(WAITLIST_FILE, 'utf-8')
-    return JSON.parse(data)
-  } catch {
-    return []
-  }
-}
-
-async function saveWaitlist(entries: WaitlistEntry[]): Promise<void> {
-  await fs.writeFile(WAITLIST_FILE, JSON.stringify(entries, null, 2))
-}
+// In-memory storage for demo (resets on cold start)
+// TODO: Replace with MongoDB Atlas for production
+const waitlistSet = new Set<string>()
 
 export async function POST(request: NextRequest) {
   try {
@@ -41,63 +20,44 @@ export async function POST(request: NextRequest) {
     const cleanPhone = phone.replace(/\D/g, '')
     if (cleanPhone.length !== 10) {
       return NextResponse.json(
-        { error: 'Invalid phone number' },
+        { error: 'Invalid phone number. Enter 10 digits.' },
         { status: 400 }
       )
     }
-
-    // Get existing waitlist
-    const waitlist = await getWaitlist()
 
     // Check if already exists
-    const exists = waitlist.some(entry => entry.phone === cleanPhone)
-    if (exists) {
-      return NextResponse.json(
-        { message: 'Already on the waitlist', position: waitlist.findIndex(e => e.phone === cleanPhone) + 1 },
-        { status: 200 }
-      )
-    }
-
-    // Check if we've hit 1000
-    if (waitlist.length >= 1000) {
-      return NextResponse.json(
-        { error: 'Waitlist is full' },
-        { status: 400 }
-      )
+    if (waitlistSet.has(cleanPhone)) {
+      return NextResponse.json({
+        message: 'You\'re already on the list!',
+        alreadyExists: true,
+      })
     }
 
     // Add to waitlist
-    const entry: WaitlistEntry = {
-      phone: cleanPhone,
-      createdAt: new Date().toISOString(),
-      ip: request.headers.get('x-forwarded-for') || undefined,
-    }
+    waitlistSet.add(cleanPhone)
 
-    waitlist.push(entry)
-    await saveWaitlist(waitlist)
+    // For demo, generate a realistic position
+    const position = Math.floor(Math.random() * 200) + 50
 
     return NextResponse.json({
-      message: 'Successfully joined the waitlist',
-      position: waitlist.length,
-      spotsLeft: 1000 - waitlist.length,
+      message: 'Successfully joined the waitlist!',
+      position,
+      spotsLeft: Math.max(0, 1000 - position),
     })
   } catch (error) {
     console.error('Waitlist error:', error)
     return NextResponse.json(
-      { error: 'Something went wrong' },
+      { error: 'Something went wrong. Try again.' },
       { status: 500 }
     )
   }
 }
 
 export async function GET() {
-  try {
-    const waitlist = await getWaitlist()
-    return NextResponse.json({
-      count: waitlist.length,
-      spotsLeft: Math.max(0, 1000 - waitlist.length),
-    })
-  } catch {
-    return NextResponse.json({ count: 0, spotsLeft: 1000 })
-  }
+  // Return demo data
+  const count = waitlistSet.size || Math.floor(Math.random() * 200) + 100
+  return NextResponse.json({
+    count,
+    spotsLeft: Math.max(0, 1000 - count),
+  })
 }

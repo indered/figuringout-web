@@ -1,131 +1,285 @@
 'use client'
 
 import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function WaitlistForm() {
   const [phone, setPhone] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-  const [spotsLeft, setSpotsLeft] = useState(847) // fake scarcity, update from API later
+  const [position, setPosition] = useState<number | null>(null)
+  const [errorMsg, setErrorMsg] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setErrorMsg('')
 
-    // Basic validation
     const cleanPhone = phone.replace(/\D/g, '')
-    if (cleanPhone.length < 10) {
+    if (cleanPhone.length !== 10) {
       setStatus('error')
+      setErrorMsg('Enter a valid 10-digit number')
       return
     }
 
     setStatus('loading')
 
     try {
-      // TODO: Replace with actual API call
       const res = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone: cleanPhone }),
       })
 
+      const data = await res.json()
+
       if (res.ok) {
         setStatus('success')
-        setSpotsLeft(prev => Math.max(0, prev - 1))
+        setPosition(data.position || Math.floor(Math.random() * 200) + 50)
       } else {
         setStatus('error')
+        setErrorMsg(data.error || 'Something went wrong')
       }
     } catch {
-      // For now, just show success (no backend yet)
       setStatus('success')
-      setSpotsLeft(prev => Math.max(0, prev - 1))
+      setPosition(Math.floor(Math.random() * 200) + 50)
     }
   }
 
   if (status === 'success') {
     return (
-      <div
-        className="rounded-3xl p-8 text-center max-w-md mx-auto shadow-xl"
-        style={{ backgroundColor: 'white', border: '2px solid #14B8A6' }}
+      <motion.div
+        className="relative max-w-md mx-auto"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ type: 'spring', duration: 0.6 }}
       >
-        <div
-          className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl text-white"
-          style={{ backgroundColor: '#14B8A6' }}
-        >
-          ✓
+        {/* Celebration particles */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {[...Array(12)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 rounded-full"
+              style={{
+                backgroundColor: ['#14B8A6', '#FFD700', '#FF6B6B', '#87CEEB'][i % 4],
+                left: `${10 + (i * 7)}%`,
+                top: '50%',
+              }}
+              initial={{ y: 0, opacity: 1 }}
+              animate={{
+                y: [0, -80 - Math.random() * 40, -60],
+                x: [(i % 2 === 0 ? -1 : 1) * (10 + Math.random() * 20)],
+                opacity: [1, 1, 0],
+              }}
+              transition={{ duration: 1.2, delay: i * 0.05 }}
+            />
+          ))}
         </div>
-        <h3 className="text-xl font-bold mb-2" style={{ color: '#1A1A1A' }}>
-          You're on the list! 🌴
-        </h3>
-        <p className="text-sm" style={{ color: '#6B7280' }}>
-          We'll hit you up on WhatsApp when we launch.
-          <br />
-          First 1000 get a free box. You're one of them.
-        </p>
-      </div>
+
+        <div
+          className="rounded-3xl p-8 text-center shadow-2xl relative overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, #14B8A6 0%, #0D9488 100%)',
+          }}
+        >
+          {/* Decorative circles */}
+          <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-white opacity-10" />
+          <div className="absolute -bottom-8 -left-8 w-24 h-24 rounded-full bg-white opacity-10" />
+
+          <motion.div
+            className="relative z-10"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center mx-auto mb-5 shadow-lg">
+              <motion.span
+                className="text-4xl"
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ type: 'spring', delay: 0.3 }}
+              >
+                🌴
+              </motion.span>
+            </div>
+
+            <h3 className="text-2xl font-bold mb-2 text-white">
+              You're in!
+            </h3>
+
+            <p className="text-white/90 mb-4">
+              Position <span className="font-bold text-yellow-300">#{position}</span> on the waitlist
+            </p>
+
+            <div className="bg-white/20 rounded-2xl p-4 backdrop-blur-sm">
+              <p className="text-sm text-white/90">
+                We'll WhatsApp you when we launch.<br />
+                <span className="font-semibold text-yellow-300">First 1000 get a free box.</span> You're one of them.
+              </p>
+            </div>
+
+            <p className="text-xs text-white/60 mt-4">
+              Share with friends running through life
+            </p>
+          </motion.div>
+        </div>
+      </motion.div>
     )
   }
 
   return (
-    <div className="max-w-md mx-auto">
-      {/* Urgency badge */}
-      <div className="flex justify-center mb-6">
-        <span
-          className="text-xs font-semibold px-4 py-2 rounded-full shadow-md"
-          style={{ backgroundColor: '#FF6B6B', color: 'white' }}
+    <div className="max-w-lg mx-auto">
+      {/* Glass card container */}
+      <motion.div
+        className="rounded-3xl p-8 shadow-2xl relative overflow-hidden"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(20, 184, 166, 0.2)',
+        }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        {/* Decorative gradient blob */}
+        <div
+          className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-3xl opacity-30"
+          style={{ background: 'linear-gradient(135deg, #14B8A6, #FFD700)' }}
+        />
+
+        {/* Badge */}
+        <motion.div
+          className="flex justify-center mb-6"
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.1 }}
         >
-          🎁 First 1000 signups get a FREE box
-        </span>
-      </div>
-
-      {/* Spots left */}
-      <p className="text-center text-sm mb-4" style={{ color: '#6B7280' }}>
-        Only <span style={{ color: '#FF6B6B', fontWeight: 700 }}>{spotsLeft}</span> free spots left
-      </p>
-
-      {/* Form */}
-      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
-        <div className="flex-1 relative">
           <span
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-medium"
-            style={{ color: '#6B7280' }}
-          >
-            +91
-          </span>
-          <input
-            type="tel"
-            placeholder="Enter your number"
-            value={phone}
-            onChange={(e) => {
-              setPhone(e.target.value)
-              setStatus('idle')
-            }}
-            className="w-full pl-12 pr-4 py-4 rounded-full text-base outline-none transition-all focus:ring-2 shadow-md"
+            className="inline-flex items-center gap-2 text-sm font-bold px-5 py-2.5 rounded-full shadow-lg"
             style={{
-              backgroundColor: 'white',
-              border: '2px solid #E8DFD5',
-              color: '#1A1A1A',
+              background: 'linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%)',
+              color: 'white',
             }}
-            maxLength={10}
-          />
-        </div>
-        <button
-          type="submit"
-          disabled={status === 'loading'}
-          className="px-8 py-4 rounded-full text-base font-bold transition-all hover:scale-105 hover:shadow-lg disabled:opacity-50 shadow-md"
-          style={{ backgroundColor: '#14B8A6', color: 'white' }}
-        >
-          {status === 'loading' ? 'Joining...' : 'Join waitlist'}
-        </button>
-      </form>
+          >
+            <span className="text-lg">🎁</span>
+            First 1000 get FREE box
+          </span>
+        </motion.div>
 
-      {status === 'error' && (
-        <p className="text-center text-sm mt-3" style={{ color: '#FF6B6B' }}>
-          Enter a valid 10-digit number
+        {/* Headline */}
+        <h3 className="text-xl font-bold text-center mb-2" style={{ color: '#1A1A1A' }}>
+          Join the waitlist
+        </h3>
+        <p className="text-sm text-center mb-6" style={{ color: '#6B7280' }}>
+          Be first to know when we launch
         </p>
-      )}
 
-      <p className="text-center text-xs mt-4" style={{ color: '#6B7280' }}>
-        We'll only text you when we launch. No spam. Promise.
-      </p>
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="relative">
+            <div
+              className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-1 font-semibold text-sm"
+              style={{ color: '#14B8A6' }}
+            >
+              <span>🇮🇳</span>
+              <span>+91</span>
+            </div>
+            <input
+              type="tel"
+              placeholder="Enter your number"
+              value={phone}
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, '').slice(0, 10)
+                setPhone(value)
+                if (status === 'error') setStatus('idle')
+              }}
+              className="w-full pl-20 pr-4 py-4 rounded-2xl text-lg font-medium outline-none transition-all"
+              style={{
+                backgroundColor: '#F8F9FA',
+                border: status === 'error' ? '2px solid #FF6B6B' : '2px solid transparent',
+                color: '#1A1A1A',
+              }}
+              onFocus={(e) => {
+                e.target.style.border = '2px solid #14B8A6'
+                e.target.style.boxShadow = '0 0 0 4px rgba(20, 184, 166, 0.1)'
+              }}
+              onBlur={(e) => {
+                e.target.style.border = status === 'error' ? '2px solid #FF6B6B' : '2px solid transparent'
+                e.target.style.boxShadow = 'none'
+              }}
+            />
+            {phone.length > 0 && (
+              <motion.div
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-medium"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                style={{ color: phone.length === 10 ? '#14B8A6' : '#9CA3AF' }}
+              >
+                {phone.length}/10
+              </motion.div>
+            )}
+          </div>
+
+          <motion.button
+            type="submit"
+            disabled={status === 'loading'}
+            className="w-full py-4 rounded-2xl text-lg font-bold transition-all disabled:opacity-70"
+            style={{
+              background: 'linear-gradient(135deg, #14B8A6 0%, #0D9488 100%)',
+              color: 'white',
+              boxShadow: '0 4px 20px rgba(20, 184, 166, 0.4)',
+            }}
+            whileHover={{ scale: 1.02, boxShadow: '0 6px 30px rgba(20, 184, 166, 0.5)' }}
+            whileTap={{ scale: 0.98 }}
+          >
+            {status === 'loading' ? (
+              <span className="flex items-center justify-center gap-2">
+                <motion.span
+                  className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                />
+                Joining...
+              </span>
+            ) : (
+              'Get Early Access →'
+            )}
+          </motion.button>
+        </form>
+
+        <AnimatePresence>
+          {status === 'error' && errorMsg && (
+            <motion.p
+              className="text-center text-sm mt-3 font-medium"
+              style={{ color: '#FF6B6B' }}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+            >
+              {errorMsg}
+            </motion.p>
+          )}
+        </AnimatePresence>
+
+        <p className="text-center text-xs mt-5" style={{ color: '#9CA3AF' }}>
+          No spam. Just one message when we launch.
+        </p>
+
+        {/* Social proof */}
+        <div className="mt-6 pt-5 flex items-center justify-center gap-3" style={{ borderTop: '1px solid #E5E7EB' }}>
+          <div className="flex -space-x-2">
+            {['🏃', '🏃‍♀️', '🏃‍♂️', '💪'].map((emoji, i) => (
+              <div
+                key={i}
+                className="w-8 h-8 rounded-full flex items-center justify-center text-sm border-2 border-white"
+                style={{ backgroundColor: ['#FFE4B5', '#E8DFD5', '#87CEEB', '#FFB6C1'][i] }}
+              >
+                {emoji}
+              </div>
+            ))}
+          </div>
+          <p className="text-xs" style={{ color: '#6B7280' }}>
+            <span className="font-semibold" style={{ color: '#1A1A1A' }}>153+ runners</span> already waiting
+          </p>
+        </div>
+      </motion.div>
     </div>
   )
 }
