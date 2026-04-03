@@ -179,7 +179,7 @@ export default function CoastalHero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
         >
-          India&apos;s first premium electrolyte brand for runners and urban millennials. Hydration for everyone running through life.
+          Premium electrolytes for runners and urban millennials. Hydration for everyone running through life.
         </motion.p>
 
         {/* Countdown Timer */}

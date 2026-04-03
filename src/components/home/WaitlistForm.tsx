@@ -246,13 +246,12 @@ export default function WaitlistForm() {
           transition={{ delay: 0.1 }}
         >
           <span
-            className="inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold px-3 sm:px-5 py-2 sm:py-2.5 rounded-full shadow-lg"
+            className="text-xs sm:text-sm font-bold px-4 sm:px-6 py-2 sm:py-2.5 rounded-full shadow-lg"
             style={{
               background: 'linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%)',
               color: 'white',
             }}
           >
-            <span className="text-base sm:text-lg">🎁</span>
             First 1000 get FREE box
           </span>
         </motion.div>

@@ -15,27 +15,25 @@ export const metadata: Metadata = {
 
   // Primary Meta Tags
   title: {
-    default: "Figuring Out | Premium Electrolytes for Runners in India",
+    default: "Figuring Out | Premium Electrolytes for Runners",
     template: "%s | Figuring Out",
   },
   description:
-    "India's first premium electrolyte brand for runners and urban millennials. In a world where everyone is figuring out, at least we figured out the hydration. Launching October 2026.",
+    "Premium electrolyte brand for runners and urban millennials. In a world where everyone is figuring out, at least we figured out the hydration. Launching October 2026.",
   keywords: [
     "figuring out electrolytes",
-    "electrolytes india",
-    "hydration for runners india",
     "premium electrolytes",
     "figuring out hydration",
-    "electrolyte drink india",
-    "running hydration",
-    "sports drink india",
-    "run club india",
-    "millennial hydration",
-    "urban runners india",
-    "electrolyte sachets",
     "hydration for runners",
+    "electrolyte drink",
+    "running hydration",
+    "millennial hydration",
+    "urban runners",
+    "electrolyte sachets",
     "best electrolytes for running",
-    "electrolyte powder india",
+    "electrolyte powder",
+    "sports hydration",
+    "run club",
   ],
   authors: [{ name: "Figuring Out" }],
   creator: "Figuring Out",
@@ -57,18 +55,18 @@ export const metadata: Metadata = {
   // Open Graph
   openGraph: {
     type: "website",
-    locale: "en_IN",
+    locale: "en_US",
     url: siteUrl,
     siteName: "Figuring Out",
-    title: "Figuring Out | Premium Electrolytes for Runners in India",
+    title: "Figuring Out | Premium Electrolytes for Runners",
     description:
-      "India's first premium electrolyte brand for runners and urban millennials. In a world where everyone is figuring out, at least we figured out the hydration.",
+      "Premium electrolyte brand for runners and urban millennials. In a world where everyone is figuring out, at least we figured out the hydration.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og",
         width: 1200,
         height: 630,
-        alt: "Figuring Out - Premium Electrolytes for Runners in India",
+        alt: "Figuring Out - Premium Electrolytes for Runners",
       },
     ],
   },
@@ -76,11 +74,11 @@ export const metadata: Metadata = {
   // Twitter Card
   twitter: {
     card: "summary_large_image",
-    title: "Figuring Out | Premium Electrolytes for Runners in India",
+    title: "Figuring Out | Premium Electrolytes for Runners",
     description:
-      "India's first premium electrolyte brand for runners and urban millennials. At least we figured out the hydration.",
-    images: ["/og-image.png"],
-    creator: "@figuringoutindia",
+      "Premium electrolyte brand for runners and urban millennials. At least we figured out the hydration.",
+    images: ["/og"],
+    creator: "@figuringout_",
   },
 
   // Icons
@@ -112,9 +110,9 @@ export default function RootLayout({
     "@type": "Organization",
     name: "Figuring Out",
     url: siteUrl,
-    logo: `${siteUrl}/logo.png`,
+    logo: `${siteUrl}/logo-full.svg`,
     description:
-      "India's first premium electrolyte brand for runners and urban millennials.",
+      "Premium electrolyte brand for runners and urban millennials.",
     foundingDate: "2026",
     founders: [
       {
@@ -122,18 +120,14 @@ export default function RootLayout({
         name: "Mahesh",
       },
     ],
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: "IN",
-    },
     sameAs: [
-      "https://instagram.com/figuringoutindia",
-      "https://twitter.com/figuringoutindia",
+      "https://instagram.com/figuringout_",
+      "https://twitter.com/figuringout_",
     ],
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer service",
-      email: "hello@figuringout.in",
+      email: "hello@figuringout.co",
     },
   };
 
@@ -143,15 +137,7 @@ export default function RootLayout({
     name: "Figuring Out",
     url: siteUrl,
     description:
-      "India's first premium electrolyte brand for runners and urban millennials.",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${siteUrl}/search?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
+      "Premium electrolyte brand for runners and urban millennials. At least we figured out the hydration.",
   };
 
   const productJsonLd = {
@@ -168,37 +154,18 @@ export default function RootLayout({
     audience: {
       "@type": "Audience",
       audienceType: "Runners, Athletes, Urban Millennials",
-      geographicArea: {
-        "@type": "Country",
-        name: "India",
-      },
     },
     offers: {
       "@type": "AggregateOffer",
-      priceCurrency: "INR",
-      lowPrice: "499",
-      highPrice: "1799",
+      priceCurrency: "USD",
+      lowPrice: "9.99",
+      highPrice: "29.99",
       availability: "https://schema.org/PreOrder",
       availabilityStarts: "2026-10-01",
       seller: {
         "@type": "Organization",
         name: "Figuring Out",
       },
-    },
-  };
-
-  const localBusinessJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "@id": `${siteUrl}/#localbusiness`,
-    name: "Figuring Out",
-    description:
-      "Premium electrolyte brand and run club community for Indian millennials.",
-    url: siteUrl,
-    priceRange: "$$",
-    areaServed: {
-      "@type": "Country",
-      name: "India",
     },
   };
 
@@ -221,12 +188,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(productJsonLd),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(localBusinessJsonLd),
           }}
         />
       </head>

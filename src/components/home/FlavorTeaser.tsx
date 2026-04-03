@@ -114,7 +114,7 @@ export default function FlavorTeaser() {
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
-          Four premium electrolyte flavors for runners in India. Each one named after something you&apos;re probably dealing with right now.
+          Four premium electrolyte flavors for runners. Each one named after something you&apos;re probably dealing with right now.
         </motion.p>
 
         {/* Flavor Cards */}

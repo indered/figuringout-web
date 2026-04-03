@@ -24,7 +24,7 @@ export default function Footer() {
               Figuring Out<span style={{ color: '#14B8A6' }}>.</span>
             </Link>
             <p className="text-xs sm:text-sm mt-1 sm:mt-2" style={{ color: '#6B7280' }}>
-              Premium electrolytes for runners in India. At least we got hydration figured out.
+              Premium electrolytes for runners. At least we got hydration figured out.
             </p>
           </div>
 
@@ -33,7 +33,7 @@ export default function Footer() {
             <ul className="flex items-center gap-4 sm:gap-6 list-none">
               <li>
                 <a
-                  href="https://instagram.com/figuringout.in"
+                  href="https://instagram.com/figuringout_"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs sm:text-sm font-medium hover:text-[#14B8A6] transition-colors"
@@ -45,7 +45,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://twitter.com/figuringout_in"
+                  href="https://twitter.com/figuringout_"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs sm:text-sm font-medium hover:text-[#14B8A6] transition-colors"
@@ -57,7 +57,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:hello@figuringout.in"
+                  href="mailto:hello@figuringout.co"
                   className="text-xs sm:text-sm font-medium hover:text-[#14B8A6] transition-colors"
                   style={{ color: '#1A1A1A' }}
                   aria-label="Contact us via email"
@@ -70,12 +70,9 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 flex flex-col md:flex-row justify-between items-center gap-2 sm:gap-4" style={{ borderTop: '2px solid rgba(0,0,0,0.1)' }}>
+        <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 text-center" style={{ borderTop: '2px solid rgba(0,0,0,0.1)' }}>
           <p className="text-[10px] sm:text-xs" style={{ color: '#6B7280' }}>
             <small>&copy; 2026 Figuring Out. All rights reserved.</small>
-          </p>
-          <p className="text-[10px] sm:text-xs" style={{ color: '#6B7280' }}>
-            <small>Made in India</small>
           </p>
         </div>
       </div>
