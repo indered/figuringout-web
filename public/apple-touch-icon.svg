@@ -1,0 +1,8 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="180" height="180" rx="40" fill="#FDF8F3"/>
+  <!-- F letter -->
+  <text x="35" y="130" font-family="Space Grotesk, system-ui, sans-serif" font-size="120" font-weight="700" fill="#1A1A1A">F</text>
+  <!-- The teal dot -->
+  <circle cx="138" cy="115" r="18" fill="#14B8A6"/>
+</svg>
