@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 
 export default function Manifesto() {
   return (
-    <section className="py-16 sm:py-24 px-4 sm:px-6 relative overflow-hidden" style={{ backgroundColor: '#0D9488' }}>
+    <section className="py-16 sm:py-24 px-4 sm:px-6 relative overflow-hidden" style={{ backgroundColor: '#0D9488' }} aria-labelledby="manifesto-heading">
       {/* Wave decoration top */}
       <div className="absolute top-0 left-0 right-0">
         <svg viewBox="0 0 1440 60" className="w-full" style={{ fill: '#FDF8F3' }} preserveAspectRatio="none">
@@ -43,7 +43,8 @@ export default function Manifesto() {
           <motion.p className="pt-2 sm:pt-4" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.5 }}>
             Except one thing.
           </motion.p>
-          <motion.p
+          <motion.h2
+            id="manifesto-heading"
             className="text-3xl sm:text-4xl md:text-6xl font-bold"
             style={{ color: '#FFD700' }}
             initial={{ opacity: 0, scale: 0.9 }}
@@ -52,7 +53,7 @@ export default function Manifesto() {
             transition={{ delay: 0.6 }}
           >
             You run.
-          </motion.p>
+          </motion.h2>
           <motion.p style={{ color: 'rgba(255,255,255,0.8)' }} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.7 }}>
             And hydration fuels that one thing.<br className="hidden sm:block" />
             That one certain thing.

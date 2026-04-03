@@ -83,7 +83,7 @@ function Sachet({ color, name }: { color: string; name: string }) {
 
 export default function FlavorTeaser() {
   return (
-    <section id="flavors" className="py-16 sm:py-24 px-4 sm:px-6" style={{ backgroundColor: '#FDF8F3' }}>
+    <section id="flavors" className="py-16 sm:py-24 px-4 sm:px-6" style={{ backgroundColor: '#FDF8F3' }} aria-labelledby="flavors-heading">
       <div className="max-w-5xl mx-auto text-center">
         {/* Header */}
         <motion.p
@@ -93,9 +93,10 @@ export default function FlavorTeaser() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          The Lineup
+          Premium Electrolyte Flavors
         </motion.p>
         <motion.h2
+          id="flavors-heading"
           className="text-2xl sm:text-3xl md:text-5xl font-bold leading-tight mb-4 sm:mb-6"
           style={{ color: '#1A1A1A' }}
           initial={{ opacity: 0, y: 20 }}
@@ -113,7 +114,7 @@ export default function FlavorTeaser() {
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
-          Four flavors. Each one named after something you're probably dealing with right now.
+          Four premium electrolyte flavors for runners in India. Each one named after something you&apos;re probably dealing with right now.
         </motion.p>
 
         {/* Flavor Cards */}

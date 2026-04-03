@@ -171,7 +171,7 @@ export default function CoastalHero() {
           <span style={{ color: '#14B8A6' }}>at least we figured out the hydration.</span>
         </motion.h1>
 
-        {/* Subline */}
+        {/* Subline - Using semantic paragraph for SEO */}
         <motion.p
           className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-6 sm:mb-10"
           style={{ color: '#6B7280' }}
@@ -179,7 +179,7 @@ export default function CoastalHero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
         >
-          India's first electrolyte for everyone running through life.
+          India&apos;s first premium electrolyte brand for runners and urban millennials. Hydration for everyone running through life.
         </motion.p>
 
         {/* Countdown Timer */}

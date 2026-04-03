@@ -14,14 +14,16 @@ export default function Navbar() {
   }, [])
 
   return (
-    <nav
+    <header
       className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300"
       style={{
         backgroundColor: scrolled ? 'rgba(255,255,255,0.95)' : 'transparent',
         backdropFilter: scrolled ? 'blur(10px)' : 'none',
         boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.1)' : 'none',
       }}
+      role="banner"
     >
+    <nav aria-label="Main navigation">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="text-xl font-bold tracking-tight" style={{ color: '#1A1A1A' }}>
@@ -59,19 +61,21 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden px-6 pb-6 flex flex-col gap-6 text-lg font-medium" style={{ backgroundColor: 'white', color: '#1A1A1A' }}>
-          <Link href="#flavors" onClick={() => setMenuOpen(false)}>Flavors</Link>
-          <Link href="/story" onClick={() => setMenuOpen(false)}>Our Story</Link>
+        <div className="md:hidden px-6 pb-6 flex flex-col gap-6 text-lg font-medium" style={{ backgroundColor: 'white', color: '#1A1A1A' }} role="menu">
+          <Link href="#flavors" onClick={() => setMenuOpen(false)} role="menuitem">Flavors</Link>
+          <Link href="/story" onClick={() => setMenuOpen(false)} role="menuitem">Our Story</Link>
           <Link
             href="#waitlist"
             onClick={() => setMenuOpen(false)}
             className="self-start text-sm font-bold px-5 py-2 rounded-full"
             style={{ backgroundColor: '#14B8A6', color: 'white' }}
+            role="menuitem"
           >
             Join Waitlist
           </Link>
         </div>
       )}
     </nav>
+    </header>
   )
 }
