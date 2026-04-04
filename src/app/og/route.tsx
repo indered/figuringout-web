@@ -64,7 +64,7 @@ export async function GET() {
               In a world where everyone is figuring out,
             </span>
             <span style={{ fontSize: 36, fontWeight: 600, color: '#14B8A6' }}>
-              at least we figured out the hydration.
+              hydrate while you figure it out.
             </span>
           </div>
         </div>

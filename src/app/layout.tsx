@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | Figuring Out",
   },
   description:
-    "Premium electrolyte brand for runners and urban millennials. In a world where everyone is figuring out, at least we figured out the hydration. Launching October 2026.",
+    "Premium electrolyte brand for runners and urban millennials. In a world where everyone is figuring out, hydrate while you figure it out. Launching October 2026.",
   keywords: [
     "figuring out electrolytes",
     "premium electrolytes",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     siteName: "Figuring Out",
     title: "Figuring Out | Premium Electrolytes for Runners",
     description:
-      "Premium electrolyte brand for runners and urban millennials. In a world where everyone is figuring out, at least we figured out the hydration.",
+      "Premium electrolyte brand for runners and urban millennials. In a world where everyone is figuring out, hydrate while you figure it out.",
     images: [
       {
         url: "/og",
