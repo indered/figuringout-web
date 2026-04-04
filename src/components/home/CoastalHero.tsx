@@ -116,29 +116,37 @@ export default function CoastalHero() {
         </svg>
       </motion.div>
 
-      {/* Runner silhouette */}
+      {/* Runner silhouette — actual running pose */}
       <motion.div
         className="absolute bottom-[11%] sm:bottom-[11%] z-[55]"
         initial={{ left: '-15%' }}
         animate={{ left: '115%' }}
-        transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
+        transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
       >
         <motion.svg
-          className="w-8 h-12 sm:w-10 sm:h-14 md:w-12 md:h-16"
-          viewBox="0 0 40 60"
-          fill="#1A1A1A"
-          opacity="0.8"
-          animate={{ y: [0, -3, 0] }}
-          transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut' }}
+          className="w-10 h-14 sm:w-12 sm:h-16 md:w-14 md:h-20"
+          viewBox="0 0 60 80"
+          fill="none"
+          opacity="0.85"
+          animate={{ y: [0, -4, 0] }}
+          transition={{ duration: 0.35, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <circle cx="20" cy="8" r="6" />
-          <path
-            d="M20,14 L20,30 M20,18 L12,26 M20,18 L28,22 M20,30 L14,46 M20,30 L26,44"
-            stroke="#1A1A1A"
-            strokeWidth="3"
-            strokeLinecap="round"
-            fill="none"
-          />
+          {/* Head */}
+          <circle cx="30" cy="10" r="7" fill="#1A1A1A" />
+          {/* Torso — leaning forward */}
+          <path d="M30,17 L26,38" stroke="#1A1A1A" strokeWidth="3.5" strokeLinecap="round" />
+          {/* Back arm — swinging back */}
+          <path d="M29,22 L38,30 L42,26" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          {/* Front arm — swinging forward */}
+          <path d="M29,22 L20,28 L16,24" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          {/* Back leg — extended behind */}
+          <path d="M26,38 L38,50 L44,44" stroke="#1A1A1A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          {/* Front leg — knee up */}
+          <path d="M26,38 L18,50 L22,60" stroke="#1A1A1A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          {/* Front foot */}
+          <path d="M22,60 L18,60" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" />
+          {/* Back foot */}
+          <path d="M44,44 L48,44" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" />
         </motion.svg>
       </motion.div>
 
