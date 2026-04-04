@@ -1,7 +1,6 @@
 'use client'
 
 import { motion, useScroll, useTransform } from 'framer-motion'
-import CountdownTimer from './CountdownTimer'
 
 export default function CoastalHero() {
   const { scrollY } = useScroll()
@@ -157,7 +156,7 @@ export default function CoastalHero() {
             className="text-[10px] sm:text-xs font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full uppercase tracking-widest"
             style={{ backgroundColor: '#14B8A6', color: 'white' }}
           >
-            Coming October 2026
+            Coming Soon
           </span>
         </motion.div>
 
@@ -182,14 +181,6 @@ export default function CoastalHero() {
           Premium electrolytes for everyone running through life.
         </motion.p>
 
-        <motion.div
-          className="flex justify-center"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.8 }}
-        >
-          <CountdownTimer />
-        </motion.div>
       </div>
     </section>
   )
