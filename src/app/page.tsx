@@ -4,6 +4,7 @@ import CoastalHero from '@/components/home/CoastalHero'
 import WhatsInside from '@/components/home/WhatsInside'
 import ScienceStrip from '@/components/home/ScienceStrip'
 import FlavorTeaser from '@/components/home/FlavorTeaser'
+import Marquee from '@/components/home/Marquee'
 import ComparisonTable from '@/components/home/ComparisonTable'
 import WaitlistSection from '@/components/home/WaitlistSection'
 import Footer from '@/components/layout/Footer'
@@ -17,6 +18,7 @@ export default function Home() {
       <WhatsInside />
       <ScienceStrip />
       <FlavorTeaser />
+      <Marquee />
       <ComparisonTable />
       <WaitlistSection />
       <Footer />

@@ -39,6 +39,13 @@ function Sachet({ color }: { color: string }) {
   )
 }
 
+// One-word flavor descriptors for mobile
+const flavorVibe: Record<string, string> = {
+  'broke-but-hydrated': 'Berry & Pomegranate',
+  'hot-ex': 'Citrus Energy',
+  'clarity': 'Himalayan Lime',
+}
+
 export default function FlavorTeaser() {
   return (
     <section id="flavors" className="py-10 sm:py-14 px-4 sm:px-6" style={{ backgroundColor: '#FDF8F3' }}>
@@ -57,11 +64,12 @@ export default function FlavorTeaser() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+        {/* Desktop — white cards with full details */}
+        <div className="hidden sm:grid sm:grid-cols-3 gap-4">
           {coreFlavors.map((flavor, i) => (
             <motion.div
               key={flavor.slug}
-              className="rounded-xl sm:rounded-2xl p-3.5 sm:p-5 cursor-pointer"
+              className="rounded-2xl p-5 cursor-pointer"
               style={{
                 backgroundColor: 'white',
                 boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
@@ -72,24 +80,55 @@ export default function FlavorTeaser() {
               transition={{ delay: i * 0.08 }}
               whileHover={{ y: -4, boxShadow: '0 12px 30px rgba(0,0,0,0.1)', transition: { duration: 0.2 } }}
             >
-              {/* Sachet animation */}
               <motion.div
-                className="mb-3 sm:mb-4"
+                className="mb-4"
                 animate={{ y: [0, -4, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: i * 0.5 }}
               >
                 <Sachet color={flavor.color} />
               </motion.div>
+              <h3 className="text-base font-bold mb-0.5" style={{ color: '#1A1A1A' }}>{flavor.name}</h3>
+              <p className="text-xs font-medium mb-1 uppercase tracking-wide" style={{ color: flavor.color }}>{flavor.taste}</p>
+              <p className="text-xs leading-relaxed" style={{ color: '#6B7280' }}>{flavor.tagline}</p>
+            </motion.div>
+          ))}
+        </div>
 
-              <h3 className="text-sm sm:text-base font-bold mb-0.5" style={{ color: '#1A1A1A' }}>
-                {flavor.name}
-              </h3>
-              <p className="text-[10px] sm:text-xs font-medium mb-1 uppercase tracking-wide" style={{ color: flavor.color }}>
-                {flavor.taste}
-              </p>
-              <p className="text-[11px] sm:text-xs leading-relaxed" style={{ color: '#6B7280' }}>
-                {flavor.tagline}
-              </p>
+        {/* Mobile — colored cards, compact, no white boxes */}
+        <div className="sm:hidden space-y-3">
+          {coreFlavors.map((flavor, i) => (
+            <motion.div
+              key={flavor.slug}
+              className="rounded-2xl p-4 flex items-center gap-4 cursor-pointer"
+              style={{
+                backgroundColor: flavor.color,
+              }}
+              initial={{ opacity: 0, x: -15 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+            >
+              {/* Mini sachet */}
+              <motion.div
+                className="flex-shrink-0"
+                animate={{ y: [0, -3, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: i * 0.5 }}
+              >
+                <svg width="45" height="60" viewBox="0 0 90 120" fill="none">
+                  <rect x="10" y="18" width="70" height="95" rx="4" fill="white" fillOpacity="0.3" />
+                  <rect x="18" y="36" width="54" height="44" rx="5" fill="white" fillOpacity="0.9" />
+                  <text x="45" y="54" textAnchor="middle" fill={flavor.color} fontSize="11" fontWeight="800" fontFamily="system-ui, sans-serif">FO.</text>
+                </svg>
+              </motion.div>
+
+              {/* Text */}
+              <div>
+                <h3 className="text-base font-bold text-white">{flavor.name}</h3>
+                <p className="text-xs text-white/70">
+                  {flavorVibe[flavor.slug] || flavor.taste}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>
