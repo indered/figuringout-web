@@ -8,54 +8,48 @@ const ingredients = [
   { name: 'Vitamin B12', amount: '100mcg', benefit: 'Energy metabolism' },
 ]
 
-const highlights = [
-  { label: '100% Vegan', accent: true },
-  { label: '0g Sugar', accent: true },
-  { label: 'No Artificial Anything', accent: true },
-  { label: '10 Cal', accent: true },
-]
-
 export default function WhatsInside() {
   return (
     <section id="whats-inside" className="pt-10 sm:pt-14 pb-10 sm:pb-14 px-4 sm:px-6" style={{ backgroundColor: '#FDF8F3' }}>
       <div className="max-w-2xl mx-auto">
-        {/* Single heading */}
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 sm:mb-8" style={{ color: '#1A1A1A' }}>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#1A1A1A' }}>
           What is this thing actually
         </h2>
+        <p className="text-sm sm:text-base mb-6 sm:mb-8" style={{ color: '#6B7280' }}>
+          Premium electrolyte sachet for everyone running through life.
+        </p>
 
-        {/* Ingredient list with amounts */}
-        <div className="mb-6 sm:mb-8">
-          {ingredients.map((item) => (
-            <div
-              key={item.name}
-              className="flex items-center justify-between py-3"
-              style={{ borderBottom: '1px solid rgba(0,0,0,0.08)' }}
-            >
-              <div className="flex items-baseline gap-2">
-                <span className="text-sm sm:text-base font-semibold" style={{ color: '#1A1A1A' }}>
-                  {item.name}
-                </span>
-                <span className="text-xs sm:text-sm font-bold" style={{ color: '#14B8A6' }}>
-                  {item.amount}
-                </span>
-              </div>
-              <span className="text-xs sm:text-sm" style={{ color: '#4B5563' }}>
-                {item.benefit}
-              </span>
-            </div>
-          ))}
+        {/* Proper table */}
+        <div className="mb-6 sm:mb-8 overflow-hidden">
+          <table className="w-full">
+            <thead>
+              <tr style={{ borderBottom: '2px solid rgba(0,0,0,0.1)' }}>
+                <th className="text-left text-[10px] sm:text-xs font-semibold uppercase tracking-wider pb-2 sm:pb-3" style={{ color: '#9CA3AF' }}>Ingredient</th>
+                <th className="text-right text-[10px] sm:text-xs font-semibold uppercase tracking-wider pb-2 sm:pb-3 w-[80px] sm:w-[100px]" style={{ color: '#9CA3AF' }}>Amount</th>
+                <th className="text-right text-[10px] sm:text-xs font-semibold uppercase tracking-wider pb-2 sm:pb-3" style={{ color: '#9CA3AF' }}>Benefit</th>
+              </tr>
+            </thead>
+            <tbody>
+              {ingredients.map((item) => (
+                <tr key={item.name} style={{ borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
+                  <td className="text-sm sm:text-base font-semibold py-2.5 sm:py-3" style={{ color: '#1A1A1A' }}>{item.name}</td>
+                  <td className="text-sm sm:text-base font-bold text-right py-2.5 sm:py-3 tabular-nums" style={{ color: '#14B8A6' }}>{item.amount}</td>
+                  <td className="text-xs sm:text-sm text-right py-2.5 sm:py-3" style={{ color: '#4B5563' }}>{item.benefit}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
-        {/* Highlighted claims */}
-        <div className="flex flex-wrap gap-2">
-          {highlights.map((h) => (
+        {/* Tags in one line */}
+        <div className="flex gap-2 overflow-x-auto whitespace-nowrap pb-1">
+          {['100% Vegan', '0g Sugar', 'No Artificial Anything', '10 Cal'].map((label) => (
             <span
-              key={h.label}
-              className="text-xs sm:text-sm font-bold px-4 py-2 rounded-full"
+              key={label}
+              className="text-[10px] sm:text-xs font-bold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full flex-shrink-0"
               style={{ backgroundColor: '#14B8A6', color: 'white' }}
             >
-              {h.label}
+              {label}
             </span>
           ))}
         </div>

@@ -2,13 +2,12 @@
 
 const words = [
   'still figuring it out',
-  'but hydrated',
+  'broke but hydrated',
   'running anyway',
   'zero sugar zero regrets',
   'therapy is expensive',
   'left on read again',
   'existential hydration',
-  'broke but hydrated',
   'hot ex energy',
   'finding clarity',
 ]

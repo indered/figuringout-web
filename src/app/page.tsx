@@ -2,7 +2,6 @@ import Navbar from '@/components/layout/Navbar'
 import ScrollProgress from '@/components/home/ScrollProgress'
 import CoastalHero from '@/components/home/CoastalHero'
 import WhatsInside from '@/components/home/WhatsInside'
-import ScienceStrip from '@/components/home/ScienceStrip'
 import FlavorTeaser from '@/components/home/FlavorTeaser'
 import Marquee from '@/components/home/Marquee'
 import ComparisonTable from '@/components/home/ComparisonTable'
@@ -16,7 +15,6 @@ export default function Home() {
       <Navbar />
       <CoastalHero />
       <WhatsInside />
-      <ScienceStrip />
       <FlavorTeaser />
       <Marquee />
       <ComparisonTable />

@@ -179,7 +179,7 @@ export default function CoastalHero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
         >
-          Premium electrolytes for runners and urban millennials. Hydration for everyone running through life.
+          Premium electrolytes for everyone running through life.
         </motion.p>
 
         <motion.div

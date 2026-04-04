@@ -11,20 +11,13 @@ export default function Footer() {
       </div>
 
       <div className="max-w-7xl mx-auto pt-6 sm:pt-8">
-        {/* Finish message with palm tree */}
         <div className="text-center mb-8 sm:mb-10">
-          {/* Palm tree */}
-          <div className="flex justify-center mb-3" aria-hidden="true">
-            <svg width="40" height="60" viewBox="0 0 120 200">
-              <path d="M55,200 Q60,150 65,100 Q68,50 60,30" stroke="#8B7355" strokeWidth="10" fill="none" strokeLinecap="round"/>
-              <ellipse cx="30" cy="25" rx="30" ry="10" fill="#2D5A45" transform="rotate(-30, 60, 30)"/>
-              <ellipse cx="90" cy="25" rx="30" ry="10" fill="#2D5A45" transform="rotate(30, 60, 30)"/>
-              <ellipse cx="60" cy="10" rx="25" ry="8" fill="#3D6B55"/>
-              <ellipse cx="20" cy="40" rx="25" ry="8" fill="#2D5A45" transform="rotate(-50, 60, 30)"/>
-              <ellipse cx="100" cy="40" rx="25" ry="8" fill="#2D5A45" transform="rotate(50, 60, 30)"/>
+          <p className="text-sm sm:text-base font-bold inline-flex items-center gap-1.5" style={{ color: '#14B8A6' }}>
+            You made it to the finish line!
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#14B8A6" />
             </svg>
-          </div>
-          <p className="text-sm sm:text-base font-bold" style={{ color: '#14B8A6' }}>You made it to the finish line!</p>
+          </p>
           <p className="text-xs mt-1" style={{ color: '#6B7280' }}>Still figuring it out though. And that&apos;s okay.</p>
         </div>
 
