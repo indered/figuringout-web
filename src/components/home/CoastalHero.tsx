@@ -204,8 +204,7 @@ export default function CoastalHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <span className="block sm:inline">In a world where everyone is figuring out,</span>{' '}
-          <span style={{ color: '#14B8A6' }}>hydrate while you figure it out.</span>
+          Hydrate while you figure it out<span style={{ color: '#14B8A6' }}>.</span>
         </motion.h1>
 
         <motion.p

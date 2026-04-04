@@ -61,10 +61,7 @@ export async function GET() {
           {/* Tagline */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             <span style={{ fontSize: 36, color: '#6B7280' }}>
-              In a world where everyone is figuring out,
-            </span>
-            <span style={{ fontSize: 36, fontWeight: 600, color: '#14B8A6' }}>
-              hydrate while you figure it out.
+              Hydrate while you figure it out.
             </span>
           </div>
         </div>
