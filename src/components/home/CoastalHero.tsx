@@ -116,7 +116,7 @@ export default function CoastalHero() {
         </svg>
       </motion.div>
 
-      {/* Runner silhouette — actual running pose */}
+      {/* Running sachet — cute little packet with legs */}
       <motion.div
         className="absolute bottom-[11%] sm:bottom-[11%] z-[55]"
         initial={{ left: '-15%' }}
@@ -124,29 +124,58 @@ export default function CoastalHero() {
         transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
       >
         <motion.svg
-          className="w-10 h-14 sm:w-12 sm:h-16 md:w-14 md:h-20"
-          viewBox="0 0 60 80"
+          className="w-8 h-12 sm:w-10 sm:h-14 md:w-12 md:h-16"
+          viewBox="0 0 50 70"
           fill="none"
-          opacity="0.85"
-          animate={{ y: [0, -4, 0] }}
-          transition={{ duration: 0.35, repeat: Infinity, ease: 'easeInOut' }}
+          animate={{ y: [0, -3, 0], rotate: [-3, 3, -3] }}
+          transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut' }}
         >
-          {/* Head */}
-          <circle cx="30" cy="10" r="7" fill="#1A1A1A" />
-          {/* Torso — leaning forward */}
-          <path d="M30,17 L26,38" stroke="#1A1A1A" strokeWidth="3.5" strokeLinecap="round" />
-          {/* Back arm — swinging back */}
-          <path d="M29,22 L38,30 L42,26" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          {/* Front arm — swinging forward */}
-          <path d="M29,22 L20,28 L16,24" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          {/* Back leg — extended behind */}
-          <path d="M26,38 L38,50 L44,44" stroke="#1A1A1A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-          {/* Front leg — knee up */}
-          <path d="M26,38 L18,50 L22,60" stroke="#1A1A1A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-          {/* Front foot */}
-          <path d="M22,60 L18,60" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" />
-          {/* Back foot */}
-          <path d="M44,44 L48,44" stroke="#1A1A1A" strokeWidth="2.5" strokeLinecap="round" />
+          {/* Shadow */}
+          <ellipse cx="25" cy="67" rx="12" ry="3" fill="black" fillOpacity="0.1" />
+          {/* Sachet body */}
+          <rect x="10" y="8" width="30" height="40" rx="4" fill="#14B8A6" />
+          {/* Top fold */}
+          <path d="M10 14 L16 6 L34 6 L40 14" fill="#0D9488" />
+          {/* White label */}
+          <rect x="14" y="18" width="22" height="18" rx="3" fill="white" fillOpacity="0.9" />
+          {/* Brand text */}
+          <text x="25" y="29" textAnchor="middle" fill="#14B8A6" fontSize="5.5" fontWeight="800" fontFamily="system-ui">FO.</text>
+          {/* Cute eyes */}
+          <circle cx="21" cy="25" r="1.2" fill="#14B8A6" />
+          <circle cx="29" cy="25" r="1.2" fill="#14B8A6" />
+          {/* Tiny smile */}
+          <path d="M23 31 Q25 33 27 31" stroke="#14B8A6" strokeWidth="0.8" strokeLinecap="round" fill="none" />
+          {/* Left leg — stepping */}
+          <motion.path
+            d="M18 48 L14 58 L11 58"
+            stroke="#1A1A1A"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            animate={{ d: ["M18 48 L14 58 L11 58", "M18 48 L22 58 L25 58", "M18 48 L14 58 L11 58"] }}
+            transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          {/* Right leg — stepping */}
+          <motion.path
+            d="M32 48 L36 58 L39 58"
+            stroke="#1A1A1A"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            animate={{ d: ["M32 48 L36 58 L39 58", "M32 48 L28 58 L25 58", "M32 48 L36 58 L39 58"] }}
+            transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          {/* Tiny sweat drops */}
+          <motion.circle
+            cx="42" cy="15" r="1.5" fill="#87CEEB"
+            animate={{ opacity: [1, 0], y: [0, 8], x: [0, 3] }}
+            transition={{ duration: 0.8, repeat: Infinity, delay: 0.2 }}
+          />
+          <motion.circle
+            cx="44" cy="20" r="1" fill="#87CEEB"
+            animate={{ opacity: [1, 0], y: [0, 6], x: [0, 2] }}
+            transition={{ duration: 0.8, repeat: Infinity, delay: 0.5 }}
+          />
         </motion.svg>
       </motion.div>
 
