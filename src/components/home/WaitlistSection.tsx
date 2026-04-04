@@ -1,6 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import WaitlistForm from './WaitlistForm'
 
 export default function WaitlistSection() {
@@ -17,18 +16,11 @@ export default function WaitlistSection() {
         </svg>
       </div>
 
-      {/* Decorative */}
       <div className="absolute top-10 right-10 w-40 h-40 rounded-full bg-white opacity-5" />
       <div className="absolute bottom-20 left-10 w-24 h-24 rounded-full bg-white opacity-5" />
 
       <div className="max-w-2xl mx-auto relative z-10 pt-6">
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <WaitlistForm />
-        </motion.div>
+        <WaitlistForm />
       </div>
 
       {/* Wave bottom */}

@@ -1,7 +1,3 @@
-'use client'
-
-import { motion } from 'framer-motion'
-
 const steps = [
   { label: 'Drink', desc: 'Mix sachet with water' },
   { label: 'Absorb', desc: 'Electrolytes pull water into cells' },
@@ -12,12 +8,7 @@ export default function ScienceStrip() {
   return (
     <section className="py-8 sm:py-10 px-4 sm:px-6" style={{ backgroundColor: '#FDF8F3' }}>
       <div className="max-w-2xl mx-auto">
-        <motion.div
-          className="flex items-center justify-between"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
+        <div className="flex items-center justify-between">
           {steps.map((s, i) => (
             <div key={s.label} className="flex items-center gap-2 sm:gap-3">
               <div className="text-center">
@@ -31,7 +22,7 @@ export default function ScienceStrip() {
               )}
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   )

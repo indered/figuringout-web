@@ -1,7 +1,3 @@
-'use client'
-
-import { motion } from 'framer-motion'
-
 const comparison = [
   { metric: 'Sugar', us: '0g', gatorade: '34g', liquidiv: '11g' },
   { metric: 'Artificial', us: 'None', gatorade: 'Yes', liquidiv: 'Yes' },
@@ -14,28 +10,16 @@ export default function ComparisonTable() {
   return (
     <section className="py-10 sm:py-14 px-4 sm:px-6" style={{ backgroundColor: '#1A1A1A' }}>
       <div className="max-w-3xl mx-auto">
-        <motion.div
-          className="text-center mb-6 sm:mb-8"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
+        <div className="text-center mb-6 sm:mb-8">
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-1" style={{ color: '#F5F5F5' }}>
             How we stack up
           </h2>
           <p className="text-xs sm:text-sm" style={{ color: '#6B7280' }}>
             We think we win, but you do you.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Same table for both mobile and desktop — just scales */}
-        <motion.div
-          className="rounded-xl overflow-hidden"
-          style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
+        <div className="rounded-xl overflow-hidden" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
           <table className="w-full table-fixed">
             <thead>
               <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
@@ -59,7 +43,7 @@ export default function ComparisonTable() {
               ))}
             </tbody>
           </table>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

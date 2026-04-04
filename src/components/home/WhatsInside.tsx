@@ -1,7 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
-
 const ingredients = [
   { name: 'Potassium', benefit: 'Prevents cramps & fatigue' },
   { name: 'Magnesium', benefit: 'Recovery & nerve function' },
@@ -19,31 +17,25 @@ export default function WhatsInside() {
     <section id="whats-inside" className="pt-10 sm:pt-14 pb-10 sm:pb-14 px-4 sm:px-6" style={{ backgroundColor: '#FDF8F3' }}>
       <div className="max-w-2xl mx-auto">
         {/* Header */}
-        <motion.div
-          className="mb-6 sm:mb-8"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1.5" style={{ color: '#1A1A1A' }}>
+        <div className="mb-8 sm:mb-10">
+          <p className="text-xs font-medium tracking-widest uppercase mb-2" style={{ color: '#14B8A6' }}>
+            What&apos;s Inside
+          </p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2" style={{ color: '#1A1A1A' }}>
             What is this thing actually
           </h2>
-          <p className="text-xs sm:text-sm" style={{ color: '#6B7280' }}>
-            Essential electrolytes + vitamins. Nothing else.
+          <p className="text-sm sm:text-base leading-relaxed" style={{ color: '#6B7280' }}>
+            A premium electrolyte sachet with everything your body loses when you run — and nothing it doesn&apos;t need.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Simple ingredient list */}
-        <div className="mb-6 sm:mb-8">
-          {ingredients.map((item, i) => (
-            <motion.div
+        {/* Ingredient list */}
+        <div className="mb-8">
+          {ingredients.map((item) => (
+            <div
               key={item.name}
-              className="flex items-center justify-between py-2.5 sm:py-3"
+              className="flex items-center justify-between py-3"
               style={{ borderBottom: '1px solid rgba(0,0,0,0.06)' }}
-              initial={{ opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.04 }}
             >
               <span className="text-sm sm:text-base font-medium" style={{ color: '#1A1A1A' }}>
                 {item.name}
@@ -51,17 +43,12 @@ export default function WhatsInside() {
               <span className="text-xs sm:text-sm" style={{ color: '#6B7280' }}>
                 {item.benefit}
               </span>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        {/* Clean label claims — inline pills */}
-        <motion.div
-          className="flex flex-wrap gap-2"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
+        {/* Clean label claims */}
+        <div className="flex flex-wrap gap-2">
           {claims.map((c) => (
             <span
               key={c}
@@ -71,7 +58,7 @@ export default function WhatsInside() {
               {c}
             </span>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   )
