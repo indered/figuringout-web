@@ -27,6 +27,12 @@ function Sachet({ color, size = 'md' }: { color: string; size?: 'sm' | 'md' }) {
   )
 }
 
+const flavorLine: Record<string, string> = {
+  'broke-but-hydrated': 'Tastes like berry & pomegranate',
+  'hot-ex': 'Feels like citrus energy',
+  'clarity': 'Think himalayan lime',
+}
+
 export default function FlavorTeaser() {
   return (
     <section id="flavors" className="py-10 sm:py-14 px-4 sm:px-6" style={{ backgroundColor: '#FDF8F3' }}>
@@ -56,7 +62,7 @@ export default function FlavorTeaser() {
               </div>
               <h3 className="text-base font-bold mb-0.5" style={{ color: '#1A1A1A' }}>{flavor.name}</h3>
               <p className="text-xs font-medium mb-1" style={{ color: flavor.color }}>
-                Tastes like {flavor.taste.toLowerCase()}
+                {flavorLine[flavor.slug] || flavor.taste}
               </p>
               <p className="text-xs leading-relaxed" style={{ color: '#6B7280' }}>{flavor.tagline}</p>
             </div>
@@ -77,7 +83,7 @@ export default function FlavorTeaser() {
               <div>
                 <h3 className="text-base font-bold text-white">{flavor.name}</h3>
                 <p className="text-xs text-white/70">
-                  Tastes like {flavor.taste.toLowerCase()}
+                  {flavorLine[flavor.slug] || flavor.taste}
                 </p>
               </div>
             </div>
