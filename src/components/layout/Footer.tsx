@@ -36,7 +36,7 @@ export default function Footer() {
                   style={{ color: '#1A1A1A' }}
                   aria-label="Follow us on Instagram @figuringout.club"
                 >
-                  @figuringout.club
+                  Instagram @figuringout.club
                 </a>
               </li>
               <li>
@@ -46,7 +46,7 @@ export default function Footer() {
                   style={{ color: '#1A1A1A' }}
                   aria-label="Email us"
                 >
-                  hi@figuringout.club
+                  Email hi@figuringout.club
                 </a>
               </li>
             </ul>
