@@ -6,7 +6,7 @@ export default function WaitlistSection() {
   return (
     <section
       id="waitlist-section"
-      className="py-8 sm:py-10 px-4 sm:px-6 relative overflow-hidden"
+      className="py-12 sm:py-16 px-4 sm:px-6 relative overflow-hidden"
       style={{ background: 'linear-gradient(135deg, #14B8A6 0%, #0D9488 100%)' }}
     >
       {/* Wave top */}

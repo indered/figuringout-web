@@ -242,7 +242,12 @@ export default function WaitlistForm() {
   return (
     <div className="max-w-lg mx-auto px-2 sm:px-0">
       <motion.div
-        className="rounded-2xl p-5 shadow-xl sm:shadow-none sm:p-0 relative overflow-hidden"
+        className="rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl relative overflow-hidden"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(20, 184, 166, 0.2)',
+        }}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
       >
@@ -270,10 +275,10 @@ export default function WaitlistForm() {
         </motion.div>
 
         {/* Headline */}
-        <h3 className="text-base sm:text-lg font-bold text-center mb-1" style={{ color: '#1A1A1A' }}>
+        <h3 className="text-lg sm:text-xl font-bold text-center mb-1 sm:mb-2" style={{ color: '#1A1A1A' }}>
           Join the waitlist
         </h3>
-        <p className="text-xs text-center mb-3 sm:mb-4" style={{ color: '#6B7280' }}>
+        <p className="text-xs sm:text-sm text-center mb-4 sm:mb-5" style={{ color: '#6B7280' }}>
           Be first to know when we launch
         </p>
 
