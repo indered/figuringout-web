@@ -20,53 +20,41 @@ export interface Flavor {
 }
 
 export const flavors: Flavor[] = [
-  // Core 4
+  // Core 3
   {
-    slug: 'left-on-read',
-    name: 'Left On Read',
-    tagline: 'Sharp. Stings a little. Just like them not replying.',
-    taste: 'Lemon, Black Salt & Cumin',
+    slug: 'broke-but-hydrated',
+    name: 'Broke But Hydrated',
+    tagline: "Can't afford much. Can afford this.",
+    taste: 'Berry & Pomegranate',
     category: 'core',
-    color: '#FFD600',
+    color: '#8B5CF6',
     variants: [
-      { sku: 'LOR-10', name: 'Pack of 10', priceInPaise: 49900, stock: 100 },
-      { sku: 'LOR-30', name: 'Pack of 30', priceInPaise: 129900, stock: 100 },
+      { sku: 'BBH-10', name: 'Pack of 10', priceInPaise: 49900, stock: 100 },
+      { sku: 'BBH-30', name: 'Pack of 30', priceInPaise: 129900, stock: 100 },
     ],
   },
   {
-    slug: 'situationship',
-    name: 'Situationship',
-    tagline: 'Sweet. Complicated. No label. You know the one.',
-    taste: 'Rose & Basil Seed',
-    category: 'core',
-    color: '#FF6B9D',
-    variants: [
-      { sku: 'SIT-10', name: 'Pack of 10', priceInPaise: 49900, stock: 100 },
-      { sku: 'SIT-30', name: 'Pack of 30', priceInPaise: 129900, stock: 100 },
-    ],
-  },
-  {
-    slug: 'therapy-is-expensive',
-    name: 'Therapy Is Expensive',
-    tagline: 'So you run instead. Same thing, basically.',
-    taste: 'Orange & Tamarind',
+    slug: 'hot-ex',
+    name: 'Hot Ex',
+    tagline: 'The citrus energy you needed. Burns a little going down.',
+    taste: 'Citrus Energy',
     category: 'core',
     color: '#FF4D00',
     variants: [
-      { sku: 'TIE-10', name: 'Pack of 10', priceInPaise: 49900, stock: 100 },
-      { sku: 'TIE-30', name: 'Pack of 30', priceInPaise: 129900, stock: 100 },
+      { sku: 'HE-10', name: 'Pack of 10', priceInPaise: 49900, stock: 100 },
+      { sku: 'HE-30', name: 'Pack of 30', priceInPaise: 129900, stock: 100 },
     ],
   },
   {
-    slug: 'still-loading',
-    name: 'Still Loading',
-    tagline: "Life hasn't started yet. Neither has your pace.",
-    taste: 'Coconut & Lime',
+    slug: 'clarity',
+    name: 'Clarity',
+    tagline: "The one thing that's actually clear in your life.",
+    taste: 'Himalayan Lime',
     category: 'core',
-    color: '#00E5CC',
+    color: '#14B8A6',
     variants: [
-      { sku: 'SL-10', name: 'Pack of 10', priceInPaise: 49900, stock: 100 },
-      { sku: 'SL-30', name: 'Pack of 30', priceInPaise: 129900, stock: 100 },
+      { sku: 'CLR-10', name: 'Pack of 10', priceInPaise: 49900, stock: 100 },
+      { sku: 'CLR-30', name: 'Pack of 30', priceInPaise: 129900, stock: 100 },
     ],
   },
 

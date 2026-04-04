@@ -1,23 +1,27 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import CountdownTimer from './CountdownTimer'
-import WaitlistForm from './WaitlistForm'
 
 export default function CoastalHero() {
+  const { scrollY } = useScroll()
+
+  const sunY = useTransform(scrollY, [0, 500], [0, -120])
+  const wavesY = useTransform(scrollY, [0, 500], [0, 40])
+
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
-      {/* Sky gradient background */}
+      {/* Sky gradient */}
       <div
         className="absolute inset-0 z-0"
         style={{
-          background: 'linear-gradient(180deg, #87CEEB 0%, #FFE4B5 40%, #FFA07A 70%, #FDF8F3 100%)',
+          background: 'linear-gradient(180deg, #87CEEB 0%, #FFE4B5 40%, #FFA07A 75%, #FDF8F3 100%)',
         }}
       />
 
       {/* Sun */}
       <motion.div
-        className="absolute z-10"
+        className="absolute z-10 will-change-transform"
         style={{
           width: '150px',
           height: '150px',
@@ -26,14 +30,15 @@ export default function CoastalHero() {
           boxShadow: '0 0 80px rgba(255, 165, 0, 0.6)',
           top: '15%',
           left: '50%',
-          transform: 'translateX(-50%)',
+          x: '-50%',
+          y: sunY,
         }}
-        animate={{ y: [0, -10, 0] }}
+        animate={{ scale: [1, 1.02, 1] }}
         transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
       />
 
       {/* Distant waves */}
-      <div className="absolute bottom-[35%] left-0 right-0 z-10">
+      <motion.div className="absolute bottom-[18%] left-0 right-0 z-10 will-change-transform" style={{ y: wavesY }}>
         <motion.svg
           viewBox="0 0 1440 120"
           className="w-full"
@@ -43,10 +48,10 @@ export default function CoastalHero() {
         >
           <path d="M0,60 C360,120 720,0 1080,60 C1260,90 1380,30 1440,60 L1440,120 L0,120 Z" />
         </motion.svg>
-      </div>
+      </motion.div>
 
       {/* Mid waves */}
-      <div className="absolute bottom-[30%] left-0 right-0 z-20">
+      <motion.div className="absolute bottom-[14%] left-0 right-0 z-20 will-change-transform" style={{ y: wavesY }}>
         <motion.svg
           viewBox="0 0 1440 120"
           className="w-full"
@@ -56,10 +61,10 @@ export default function CoastalHero() {
         >
           <path d="M0,40 C240,100 480,0 720,50 C960,100 1200,20 1440,60 L1440,120 L0,120 Z" />
         </motion.svg>
-      </div>
+      </motion.div>
 
       {/* Front waves */}
-      <div className="absolute bottom-[25%] left-0 right-0 z-30">
+      <div className="absolute bottom-[10%] left-0 right-0 z-30">
         <motion.svg
           viewBox="0 0 1440 120"
           className="w-full"
@@ -71,26 +76,24 @@ export default function CoastalHero() {
         </motion.svg>
       </div>
 
-      {/* Beach / Sand area */}
+      {/* Beach / Sand — reduced to 10% */}
       <div
         className="absolute bottom-0 left-0 right-0 z-40"
         style={{
-          height: '25%',
+          height: '10%',
           background: 'linear-gradient(180deg, #E8DFD5 0%, #D4C4B5 100%)',
         }}
       />
 
       {/* Palm tree left */}
       <motion.div
-        className="absolute bottom-[20%] left-[5%] z-50 hidden md:block"
+        className="absolute bottom-[6%] left-[5%] z-50 hidden md:block"
         style={{ transformOrigin: 'bottom center' }}
         animate={{ rotate: [-2, 2, -2] }}
         transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
       >
         <svg width="120" height="200" viewBox="0 0 120 200">
-          {/* Trunk */}
           <path d="M55,200 Q60,150 65,100 Q68,50 60,30" stroke="#8B7355" strokeWidth="12" fill="none" strokeLinecap="round"/>
-          {/* Leaves */}
           <ellipse cx="30" cy="25" rx="35" ry="12" fill="#2D5A45" transform="rotate(-30, 60, 30)"/>
           <ellipse cx="90" cy="25" rx="35" ry="12" fill="#2D5A45" transform="rotate(30, 60, 30)"/>
           <ellipse cx="60" cy="10" rx="30" ry="10" fill="#3D6B55"/>
@@ -101,7 +104,7 @@ export default function CoastalHero() {
 
       {/* Palm tree right */}
       <motion.div
-        className="absolute bottom-[20%] right-[5%] z-50 hidden md:block"
+        className="absolute bottom-[6%] right-[5%] z-50 hidden md:block"
         style={{ transformOrigin: 'bottom center' }}
         animate={{ rotate: [2, -2, 2] }}
         transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
@@ -114,9 +117,9 @@ export default function CoastalHero() {
         </svg>
       </motion.div>
 
-      {/* Animated runner silhouette */}
+      {/* Runner silhouette */}
       <motion.div
-        className="absolute bottom-[26%] sm:bottom-[22%] z-[55]"
+        className="absolute bottom-[11%] sm:bottom-[11%] z-[55]"
         initial={{ left: '-15%' }}
         animate={{ left: '115%' }}
         transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
@@ -129,9 +132,7 @@ export default function CoastalHero() {
           animate={{ y: [0, -3, 0] }}
           transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut' }}
         >
-          {/* Head */}
           <circle cx="20" cy="8" r="6" />
-          {/* Body & limbs in running pose */}
           <path
             d="M20,14 L20,30 M20,18 L12,26 M20,18 L28,22 M20,30 L14,46 M20,30 L26,44"
             stroke="#1A1A1A"
@@ -143,8 +144,9 @@ export default function CoastalHero() {
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-[60] max-w-4xl mx-auto px-4 sm:px-6 text-center pt-16 sm:pt-20 pb-28 sm:pb-40">
-        {/* Coming Soon Badge */}
+      <div
+        className="relative z-[60] max-w-4xl mx-auto px-4 sm:px-6 text-center pt-16 sm:pt-20 pb-20 sm:pb-28"
+      >
         <motion.div
           className="flex justify-center mb-4 sm:mb-6"
           initial={{ opacity: 0, y: 20 }}
@@ -159,7 +161,6 @@ export default function CoastalHero() {
           </span>
         </motion.div>
 
-        {/* Main Headline */}
         <motion.h1
           className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-3 sm:mb-4"
           style={{ color: '#1A1A1A' }}
@@ -171,7 +172,6 @@ export default function CoastalHero() {
           <span style={{ color: '#14B8A6' }}>at least we figured out the hydration.</span>
         </motion.h1>
 
-        {/* Subline - Using semantic paragraph for SEO */}
         <motion.p
           className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-6 sm:mb-10"
           style={{ color: '#6B7280' }}
@@ -182,43 +182,15 @@ export default function CoastalHero() {
           Premium electrolytes for runners and urban millennials. Hydration for everyone running through life.
         </motion.p>
 
-        {/* Countdown Timer */}
         <motion.div
-          className="flex justify-center mb-6 sm:mb-10"
+          className="flex justify-center"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.8 }}
         >
           <CountdownTimer />
         </motion.div>
-
-        {/* Waitlist Form */}
-        <motion.div
-          id="waitlist"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
-        >
-          <WaitlistForm />
-        </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-[70] flex flex-col items-center gap-2"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <span className="text-xs tracking-widest uppercase" style={{ color: '#1A1A1A' }}>Scroll to explore</span>
-        <div className="w-6 h-10 rounded-full border-2 flex justify-center pt-2" style={{ borderColor: '#1A1A1A' }}>
-          <motion.div
-            className="w-1.5 h-1.5 rounded-full"
-            style={{ backgroundColor: '#1A1A1A' }}
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          />
-        </div>
-      </motion.div>
     </section>
   )
 }

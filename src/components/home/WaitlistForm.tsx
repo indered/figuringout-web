@@ -54,12 +54,30 @@ export default function WaitlistForm() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [position, setPosition] = useState<number | null>(null)
   const [errorMsg, setErrorMsg] = useState('')
+  const [waitlistCount, setWaitlistCount] = useState(0)
+  const [sliderX, setSliderX] = useState(0)
+  const [slid, setSlid] = useState(false)
 
-  // Auto-detect country code based on user's location
+  // Fetch live count from DB
+  useEffect(() => {
+    const fetchCount = async () => {
+      try {
+        const res = await fetch('/api/waitlist')
+        if (res.ok) {
+          const data = await res.json()
+          setWaitlistCount(data.count || 0)
+        }
+      } catch {
+        // fallback
+      }
+    }
+    fetchCount()
+  }, [])
+
+  // Auto-detect country code
   useEffect(() => {
     const detectCountry = async () => {
       try {
-        // Try IP-based detection first (more accurate)
         const response = await fetch('https://ipapi.co/json/', {
           signal: AbortSignal.timeout(3000),
         })
@@ -76,29 +94,25 @@ export default function WaitlistForm() {
           }
         }
       } catch {
-        // Fallback to browser locale
         try {
           const locale = navigator.language || navigator.languages?.[0]
           if (locale) {
             const countryFromLocale = locale.split('-')[1]?.toUpperCase()
             if (countryFromLocale) {
               const detected = COUNTRY_CODES.find(c => c.country === countryFromLocale)
-              if (detected) {
-                setCountryCode(detected)
-              }
+              if (detected) setCountryCode(detected)
             }
           }
         } catch {
-          // Keep default (India)
+          // Keep default
         }
       }
     }
-
     detectCountry()
   }, [])
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault()
     setErrorMsg('')
 
     if (method === 'phone') {
@@ -145,6 +159,16 @@ export default function WaitlistForm() {
     }
   }
 
+  // Slide to submit handler
+  const handleSlideEnd = () => {
+    if (sliderX > 200) {
+      setSlid(true)
+      handleSubmit()
+    } else {
+      setSliderX(0)
+    }
+  }
+
   if (status === 'success') {
     return (
       <motion.div
@@ -153,7 +177,6 @@ export default function WaitlistForm() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ type: 'spring', duration: 0.6 }}
       >
-        {/* Celebration particles */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {[...Array(12)].map((_, i) => (
             <motion.div
@@ -177,9 +200,7 @@ export default function WaitlistForm() {
 
         <div
           className="rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-center shadow-2xl relative overflow-hidden"
-          style={{
-            background: 'linear-gradient(135deg, #14B8A6 0%, #0D9488 100%)',
-          }}
+          style={{ background: 'linear-gradient(135deg, #14B8A6 0%, #0D9488 100%)' }}
         >
           <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-white opacity-10" />
           <div className="absolute -bottom-8 -left-8 w-24 h-24 rounded-full bg-white opacity-10" />
@@ -201,18 +222,15 @@ export default function WaitlistForm() {
               </motion.span>
             </div>
 
-            <h3 className="text-xl sm:text-2xl font-bold mb-2 text-white">
-              You're in!
-            </h3>
-
+            <h3 className="text-xl sm:text-2xl font-bold mb-2 text-white">You&apos;re in!</h3>
             <p className="text-white/90 mb-4 text-sm sm:text-base">
               Position <span className="font-bold text-yellow-300">#{position}</span> on the waitlist
             </p>
 
             <div className="bg-white/20 rounded-xl sm:rounded-2xl p-3 sm:p-4 backdrop-blur-sm">
               <p className="text-xs sm:text-sm text-white/90">
-                We'll notify you when we launch.<br />
-                <span className="font-semibold text-yellow-300">First 1000 get a free box.</span>
+                We&apos;ll notify you when we launch.<br />
+                <span className="font-semibold text-yellow-300">First 200 get a free box.</span>
               </p>
             </div>
           </motion.div>
@@ -238,7 +256,7 @@ export default function WaitlistForm() {
           style={{ background: 'linear-gradient(135deg, #14B8A6, #FFD700)' }}
         />
 
-        {/* Badge */}
+        {/* Badge — teal, no red */}
         <motion.div
           className="flex justify-center mb-4 sm:mb-6"
           initial={{ scale: 0.9, opacity: 0 }}
@@ -246,13 +264,13 @@ export default function WaitlistForm() {
           transition={{ delay: 0.1 }}
         >
           <span
-            className="text-xs sm:text-sm font-bold px-4 sm:px-6 py-2 sm:py-2.5 rounded-full shadow-lg"
+            className="text-xs sm:text-sm font-bold px-4 sm:px-6 py-2 sm:py-2.5 rounded-full"
             style={{
-              background: 'linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%)',
-              color: 'white',
+              backgroundColor: 'rgba(20, 184, 166, 0.1)',
+              color: '#0D9488',
             }}
           >
-            First 1000 get FREE box
+            First 200 get FREE box
           </span>
         </motion.div>
 
@@ -270,22 +288,22 @@ export default function WaitlistForm() {
             <button
               type="button"
               onClick={() => setMethod('phone')}
-              className={`px-4 sm:px-6 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
+              className={`px-4 sm:px-6 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer min-h-[44px] ${
                 method === 'phone' ? 'bg-white shadow-md' : ''
               }`}
               style={{ color: method === 'phone' ? '#14B8A6' : '#6B7280' }}
             >
-              📱 Phone
+              Phone
             </button>
             <button
               type="button"
               onClick={() => setMethod('email')}
-              className={`px-4 sm:px-6 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
+              className={`px-4 sm:px-6 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer min-h-[44px] ${
                 method === 'email' ? 'bg-white shadow-md' : ''
               }`}
               style={{ color: method === 'email' ? '#14B8A6' : '#6B7280' }}
             >
-              ✉️ Email
+              Email
             </button>
           </div>
         </div>
@@ -294,12 +312,11 @@ export default function WaitlistForm() {
         <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
           {method === 'phone' ? (
             <div className="flex gap-2">
-              {/* Country Code Picker */}
               <div className="relative">
                 <button
                   type="button"
                   onClick={() => setShowCountryPicker(!showCountryPicker)}
-                  className="h-full px-3 sm:px-4 py-3 sm:py-4 rounded-xl sm:rounded-2xl flex items-center gap-1 sm:gap-2 text-sm font-medium transition-all"
+                  className="h-full px-3 sm:px-4 py-3 sm:py-4 rounded-xl sm:rounded-2xl flex items-center gap-1 sm:gap-2 text-sm font-medium transition-all cursor-pointer min-h-[44px]"
                   style={{ backgroundColor: '#F8F9FA', border: '2px solid transparent' }}
                 >
                   <span className="text-lg">{countryCode.flag}</span>
@@ -325,7 +342,7 @@ export default function WaitlistForm() {
                               setCountryCode(cc)
                               setShowCountryPicker(false)
                             }}
-                            className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-colors text-left"
+                            className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-colors text-left cursor-pointer min-h-[44px]"
                           >
                             <span className="text-xl">{cc.flag}</span>
                             <span className="text-sm font-medium" style={{ color: '#1A1A1A' }}>{cc.name}</span>
@@ -338,7 +355,6 @@ export default function WaitlistForm() {
                 </AnimatePresence>
               </div>
 
-              {/* Phone Input */}
               <input
                 type="tel"
                 inputMode="tel"
@@ -350,18 +366,14 @@ export default function WaitlistForm() {
                   setPhone(e.target.value.replace(/[^\d\s-]/g, ''))
                   if (status === 'error') setStatus('idle')
                 }}
-                className="flex-1 px-4 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base font-medium outline-none transition-all"
+                className="flex-1 px-4 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base font-medium outline-none transition-all min-h-[44px]"
                 style={{
                   backgroundColor: '#F8F9FA',
                   border: status === 'error' ? '2px solid #FF6B6B' : '2px solid transparent',
                   color: '#1A1A1A',
                 }}
-                onFocus={(e) => {
-                  e.target.style.border = '2px solid #14B8A6'
-                }}
-                onBlur={(e) => {
-                  e.target.style.border = status === 'error' ? '2px solid #FF6B6B' : '2px solid transparent'
-                }}
+                onFocus={(e) => { e.target.style.border = '2px solid #14B8A6' }}
+                onBlur={(e) => { e.target.style.border = status === 'error' ? '2px solid #FF6B6B' : '2px solid transparent' }}
               />
             </div>
           ) : (
@@ -376,25 +388,22 @@ export default function WaitlistForm() {
                 setEmail(e.target.value)
                 if (status === 'error') setStatus('idle')
               }}
-              className="w-full px-4 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base font-medium outline-none transition-all"
+              className="w-full px-4 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base font-medium outline-none transition-all min-h-[44px]"
               style={{
                 backgroundColor: '#F8F9FA',
                 border: status === 'error' ? '2px solid #FF6B6B' : '2px solid transparent',
                 color: '#1A1A1A',
               }}
-              onFocus={(e) => {
-                e.target.style.border = '2px solid #14B8A6'
-              }}
-              onBlur={(e) => {
-                e.target.style.border = status === 'error' ? '2px solid #FF6B6B' : '2px solid transparent'
-              }}
+              onFocus={(e) => { e.target.style.border = '2px solid #14B8A6' }}
+              onBlur={(e) => { e.target.style.border = status === 'error' ? '2px solid #FF6B6B' : '2px solid transparent' }}
             />
           )}
 
+          {/* Desktop: normal button */}
           <motion.button
             type="submit"
             disabled={status === 'loading'}
-            className="w-full py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg font-bold transition-all disabled:opacity-70"
+            className="hidden sm:block w-full py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg font-bold transition-all disabled:opacity-70 cursor-pointer"
             style={{
               background: 'linear-gradient(135deg, #14B8A6 0%, #0D9488 100%)',
               color: 'white',
@@ -406,7 +415,7 @@ export default function WaitlistForm() {
             {status === 'loading' ? (
               <span className="flex items-center justify-center gap-2">
                 <motion.span
-                  className="w-4 sm:w-5 h-4 sm:h-5 border-2 border-white border-t-transparent rounded-full"
+                  className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
                   animate={{ rotate: 360 }}
                   transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
                 />
@@ -416,6 +425,68 @@ export default function WaitlistForm() {
               'Get Early Access →'
             )}
           </motion.button>
+
+          {/* Mobile: slide to submit */}
+          <div className="sm:hidden relative">
+            {status === 'loading' ? (
+              <div
+                className="w-full py-4 rounded-2xl text-base font-bold text-center"
+                style={{ background: 'linear-gradient(135deg, #14B8A6 0%, #0D9488 100%)', color: 'white' }}
+              >
+                <span className="flex items-center justify-center gap-2">
+                  <motion.span
+                    className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                  />
+                  Joining...
+                </span>
+              </div>
+            ) : slid ? (
+              <div
+                className="w-full py-4 rounded-2xl text-base font-bold text-center"
+                style={{ background: 'linear-gradient(135deg, #14B8A6 0%, #0D9488 100%)', color: 'white' }}
+              >
+                Submitting...
+              </div>
+            ) : (
+              <div
+                className="relative h-14 rounded-2xl overflow-hidden"
+                style={{ backgroundColor: 'rgba(20, 184, 166, 0.1)' }}
+              >
+                {/* Track label */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <motion.span
+                    className="text-sm font-medium"
+                    style={{ color: '#0D9488' }}
+                    animate={{ opacity: [0.5, 1, 0.5] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    Slide to get early access →
+                  </motion.span>
+                </div>
+
+                {/* Draggable thumb */}
+                <motion.div
+                  className="absolute top-1 left-1 w-12 h-12 rounded-xl flex items-center justify-center cursor-grab active:cursor-grabbing z-10"
+                  style={{
+                    background: 'linear-gradient(135deg, #14B8A6 0%, #0D9488 100%)',
+                    x: sliderX,
+                    boxShadow: '0 2px 10px rgba(20, 184, 166, 0.4)',
+                  }}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 260 }}
+                  dragElastic={0}
+                  onDrag={(_, info) => setSliderX(info.offset.x)}
+                  onDragEnd={handleSlideEnd}
+                >
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M7 4l6 6-6 6" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </motion.div>
+              </div>
+            )}
+          </div>
         </form>
 
         <AnimatePresence>
@@ -436,7 +507,7 @@ export default function WaitlistForm() {
           No spam. Just one message when we launch.
         </p>
 
-        {/* Social proof */}
+        {/* Social proof — dynamic count */}
         <div className="mt-4 sm:mt-6 pt-4 sm:pt-5 flex items-center justify-center gap-2 sm:gap-3" style={{ borderTop: '1px solid #E5E7EB' }}>
           <div className="flex -space-x-1.5 sm:-space-x-2">
             {['🏃', '🏃‍♀️', '🏃‍♂️', '💪'].map((emoji, i) => (
@@ -450,7 +521,7 @@ export default function WaitlistForm() {
             ))}
           </div>
           <p className="text-[10px] sm:text-xs" style={{ color: '#6B7280' }}>
-            <span className="font-semibold" style={{ color: '#1A1A1A' }}>153+</span> already waiting
+            <span className="font-semibold" style={{ color: '#1A1A1A' }}>{waitlistCount > 0 ? `${waitlistCount}+` : '7+'}</span> already waiting
           </p>
         </div>
       </motion.div>

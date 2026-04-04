@@ -39,7 +39,7 @@ export default function Navbar() {
         {/* CTA */}
         <div className="flex items-center gap-4">
           <Link
-            href="#waitlist"
+            href="#waitlist-section"
             className="hidden md:block text-sm font-bold px-5 py-2 rounded-full transition-all hover:scale-105 shadow-md"
             style={{ backgroundColor: '#14B8A6', color: 'white' }}
           >
@@ -65,7 +65,7 @@ export default function Navbar() {
           <Link href="#flavors" onClick={() => setMenuOpen(false)} role="menuitem">Flavors</Link>
           <Link href="/story" onClick={() => setMenuOpen(false)} role="menuitem">Our Story</Link>
           <Link
-            href="#waitlist"
+            href="#waitlist-section"
             onClick={() => setMenuOpen(false)}
             className="self-start text-sm font-bold px-5 py-2 rounded-full"
             style={{ backgroundColor: '#14B8A6', color: 'white' }}

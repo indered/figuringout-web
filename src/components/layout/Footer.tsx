@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className="py-10 sm:py-16 px-4 sm:px-6 relative" style={{ backgroundColor: '#E8DFD5' }} role="contentinfo">
+    <footer className="py-10 sm:py-14 px-4 sm:px-6 relative" style={{ backgroundColor: '#E8DFD5' }} role="contentinfo">
       {/* Finish line decoration */}
       <div className="absolute top-0 left-0 right-0 h-3 sm:h-4 flex" aria-hidden="true">
         {Array(20).fill(null).map((_, i) => (
@@ -11,66 +11,60 @@ export default function Footer() {
       </div>
 
       <div className="max-w-7xl mx-auto pt-6 sm:pt-8">
-        {/* Finish message */}
-        <div className="text-center mb-8 sm:mb-12">
-          <p className="text-base sm:text-lg font-bold" style={{ color: '#14B8A6' }}>You made it to the finish line!</p>
-          <p className="text-xs sm:text-sm mt-1 sm:mt-2" style={{ color: '#6B7280' }}>Still figuring it out though. And that&apos;s okay.</p>
+        {/* Finish message with palm tree */}
+        <div className="text-center mb-8 sm:mb-10">
+          {/* Palm tree */}
+          <div className="flex justify-center mb-3" aria-hidden="true">
+            <svg width="40" height="60" viewBox="0 0 120 200">
+              <path d="M55,200 Q60,150 65,100 Q68,50 60,30" stroke="#8B7355" strokeWidth="10" fill="none" strokeLinecap="round"/>
+              <ellipse cx="30" cy="25" rx="30" ry="10" fill="#2D5A45" transform="rotate(-30, 60, 30)"/>
+              <ellipse cx="90" cy="25" rx="30" ry="10" fill="#2D5A45" transform="rotate(30, 60, 30)"/>
+              <ellipse cx="60" cy="10" rx="25" ry="8" fill="#3D6B55"/>
+              <ellipse cx="20" cy="40" rx="25" ry="8" fill="#2D5A45" transform="rotate(-50, 60, 30)"/>
+              <ellipse cx="100" cy="40" rx="25" ry="8" fill="#2D5A45" transform="rotate(50, 60, 30)"/>
+            </svg>
+          </div>
+          <p className="text-sm sm:text-base font-bold" style={{ color: '#14B8A6' }}>You made it to the finish line!</p>
+          <p className="text-xs mt-1" style={{ color: '#6B7280' }}>Still figuring it out though. And that&apos;s okay.</p>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-center gap-6 sm:gap-8 text-center md:text-left">
-          {/* Logo + Tagline */}
-          <div>
-            <Link href="/" className="text-lg sm:text-xl font-bold tracking-tight" style={{ color: '#1A1A1A' }} aria-label="Figuring Out - Homepage">
-              Figuring Out<span style={{ color: '#14B8A6' }}>.</span>
-            </Link>
-            <p className="text-xs sm:text-sm mt-1 sm:mt-2" style={{ color: '#6B7280' }}>
-              Premium electrolytes for runners. At least we got hydration figured out.
-            </p>
-          </div>
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6 text-center sm:text-left">
+          {/* Logo */}
+          <Link href="/" className="text-lg font-bold tracking-tight" style={{ color: '#1A1A1A' }} aria-label="Figuring Out - Homepage">
+            Figuring Out<span style={{ color: '#14B8A6' }}>.</span>
+          </Link>
 
-          {/* Social Links */}
-          <nav aria-label="Social media and contact links">
-            <ul className="flex items-center gap-4 sm:gap-6 list-none">
+          {/* Links */}
+          <nav aria-label="Footer links">
+            <ul className="flex items-center gap-5 list-none">
               <li>
                 <a
-                  href="https://instagram.com/figuringout_"
+                  href="https://instagram.com/figuringout.club"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs sm:text-sm font-medium hover:text-[#14B8A6] transition-colors"
+                  className="text-xs sm:text-sm font-medium hover:text-[#14B8A6] transition-colors cursor-pointer"
                   style={{ color: '#1A1A1A' }}
-                  aria-label="Follow us on Instagram"
+                  aria-label="Follow us on Instagram @figuringout.club"
                 >
-                  Instagram
+                  @figuringout.club
                 </a>
               </li>
               <li>
                 <a
-                  href="https://twitter.com/figuringout_"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs sm:text-sm font-medium hover:text-[#14B8A6] transition-colors"
+                  href="mailto:hi@figuringout.club"
+                  className="text-xs sm:text-sm font-medium hover:text-[#14B8A6] transition-colors cursor-pointer"
                   style={{ color: '#1A1A1A' }}
-                  aria-label="Follow us on Twitter"
+                  aria-label="Email us"
                 >
-                  Twitter
-                </a>
-              </li>
-              <li>
-                <a
-                  href="mailto:hello@figuringout.co"
-                  className="text-xs sm:text-sm font-medium hover:text-[#14B8A6] transition-colors"
-                  style={{ color: '#1A1A1A' }}
-                  aria-label="Contact us via email"
-                >
-                  Contact
+                  hi@figuringout.club
                 </a>
               </li>
             </ul>
           </nav>
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 text-center" style={{ borderTop: '2px solid rgba(0,0,0,0.1)' }}>
+        {/* Copyright */}
+        <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 text-center" style={{ borderTop: '1px solid rgba(0,0,0,0.08)' }}>
           <p className="text-[10px] sm:text-xs" style={{ color: '#6B7280' }}>
             <small>&copy; 2026 Figuring Out. All rights reserved.</small>
           </p>

@@ -165,7 +165,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         message: 'Successfully joined the waitlist!',
         position: totalCount,
-        spotsLeft: Math.max(0, 1000 - totalCount),
+        spotsLeft: Math.max(0, 200 - totalCount),
       })
 
     } else {
@@ -223,7 +223,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         message: 'Successfully joined the waitlist!',
         position: totalCount,
-        spotsLeft: Math.max(0, 1000 - totalCount),
+        spotsLeft: Math.max(0, 200 - totalCount),
       })
     }
 
@@ -251,7 +251,7 @@ export async function GET() {
       count: totalCount,
       emailCount,
       phoneCount,
-      spotsLeft: Math.max(0, 1000 - totalCount),
+      spotsLeft: Math.max(0, 200 - totalCount),
     })
   } catch (error) {
     console.error('Waitlist GET error:', error)
