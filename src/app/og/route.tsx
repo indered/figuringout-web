@@ -72,7 +72,7 @@ export async function GET() {
             Premium Electrolytes for Runners
           </span>
           <span style={{ fontSize: 20, color: '#6B7280' }}>
-            figuringout-web.vercel.app
+            figuringout.club
           </span>
         </div>
       </div>

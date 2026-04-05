@@ -1,7 +1,14 @@
 import type { Metadata, Viewport } from "next";
+import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
-const siteUrl = "https://figuringout-web.vercel.app";
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-space-grotesk",
+});
+
+const siteUrl = "https://figuringout.club";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -130,7 +137,7 @@ export default function RootLayout({
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer service",
-      email: "hello@figuringout.co",
+      email: "hi@figuringout.club",
     },
   };
 
@@ -173,7 +180,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
+    <html lang="en" className={spaceGrotesk.variable}>
       <head>
         <script
           type="application/ld+json"

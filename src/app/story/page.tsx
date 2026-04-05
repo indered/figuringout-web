@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: 'Our Story | Figuring Out',
     description:
       'We started running because we had no answers. Discover the story behind the premium electrolyte brand for millennials.',
-    url: 'https://figuringout-web.vercel.app/story',
+    url: 'https://figuringout.club/story',
     type: 'article',
     images: [
       {
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     images: ['/og'],
   },
   alternates: {
-    canonical: 'https://figuringout-web.vercel.app/story',
+    canonical: 'https://figuringout.club/story',
   },
 }
 
