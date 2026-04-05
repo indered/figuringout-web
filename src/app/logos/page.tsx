@@ -25,6 +25,7 @@ const pngs = [
   { name: 'IG DP — Dark', file: '/logo-social-dark-1080.png', desc: '1080x1080 PNG', bg: '#1A1A1A' },
   { name: 'IG DP — Teal', file: '/logo-social-teal-1080.png', desc: '1080x1080 PNG', bg: '#14B8A6' },
   { name: 'IG DP — Light', file: '/logo-social-light-1080.png', desc: '1080x1080 PNG', bg: '#FDF8F3' },
+  { name: 'Facebook Cover', file: '/fb-cover.png', desc: '820x312 PNG', bg: '#1A1A1A' },
 ]
 
 export default function LogosPage() {
