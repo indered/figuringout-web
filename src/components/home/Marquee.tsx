@@ -23,7 +23,7 @@ export default function Marquee() {
           <span
             key={i}
             className="text-xs sm:text-sm font-medium mx-4 sm:mx-6"
-            style={{ color: i % 2 === 0 ? '#14B8A6' : '#9CA3AF' }}
+            style={{ color: i % 2 === 0 ? '#0D8A72' : '#6B7280' }}
           >
             {word} •
           </span>

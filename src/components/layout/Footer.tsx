@@ -17,7 +17,7 @@ export default function Footer() {
             <Link href="/" className="text-xl font-bold tracking-tight" style={{ color: '#F5F5F5' }}>
               Figuring Out<span style={{ color: '#14B8A6' }}>.</span>
             </Link>
-            <p className="text-xs mt-1.5" style={{ color: '#6B7280' }}>
+            <p className="text-xs mt-1.5" style={{ color: '#9CA3AF' }}>
               Hydrate while you figure it out.
             </p>
           </div>
@@ -42,7 +42,7 @@ export default function Footer() {
             </svg>
             <div>
               <p className="text-sm font-semibold" style={{ color: '#F5F5F5' }}>@figuringout.club</p>
-              <p className="text-[10px]" style={{ color: '#6B7280' }}>Follow us on Instagram</p>
+              <p className="text-[10px]" style={{ color: '#9CA3AF' }}>Follow us on Instagram</p>
             </div>
           </a>
 
@@ -57,19 +57,19 @@ export default function Footer() {
             </svg>
             <div>
               <p className="text-sm font-semibold" style={{ color: '#F5F5F5' }}>hi@figuringout.club</p>
-              <p className="text-[10px]" style={{ color: '#6B7280' }}>Say hello</p>
+              <p className="text-[10px]" style={{ color: '#9CA3AF' }}>Say hello</p>
             </div>
           </a>
         </div>
 
         {/* Bottom */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-          <p className="text-[10px]" style={{ color: '#4B5563' }}>
+          <p className="text-[10px]" style={{ color: '#9CA3AF' }}>
             &copy; 2026 Figuring Out. All rights reserved.
           </p>
           <div className="flex gap-4">
-            <Link href="/story" className="text-[10px] hover:text-[#14B8A6] transition-colors cursor-pointer" style={{ color: '#6B7280' }}>Our Story</Link>
-            <Link href="#flavors" className="text-[10px] hover:text-[#14B8A6] transition-colors cursor-pointer" style={{ color: '#6B7280' }}>Flavors</Link>
+            <Link href="/story" className="text-[10px] hover:text-[#14B8A6] transition-colors cursor-pointer" style={{ color: '#9CA3AF' }}>Our Story</Link>
+            <Link href="#flavors" className="text-[10px] hover:text-[#14B8A6] transition-colors cursor-pointer" style={{ color: '#9CA3AF' }}>Flavors</Link>
           </div>
         </div>
       </div>

@@ -82,7 +82,7 @@ export default function FlavorTeaser() {
               </div>
               <div>
                 <h3 className="text-base font-bold text-white">{flavor.name}</h3>
-                <p className="text-xs text-white/70">
+                <p className="text-xs text-white/90">
                   {flavorLine[flavor.slug] || flavor.taste}
                 </p>
               </div>
