@@ -117,6 +117,31 @@ export default function LogosPage() {
             </div>
           ))}
         </div>
+        {/* Email Signature */}
+        <h2 className="text-xl font-bold mt-12 mb-2" style={{ color: '#F5F5F5' }}>
+          Email Signature
+        </h2>
+        <p className="text-xs mb-6" style={{ color: '#9CA3AF' }}>Copy from the preview or open the HTML file directly.</p>
+
+        <div className="rounded-xl overflow-hidden" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
+          <div className="p-6 sm:p-8" style={{ backgroundColor: '#FFFFFF' }}>
+            <iframe src="/email-signature.html" className="w-full border-0" style={{ height: 120 }} title="Email signature preview" />
+          </div>
+          <div className="p-4 flex items-center justify-between">
+            <div>
+              <p className="text-sm font-semibold" style={{ color: '#F5F5F5' }}>Email Signature</p>
+              <p className="text-xs" style={{ color: '#9CA3AF' }}>HTML — works in Gmail, Outlook, Apple Mail</p>
+            </div>
+            <a
+              href="/email-signature.html"
+              target="_blank"
+              className="text-xs font-bold px-3 py-2 rounded-lg cursor-pointer flex-shrink-0"
+              style={{ backgroundColor: '#14B8A6', color: 'white' }}
+            >
+              Open
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   )
