@@ -1,4 +1,15 @@
-'use client'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Brand Logos',
+  description: 'Download Figuring Out brand logos in SVG and PNG formats. Instagram-ready profile pictures included.',
+  openGraph: {
+    title: 'Brand Logos | Figuring Out',
+    description: 'Download Figuring Out brand logos and assets.',
+    url: 'https://figuringout.club/logos',
+  },
+  alternates: { canonical: 'https://figuringout.club/logos' },
+}
 
 const logos = [
   { name: 'Full Wordmark', file: '/logo-full.svg', desc: 'Figuring Out. with teal dot', bg: '#FDF8F3', type: 'SVG' },
