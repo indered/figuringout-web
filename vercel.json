@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/instagram/queue?action=process",
+      "schedule": "*/15 * * * *"
+    }
+  ]
+}
