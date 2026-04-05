@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk } from "next/font/google";
+import Tracker from "@/components/Tracker";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -202,6 +203,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen" style={{ backgroundColor: '#FDF8F3', color: '#1A1A1A' }}>
+        <Tracker />
         {children}
       </body>
     </html>

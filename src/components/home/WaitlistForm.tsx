@@ -62,7 +62,7 @@ export default function WaitlistForm() {
   useEffect(() => {
     const fetchCount = async () => {
       try {
-        const res = await fetch('/api/waitlist')
+        const res = await fetch('/api/waitlist', { cache: 'no-store' })
         if (res.ok) {
           const data = await res.json()
           setWaitlistCount(data.count || 0)
@@ -149,6 +149,7 @@ export default function WaitlistForm() {
       if (res.ok) {
         setStatus('success')
         setPosition(data.position || Math.floor(Math.random() * 200) + 50)
+        setWaitlistCount(data.position || waitlistCount + 1)
       } else {
         setStatus('error')
         setErrorMsg(data.error || 'Something went wrong')
