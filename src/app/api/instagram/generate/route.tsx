@@ -19,6 +19,7 @@ function parseParams(searchParams: URLSearchParams): TemplateParams & { template
     subtitle: searchParams.get('subtitle') || undefined,
     slideNumber: searchParams.get('slideNumber') ? Number(searchParams.get('slideNumber')) : undefined,
     totalSlides: searchParams.get('totalSlides') ? Number(searchParams.get('totalSlides')) : undefined,
+    theme: searchParams.get('theme') || 'a',
     size: searchParams.get('size') || 'square',
   }
 }
