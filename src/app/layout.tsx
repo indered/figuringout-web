@@ -85,7 +85,7 @@ export const metadata: Metadata = {
     description:
       "Premium electrolyte brand for everyone running through life. Hydrate while you figure it out.",
     images: ["/og"],
-    creator: "@figuringout_",
+    creator: "@figuringout.club",
   },
 
   // Icons
@@ -132,8 +132,6 @@ export default function RootLayout({
     ],
     sameAs: [
       "https://instagram.com/figuringout.club",
-      "https://twitter.com/figuringout_",
-      "https://www.linkedin.com/company/figuringout",
     ],
     contactPoint: {
       "@type": "ContactPoint",
