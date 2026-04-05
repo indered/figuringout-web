@@ -34,6 +34,11 @@ async function getGeo(ip: string) {
   return null
 }
 
+// Excluded IPs (founder devices)
+const EXCLUDED_IPS = new Set([
+  '49.43.112.234',
+])
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -41,6 +46,12 @@ export async function POST(request: NextRequest) {
 
     const forwardedFor = request.headers.get('x-forwarded-for')
     const ip = forwardedFor ? forwardedFor.split(',')[0].trim() : '::1'
+
+    // Skip tracking for excluded IPs
+    if (EXCLUDED_IPS.has(ip)) {
+      return NextResponse.json({ ok: true, skipped: true })
+    }
+
     const geo = await getGeo(ip)
 
     const entry: VisitorEntry = {
@@ -66,21 +77,22 @@ export async function GET() {
   try {
     const { db } = await connectToDatabase()
     const visitors = db.collection('fig_out_visitors')
+    const excludeFilter = { ip: { $nin: Array.from(EXCLUDED_IPS) } }
 
-    const total = await visitors.countDocuments()
+    const total = await visitors.countDocuments(excludeFilter)
 
     // Today's count
     const todayStart = new Date()
     todayStart.setHours(0, 0, 0, 0)
-    const today = await visitors.countDocuments({ timestamp: { $gte: todayStart } })
+    const today = await visitors.countDocuments({ ...excludeFilter, timestamp: { $gte: todayStart } })
 
     // Last 7 days
     const weekStart = new Date()
     weekStart.setDate(weekStart.getDate() - 7)
-    const thisWeek = await visitors.countDocuments({ timestamp: { $gte: weekStart } })
+    const thisWeek = await visitors.countDocuments({ ...excludeFilter, timestamp: { $gte: weekStart } })
 
     // Recent visitors (last 50)
-    const recent = await visitors.find()
+    const recent = await visitors.find(excludeFilter)
       .sort({ timestamp: -1 })
       .limit(50)
       .project({ ip: 0, userAgent: 0 })
@@ -88,6 +100,7 @@ export async function GET() {
 
     // Top countries
     const topCountries = await visitors.aggregate([
+      { $match: excludeFilter },
       { $group: { _id: '$country', count: { $sum: 1 } } },
       { $sort: { count: -1 } },
       { $limit: 10 },
@@ -95,6 +108,7 @@ export async function GET() {
 
     // Top cities
     const topCities = await visitors.aggregate([
+      { $match: excludeFilter },
       { $group: { _id: { city: '$city', country: '$country' }, count: { $sum: 1 } } },
       { $sort: { count: -1 } },
       { $limit: 10 },
@@ -104,7 +118,7 @@ export async function GET() {
     const twoWeeksAgo = new Date()
     twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14)
     const daily = await visitors.aggregate([
-      { $match: { timestamp: { $gte: twoWeeksAgo } } },
+      { $match: { ...excludeFilter, timestamp: { $gte: twoWeeksAgo } } },
       {
         $group: {
           _id: {
@@ -118,20 +132,40 @@ export async function GET() {
 
     // Top pages
     const topPages = await visitors.aggregate([
+      { $match: excludeFilter },
       { $group: { _id: '$page', count: { $sum: 1 } } },
       { $sort: { count: -1 } },
       { $limit: 10 },
     ]).toArray()
 
-    // Waitlist counts
-    const emailCount = await db.collection('fig_out_emails').countDocuments()
-    const phoneCount = await db.collection('fig_out_mobile').countDocuments()
+    // Waitlist data
+    const emailCollection = db.collection('fig_out_emails')
+    const phoneCollection = db.collection('fig_out_mobile')
+    const emailCount = await emailCollection.countDocuments()
+    const phoneCount = await phoneCollection.countDocuments()
+
+    // Full waitlist lists
+    const emailList = await emailCollection.find()
+      .sort({ createdAt: -1 })
+      .project({ _id: 0, email: 1, createdAt: 1, ipCountry: 1, ipCity: 1 })
+      .toArray()
+
+    const phoneList = await phoneCollection.find()
+      .sort({ createdAt: -1 })
+      .project({ _id: 0, phone: 1, countryCode: 1, country: 1, createdAt: 1, ipCountry: 1, ipCity: 1 })
+      .toArray()
 
     return NextResponse.json({
       total,
       today,
       thisWeek,
-      waitlist: { email: emailCount, phone: phoneCount, total: emailCount + phoneCount },
+      waitlist: {
+        email: emailCount,
+        phone: phoneCount,
+        total: emailCount + phoneCount,
+        emailList,
+        phoneList,
+      },
       topCountries,
       topCities,
       topPages,

@@ -6,7 +6,13 @@ interface Stats {
   total: number
   today: number
   thisWeek: number
-  waitlist: { email: number; phone: number; total: number }
+  waitlist: {
+    email: number
+    phone: number
+    total: number
+    emailList: { email: string; createdAt: string; ipCountry?: string; ipCity?: string }[]
+    phoneList: { phone: string; countryCode: string; country: string; createdAt: string; ipCountry?: string; ipCity?: string }[]
+  }
   topCountries: { _id: string; count: number }[]
   topCities: { _id: { city: string; country: string }; count: number }[]
   topPages: { _id: string; count: number }[]
@@ -84,6 +90,66 @@ export default function StatsPage() {
             </div>
           </div>
         </div>
+
+        {/* Waitlist: Emails */}
+        {stats.waitlist.emailList.length > 0 && (
+          <div className="rounded-xl p-4 sm:p-5 mb-8" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
+            <p className="text-xs font-semibold mb-3" style={{ color: '#9CA3AF' }}>Emails ({stats.waitlist.email})</p>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                    <th className="text-left text-[10px] font-medium uppercase pb-2" style={{ color: '#6B7280' }}>#</th>
+                    <th className="text-left text-[10px] font-medium uppercase pb-2" style={{ color: '#6B7280' }}>Email</th>
+                    <th className="text-left text-[10px] font-medium uppercase pb-2" style={{ color: '#6B7280' }}>Location</th>
+                    <th className="text-left text-[10px] font-medium uppercase pb-2" style={{ color: '#6B7280' }}>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {stats.waitlist.emailList.map((e, i) => (
+                    <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
+                      <td className="text-[10px] py-2" style={{ color: '#6B7280' }}>{i + 1}</td>
+                      <td className="text-xs py-2" style={{ color: '#F5F5F5' }}>{e.email}</td>
+                      <td className="text-[10px] py-2" style={{ color: '#9CA3AF' }}>{e.ipCity || '—'}{e.ipCountry ? `, ${e.ipCountry}` : ''}</td>
+                      <td className="text-[10px] py-2" style={{ color: '#9CA3AF' }}>{new Date(e.createdAt).toLocaleDateString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* Waitlist: Phones */}
+        {stats.waitlist.phoneList.length > 0 && (
+          <div className="rounded-xl p-4 sm:p-5 mb-8" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
+            <p className="text-xs font-semibold mb-3" style={{ color: '#9CA3AF' }}>Phone Numbers ({stats.waitlist.phone})</p>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                    <th className="text-left text-[10px] font-medium uppercase pb-2" style={{ color: '#6B7280' }}>#</th>
+                    <th className="text-left text-[10px] font-medium uppercase pb-2" style={{ color: '#6B7280' }}>Number</th>
+                    <th className="text-left text-[10px] font-medium uppercase pb-2" style={{ color: '#6B7280' }}>Country</th>
+                    <th className="text-left text-[10px] font-medium uppercase pb-2" style={{ color: '#6B7280' }}>Location</th>
+                    <th className="text-left text-[10px] font-medium uppercase pb-2" style={{ color: '#6B7280' }}>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {stats.waitlist.phoneList.map((p, i) => (
+                    <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
+                      <td className="text-[10px] py-2" style={{ color: '#6B7280' }}>{i + 1}</td>
+                      <td className="text-xs py-2" style={{ color: '#F5F5F5' }}>{p.countryCode} {p.phone}</td>
+                      <td className="text-[10px] py-2" style={{ color: '#9CA3AF' }}>{p.country || '—'}</td>
+                      <td className="text-[10px] py-2" style={{ color: '#9CA3AF' }}>{p.ipCity || '—'}{p.ipCountry ? `, ${p.ipCountry}` : ''}</td>
+                      <td className="text-[10px] py-2" style={{ color: '#9CA3AF' }}>{new Date(p.createdAt).toLocaleDateString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
 
         {/* Daily chart */}
         {stats.daily.length > 0 && (
