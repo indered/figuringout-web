@@ -132,6 +132,7 @@ export default function RootLayout({
     ],
     sameAs: [
       "https://instagram.com/figuringout.club",
+      "https://www.linkedin.com/company/figuringoutclub",
     ],
     contactPoint: {
       "@type": "ContactPoint",

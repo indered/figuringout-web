@@ -27,7 +27,7 @@ export default function Footer() {
         </div>
 
         {/* Links — clean grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-10">
           <a
             href="https://instagram.com/figuringout.club"
             target="_blank"
@@ -43,6 +43,23 @@ export default function Footer() {
             <div>
               <p className="text-sm font-semibold" style={{ color: '#F5F5F5' }}>@figuringout.club</p>
               <p className="text-[10px]" style={{ color: '#9CA3AF' }}>Follow us on Instagram</p>
+            </div>
+          </a>
+
+          <a
+            href="https://www.linkedin.com/company/figuringoutclub"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 p-4 rounded-xl cursor-pointer transition-colors"
+            style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="2" width="20" height="20" rx="3" stroke="#14B8A6" strokeWidth="2" />
+              <path d="M7 11v6M7 7v.01M11 17v-4a2 2 0 1 1 4 0v4M11 11v6" stroke="#14B8A6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <div>
+              <p className="text-sm font-semibold" style={{ color: '#F5F5F5' }}>Figuring Out</p>
+              <p className="text-[10px]" style={{ color: '#9CA3AF' }}>Connect on LinkedIn</p>
             </div>
           </a>
 
