@@ -83,7 +83,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Figuring Out | Premium Electrolytes for Runners",
     description:
-      "Premium electrolyte brand for runners and urban millennials. At least we figured out the hydration.",
+      "Premium electrolyte brand for everyone running through life. Hydrate while you figure it out.",
     images: ["/og"],
     creator: "@figuringout_",
   },
@@ -131,8 +131,9 @@ export default function RootLayout({
       },
     ],
     sameAs: [
-      "https://instagram.com/figuringout_",
+      "https://instagram.com/figuringout.club",
       "https://twitter.com/figuringout_",
+      "https://www.linkedin.com/company/figuringout",
     ],
     contactPoint: {
       "@type": "ContactPoint",
