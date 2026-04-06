@@ -209,12 +209,12 @@ export default function CoastalHero() {
 
         <motion.p
           className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-6 sm:mb-10"
-          style={{ color: '#6B7280' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
         >
-          Premium electrolytes for everyone running through life.
+          <span style={{ color: '#1A1A1A', fontWeight: 600 }}>Premium electrolytes</span>{' '}
+          <span style={{ color: '#6B7280' }}>for everyone running through life.</span>
         </motion.p>
 
       </div>
