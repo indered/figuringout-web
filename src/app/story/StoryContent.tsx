@@ -106,13 +106,13 @@ export default function StoryContent() {
               className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold"
               style={{ backgroundColor: '#14B8A6' }}
               role="img"
-              aria-label="Mahesh's avatar"
+              aria-label="Figuring Out team"
             >
-              M
+              FO
             </div>
             <address className="not-italic">
-              <a href="https://instagram.com/mahesh.inder_" target="_blank" rel="noopener noreferrer" className="font-semibold hover:text-[#14B8A6] transition-colors cursor-pointer" style={{ color: '#1A1A1A' }}>Mahesh</a>
-              <p className="text-sm" style={{ color: '#6B7280' }}>Founder, still figuring it out</p>
+              <p className="font-semibold" style={{ color: '#1A1A1A' }}>Figuring Out Team</p>
+              <p className="text-sm" style={{ color: '#6B7280' }}>Still figuring it out</p>
             </address>
           </motion.aside>
 

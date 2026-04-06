@@ -125,12 +125,6 @@ export default function RootLayout({
     description:
       "Premium electrolyte brand for runners and urban millennials.",
     foundingDate: "2026",
-    founders: [
-      {
-        "@type": "Person",
-        name: "Mahesh",
-      },
-    ],
     sameAs: [
       "https://instagram.com/figuringout.club",
       "https://www.linkedin.com/company/figuringoutclub",

@@ -1,149 +1,155 @@
 /**
- * Premium Sachet — Typography-forward, Humantra/LMNT style
- * No icons, no illustrations. Bold color + clean type = premium.
- * Stick pack shape (1:4.5 ratio, tall and slim)
+ * Premium Sachet — CSS 3D, based on real Humantra reference
+ * White base, soft flavor color band, tube/pillow shape
+ * Stick pack 1:5.8 ratio, crimped seals, diagonal stripe pattern
  */
 
+const W_DEFAULT = 38
+const H_RATIO = 5.8
+
 interface Sachet3DProps {
-  color: string
-  label: string
+  bandColor: string
+  bandDark: string
+  name: string
+  taste: string
+  angle?: number
   size?: number
 }
 
-export default function Sachet3D({ color, label, size = 60 }: Sachet3DProps) {
+export default function Sachet3D({
+  bandColor,
+  bandDark,
+  name,
+  taste,
+  angle = 0,
+  size = W_DEFAULT,
+}: Sachet3DProps) {
   const w = size
-  const h = Math.round(size * 4.2)
-  const id = label.replace(/\s+/g, '-').toLowerCase()
-
-  // Split label into lines if long
-  const words = label.split(' ')
-  const lines: string[] = []
-  if (words.length <= 2) {
-    lines.push(...words)
-  } else {
-    lines.push(words.slice(0, Math.ceil(words.length / 2)).join(' '))
-    lines.push(words.slice(Math.ceil(words.length / 2)).join(' '))
-  }
+  const h = Math.round(size * H_RATIO)
 
   return (
-    <svg
-      width={w}
-      height={h}
-      viewBox="0 0 60 252"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      aria-label={`${label} electrolyte sachet`}
-    >
-      <defs>
-        <clipPath id={`c-${id}`}>
-          <rect x="2" y="2" width="56" height="248" rx="4" />
-        </clipPath>
-      </defs>
+    <div style={{
+      width: w,
+      height: h,
+      position: 'relative',
+      transform: `rotate(${angle}deg)`,
+    }}>
+      {/* Shadow */}
+      <div style={{
+        position: 'absolute',
+        bottom: -6,
+        left: 4,
+        right: 4,
+        height: 8,
+        borderRadius: '50%',
+        background: 'radial-gradient(ellipse, rgba(0,0,0,0.15) 0%, transparent 70%)',
+        filter: 'blur(3px)',
+      }} />
 
-      {/* Soft shadow */}
-      <ellipse cx="30" cy="250" rx="20" ry="3" fill="black" fillOpacity="0.06" />
+      {/* Body */}
+      <div style={{
+        width: '100%',
+        height: '100%',
+        borderRadius: '4px 4px 3px 3px',
+        position: 'relative',
+        overflow: 'hidden',
+        background: `linear-gradient(90deg, #F5F2EE 0%, #FAFAF8 15%, #FFFFFF 40%, #FDFCFB 60%, #FAF9F7 80%, #F2EFEB 100%)`,
+        boxShadow: `2px 4px 12px rgba(0,0,0,0.1), 1px 2px 4px rgba(0,0,0,0.06), inset -3px 0 8px rgba(0,0,0,0.03), inset 3px 0 6px rgba(255,255,255,0.8)`,
+      }}>
+        {/* Cylindrical highlight */}
+        <div style={{
+          position: 'absolute', top: 0, left: '30%', width: '25%', height: '100%',
+          background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)',
+          pointerEvents: 'none',
+        }} />
 
-      <g clipPath={`url(#c-${id})`}>
-        {/* Sachet body — solid matte color */}
-        <rect x="2" y="2" width="56" height="248" rx="4" fill={color} />
+        {/* Right edge shadow */}
+        <div style={{
+          position: 'absolute', top: 0, right: 0, width: 4, height: '100%',
+          background: 'linear-gradient(270deg, rgba(0,0,0,0.06), transparent)',
+          pointerEvents: 'none',
+        }} />
 
-        {/* Subtle dark overlay on top third — adds depth without gradient */}
-        <rect x="2" y="2" width="56" height="90" fill="black" fillOpacity="0.15" />
+        {/* Color band */}
+        <div style={{
+          position: 'absolute', top: 12, left: 0, width: '38%', bottom: 12,
+          background: `linear-gradient(90deg, ${bandColor} 0%, ${bandColor} 70%, transparent 100%)`,
+          borderRadius: '0 2px 2px 0',
+        }}>
+          <div style={{
+            position: 'absolute', inset: 0,
+            backgroundImage: `repeating-linear-gradient(-45deg, transparent, transparent 2px, rgba(255,255,255,0.2) 2px, rgba(255,255,255,0.2) 3px)`,
+          }} />
+        </div>
 
-        {/* Matte texture — fine horizontal lines */}
-        {Array.from({ length: 12 }).map((_, i) => (
-          <line
-            key={i}
-            x1="2" y1={22 + i * 20}
-            x2="58" y2={22 + i * 20}
-            stroke="white"
-            strokeOpacity="0.03"
-            strokeWidth="0.3"
-          />
-        ))}
+        {/* Top crimp */}
+        <div style={{
+          position: 'absolute', top: 0, left: 0, right: 0, height: 12,
+          background: 'linear-gradient(180deg, #E8E4E0 0%, #F0EDEA 50%, #F5F2EE 100%)',
+          borderBottom: '0.5px solid rgba(0,0,0,0.08)',
+        }}>
+          <div style={{
+            position: 'absolute', bottom: 0, left: 0, right: 0, height: 4,
+            backgroundImage: 'repeating-linear-gradient(90deg, rgba(0,0,0,0.04) 0px, rgba(0,0,0,0.04) 1.5px, transparent 1.5px, transparent 3.5px)',
+          }} />
+        </div>
 
-        {/* Top seal edge */}
-        <rect x="2" y="2" width="56" height="6" fill="black" fillOpacity="0.1" />
+        {/* Bottom crimp */}
+        <div style={{
+          position: 'absolute', bottom: 0, left: 0, right: 0, height: 12,
+          background: 'linear-gradient(0deg, #E8E4E0 0%, #F0EDEA 50%, #F5F2EE 100%)',
+          borderTop: '0.5px solid rgba(0,0,0,0.08)',
+        }}>
+          <div style={{
+            position: 'absolute', top: 0, left: 0, right: 0, height: 4,
+            backgroundImage: 'repeating-linear-gradient(90deg, rgba(0,0,0,0.04) 0px, rgba(0,0,0,0.04) 1.5px, transparent 1.5px, transparent 3.5px)',
+          }} />
+        </div>
 
-        {/* Tear notch */}
-        <path d="M40 2 L43 0 L46 2" fill={color} stroke="white" strokeWidth="0.3" strokeOpacity="0.2" />
+        {/* Brand + claims (rotated) */}
+        <div style={{
+          position: 'absolute', top: '50%', left: '55%',
+          transform: 'translate(-50%, -50%) rotate(-90deg)',
+          whiteSpace: 'nowrap',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3,
+        }}>
+          <p style={{
+            color: '#1A1A1A', fontSize: Math.max(6, size * 0.2), fontWeight: 800,
+            letterSpacing: 2, fontFamily: 'var(--font-space-grotesk), system-ui',
+          }}>
+            FIGURING OUT.
+          </p>
+          <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+            <span style={{ color: '#6B7280', fontSize: Math.max(3, size * 0.09), fontWeight: 600, letterSpacing: 0.5, fontFamily: 'system-ui' }}>0g SUGAR</span>
+            <span style={{ color: '#6B7280', fontSize: Math.max(2, size * 0.06) }}>•</span>
+            <span style={{ color: '#6B7280', fontSize: Math.max(3, size * 0.09), fontWeight: 600, letterSpacing: 0.5, fontFamily: 'system-ui' }}>ELECTROLYTES</span>
+            <span style={{ color: '#6B7280', fontSize: Math.max(2, size * 0.06) }}>•</span>
+            <span style={{ color: '#6B7280', fontSize: Math.max(3, size * 0.09), fontWeight: 600, letterSpacing: 0.5, fontFamily: 'system-ui' }}>VEGAN</span>
+          </div>
+        </div>
 
-        {/* === BRAND NAME — small, top === */}
-        <text
-          x="30" y="32"
-          textAnchor="middle"
-          fill="white"
-          fontSize="4.5"
-          fontWeight="700"
-          fontFamily="system-ui, -apple-system, sans-serif"
-          letterSpacing="1.5"
-          opacity="0.7"
-        >
-          FIGURING OUT.
-        </text>
-
-        {/* Thin separator */}
-        <line x1="18" y1="40" x2="42" y2="40" stroke="white" strokeOpacity="0.2" strokeWidth="0.4" />
-
-        {/* === FLAVOR NAME — the star, large, bold === */}
-        {lines.map((line, i) => (
-          <text
-            key={i}
-            x="30"
-            y={115 + i * 18}
-            textAnchor="middle"
-            fill="white"
-            fontSize="9"
-            fontWeight="800"
-            fontFamily="system-ui, -apple-system, sans-serif"
-            letterSpacing="0.5"
-          >
-            {line.toUpperCase()}
-          </text>
-        ))}
-
-        {/* === PRODUCT TYPE — small, below flavor === */}
-        <text
-          x="30" y={115 + lines.length * 18 + 12}
-          textAnchor="middle"
-          fill="white"
-          fontSize="3.8"
-          fontWeight="500"
-          fontFamily="system-ui, -apple-system, sans-serif"
-          letterSpacing="1.8"
-          opacity="0.5"
-        >
-          ELECTROLYTE MIX
-        </text>
-
-        {/* Bottom zone — slightly lighter strip */}
-        <rect x="2" y="210" width="56" height="40" fill="white" fillOpacity="0.06" />
-
-        {/* Net weight */}
-        <text
-          x="30" y="232"
-          textAnchor="middle"
-          fill="white"
-          fontSize="3.5"
-          fontWeight="400"
-          fontFamily="system-ui, -apple-system, sans-serif"
-          letterSpacing="0.8"
-          opacity="0.35"
-        >
-          NET WT 6g
-        </text>
-
-        {/* Bottom seal */}
-        <rect x="2" y="244" width="56" height="6" fill="black" fillOpacity="0.1" />
-
-        {/* Foil highlight — single subtle diagonal stripe */}
-        <rect
-          x="42" y="2" width="8" height="248"
-          fill="white" fillOpacity="0.04"
-          transform="skewX(-4)"
-        />
-      </g>
-    </svg>
+        {/* Flavor name on band (rotated) */}
+        <div style={{
+          position: 'absolute', top: '50%', left: '12%',
+          transform: 'translate(-50%, -50%) rotate(-90deg)',
+          whiteSpace: 'nowrap',
+        }}>
+          <p style={{
+            color: bandDark, fontSize: Math.max(3, size * 0.1), fontWeight: 700,
+            letterSpacing: 0.8, fontFamily: 'var(--font-space-grotesk), system-ui',
+            mixBlendMode: 'multiply',
+          }}>
+            {name.toUpperCase()}
+          </p>
+        </div>
+      </div>
+    </div>
   )
+}
+
+// Flavor band colors — soft, muted, premium
+export const sachetColors: Record<string, { bandColor: string; bandDark: string }> = {
+  'broke-but-hydrated': { bandColor: '#D4A0B0', bandDark: '#8B5A6A' },
+  'hot-ex': { bandColor: '#E8B090', bandDark: '#8B5A3A' },
+  'clarity': { bandColor: '#90C8B8', bandDark: '#4A7868' },
 }
