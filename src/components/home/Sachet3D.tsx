@@ -48,16 +48,32 @@ export default function Sachet3D({
 
       {/* Powder spill — if torn */}
       {torn && (
-        <div style={{
-          position: 'absolute',
-          top: -8, left: '20%', right: '10%',
-          height: 20,
-          background: `radial-gradient(ellipse at 50% 100%, ${bandLight} 0%, ${bandLight}80 30%, transparent 70%)`,
-          filter: 'blur(3px)',
-          opacity: 0.7,
-          transform: 'scaleX(1.5)',
-          zIndex: 2,
-        }} />
+        <>
+          {/* Main powder cloud */}
+          <div style={{
+            position: 'absolute',
+            top: -20, left: '-30%', right: '-30%',
+            height: 40,
+            background: `radial-gradient(ellipse at 50% 90%, ${bandColor} 0%, ${bandLight} 25%, transparent 65%)`,
+            filter: 'blur(4px)',
+            opacity: 0.85,
+            zIndex: 2,
+          }} />
+          {/* Powder particles */}
+          {[...Array(6)].map((_, i) => (
+            <div key={i} style={{
+              position: 'absolute',
+              top: -8 - i * 3,
+              left: `${15 + i * 12}%`,
+              width: 3 + (i % 3),
+              height: 3 + (i % 3),
+              borderRadius: '50%',
+              background: i % 2 === 0 ? bandColor : bandLight,
+              opacity: 0.6 - i * 0.05,
+              zIndex: 3,
+            }} />
+          ))}
+        </>
       )}
 
       {/* Main body */}
@@ -90,20 +106,34 @@ export default function Sachet3D({
       }}>
 
         {/* === SHINY FOIL HIGHLIGHTS === */}
-        {/* Primary gloss — broad hot spot */}
+        {/* Primary gloss — STRONG hot spot */}
         <div style={{
           position: 'absolute', inset: 0,
           background: `linear-gradient(
             ${95 + angle * 0.3}deg,
             transparent 0%,
-            transparent 15%,
-            rgba(255,255,255,0.15) 25%,
-            rgba(255,255,255,0.45) 32%,
-            rgba(255,255,255,0.6) 36%,
-            rgba(255,255,255,0.45) 40%,
-            rgba(255,255,255,0.15) 48%,
-            transparent 60%,
+            transparent 10%,
+            rgba(255,255,255,0.25) 20%,
+            rgba(255,255,255,0.55) 30%,
+            rgba(255,255,255,0.75) 35%,
+            rgba(255,255,255,0.55) 40%,
+            rgba(255,255,255,0.25) 50%,
+            transparent 65%,
             transparent 100%
+          )`,
+          pointerEvents: 'none',
+        }} />
+
+        {/* Secondary shimmer — lower on sachet */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: `linear-gradient(
+            ${140 + angle * 0.2}deg,
+            transparent 50%,
+            rgba(255,255,255,0.1) 65%,
+            rgba(255,255,255,0.25) 72%,
+            rgba(255,255,255,0.1) 78%,
+            transparent 90%
           )`,
           pointerEvents: 'none',
         }} />
@@ -134,15 +164,15 @@ export default function Sachet3D({
           )`,
           borderRadius: '0 3px 3px 0',
         }}>
-          {/* HORIZONTAL lines on the band — like Humantra */}
+          {/* HORIZONTAL lines on the band — bold, visible */}
           <div style={{
             position: 'absolute', inset: 0,
             backgroundImage: `repeating-linear-gradient(
               0deg,
               transparent,
-              transparent 3px,
-              rgba(255,255,255,0.25) 3px,
-              rgba(255,255,255,0.25) 4px
+              transparent 4px,
+              rgba(255,255,255,0.4) 4px,
+              rgba(255,255,255,0.4) 5.5px
             )`,
           }} />
 
@@ -249,9 +279,9 @@ export default function Sachet3D({
   )
 }
 
-// Brighter pastels + deeper darks for contrast
+// Vibrant pastels + deeper darks
 export const sachetColors: Record<string, { bandColor: string; bandLight: string; bandDark: string }> = {
-  'broke-but-hydrated': { bandColor: '#E8A8BE', bandLight: '#F5D0DE', bandDark: '#7A3050' },
-  'hot-ex':             { bandColor: '#F0B898', bandLight: '#FADCC8', bandDark: '#7A3A18' },
-  'clarity':            { bandColor: '#88D4C4', bandLight: '#C0EAE0', bandDark: '#1A6050' },
+  'broke-but-hydrated': { bandColor: '#F0A0C0', bandLight: '#FCD0E0', bandDark: '#6A2048' },
+  'hot-ex':             { bandColor: '#F5B088', bandLight: '#FFD8B8', bandDark: '#6A3010' },
+  'clarity':            { bandColor: '#70D4C0', bandLight: '#B0F0E0', bandDark: '#105840' },
 }
