@@ -65,53 +65,64 @@ function Sachet({
           filter: 'blur(4px)',
         }} />
 
-        {/* Powder scatter — realistic granular */}
+        {/* Powder spill — soft dusty cloud patches, NOT particles */}
         {torn && (
-          <div style={{ position: 'absolute', top: -35, left: '-60%', width: '220%', height: 50, zIndex: 2 }}>
-            {/* Base powder spread */}
-            {[...Array(40)].map((_, i) => {
-              const x = 20 + Math.sin(i * 2.7) * 35 + (i % 7) * 8
-              const y = 30 - Math.cos(i * 1.3) * 15 - (i % 5) * 4
-              const s = 1 + (i % 4) * 0.8
-              const opacity = 0.3 + (i % 3) * 0.15
-              const isLight = i % 3 === 0
-              return (
-                <div key={i} style={{
-                  position: 'absolute',
-                  left: `${x}%`,
-                  top: y,
-                  width: s,
-                  height: s,
-                  borderRadius: '50%',
-                  background: isLight ? bandLight : bandColor,
-                  opacity,
-                }} />
-              )
-            })}
-            {/* Larger powder chunks */}
-            {[...Array(12)].map((_, i) => {
-              const x = 25 + (i * 5.5) + Math.sin(i) * 10
-              const y = 28 - (i % 4) * 6
-              const s = 2 + (i % 3) * 1.5
-              return (
-                <div key={`c${i}`} style={{
-                  position: 'absolute',
-                  left: `${x}%`,
-                  top: y,
-                  width: s,
-                  height: s * 0.7,
-                  borderRadius: '40%',
-                  background: i % 2 === 0 ? bandColor : bandLight,
-                  opacity: 0.5 + (i % 3) * 0.1,
-                  filter: 'blur(0.3px)',
-                }} />
-              )
-            })}
-            {/* Soft powder dust cloud behind */}
+          <div style={{ position: 'absolute', top: -60, left: '-80%', width: '280%', height: 80, zIndex: 2 }}>
+            {/* Dense core — where most powder landed */}
             <div style={{
-              position: 'absolute', left: '15%', right: '15%', bottom: 5, height: 20,
-              background: `radial-gradient(ellipse at 50% 80%, ${bandLight}60 0%, transparent 70%)`,
-              filter: 'blur(5px)',
+              position: 'absolute', left: '30%', top: '40%', width: 50, height: 30,
+              borderRadius: '50%',
+              background: `radial-gradient(ellipse, ${bandColor} 0%, ${bandColor}90 30%, transparent 70%)`,
+              filter: 'blur(8px)',
+              opacity: 0.7,
+            }} />
+            {/* Secondary dense patch offset */}
+            <div style={{
+              position: 'absolute', left: '45%', top: '30%', width: 40, height: 25,
+              borderRadius: '50%',
+              background: `radial-gradient(ellipse, ${bandColor} 0%, ${bandLight} 40%, transparent 70%)`,
+              filter: 'blur(7px)',
+              opacity: 0.6,
+            }} />
+            {/* Light outer dust — spreading right */}
+            <div style={{
+              position: 'absolute', left: '55%', top: '25%', width: 60, height: 35,
+              borderRadius: '50%',
+              background: `radial-gradient(ellipse, ${bandLight} 0%, ${bandLight}60 30%, transparent 65%)`,
+              filter: 'blur(10px)',
+              opacity: 0.5,
+            }} />
+            {/* Light outer dust — spreading left */}
+            <div style={{
+              position: 'absolute', left: '15%', top: '45%', width: 45, height: 25,
+              borderRadius: '50%',
+              background: `radial-gradient(ellipse, ${bandLight} 0%, transparent 65%)`,
+              filter: 'blur(9px)',
+              opacity: 0.4,
+            }} />
+            {/* White/silver powder mixed in (like Humantra's silver) */}
+            <div style={{
+              position: 'absolute', left: '20%', top: '35%', width: 55, height: 30,
+              borderRadius: '50%',
+              background: 'radial-gradient(ellipse, rgba(220,215,210,0.6) 0%, rgba(200,195,190,0.3) 30%, transparent 65%)',
+              filter: 'blur(8px)',
+              opacity: 0.5,
+            }} />
+            {/* Very faint outer mist */}
+            <div style={{
+              position: 'absolute', left: '10%', top: '20%', width: '80%', height: '70%',
+              borderRadius: '50%',
+              background: `radial-gradient(ellipse, ${bandLight}30 0%, transparent 60%)`,
+              filter: 'blur(14px)',
+              opacity: 0.4,
+            }} />
+            {/* Top wispy dust */}
+            <div style={{
+              position: 'absolute', left: '35%', top: '10%', width: 35, height: 20,
+              borderRadius: '50%',
+              background: `radial-gradient(ellipse, ${bandLight}50 0%, transparent 70%)`,
+              filter: 'blur(10px)',
+              opacity: 0.35,
             }} />
           </div>
         )}
