@@ -65,65 +65,67 @@ function Sachet({
           filter: 'blur(4px)',
         }} />
 
-        {/* Powder spill — soft dusty cloud patches, NOT particles */}
+        {/* Powder spill — textured grain + dust */}
         {torn && (
-          <div style={{ position: 'absolute', top: -60, left: '-80%', width: '280%', height: 80, zIndex: 2 }}>
-            {/* Dense core — where most powder landed */}
+          <div style={{ position: 'absolute', top: -70, left: '-90%', width: '300%', height: 90, zIndex: 2 }}>
+            {/* Grainy textured powder — noise pattern masked to scatter shape */}
             <div style={{
-              position: 'absolute', left: '30%', top: '40%', width: 50, height: 30,
-              borderRadius: '50%',
-              background: `radial-gradient(ellipse, ${bandColor} 0%, ${bandColor}90 30%, transparent 70%)`,
-              filter: 'blur(8px)',
-              opacity: 0.7,
+              position: 'absolute', left: '20%', top: '20%', width: 90, height: 55,
+              borderRadius: '40% 60% 50% 40% / 50% 40% 60% 50%',
+              background: `
+                repeating-conic-gradient(${bandColor} 0% 25%, ${bandLight} 0% 50%) 0 0 / 3px 3px,
+                repeating-conic-gradient(${bandLight} 0% 25%, transparent 0% 50%) 1px 1px / 2px 2px
+              `,
+              maskImage: 'radial-gradient(ellipse at 45% 55%, black 20%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.2) 65%, transparent 80%)',
+              WebkitMaskImage: 'radial-gradient(ellipse at 45% 55%, black 20%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.2) 65%, transparent 80%)',
+              opacity: 0.8,
             }} />
-            {/* Secondary dense patch offset */}
+            {/* Second grain patch — offset, lighter */}
             <div style={{
-              position: 'absolute', left: '45%', top: '30%', width: 40, height: 25,
-              borderRadius: '50%',
-              background: `radial-gradient(ellipse, ${bandColor} 0%, ${bandLight} 40%, transparent 70%)`,
-              filter: 'blur(7px)',
+              position: 'absolute', left: '42%', top: '15%', width: 70, height: 45,
+              borderRadius: '50% 40% 55% 45% / 45% 55% 40% 50%',
+              background: `
+                repeating-conic-gradient(${bandLight} 0% 25%, rgba(255,255,255,0.8) 0% 50%) 0 0 / 2.5px 2.5px
+              `,
+              maskImage: 'radial-gradient(ellipse at 50% 50%, black 15%, rgba(0,0,0,0.4) 40%, transparent 70%)',
+              WebkitMaskImage: 'radial-gradient(ellipse at 50% 50%, black 15%, rgba(0,0,0,0.4) 40%, transparent 70%)',
               opacity: 0.6,
             }} />
-            {/* Light outer dust — spreading right */}
+            {/* Silver/white powder grain (like Humantra's mixed silver) */}
             <div style={{
-              position: 'absolute', left: '55%', top: '25%', width: 60, height: 35,
-              borderRadius: '50%',
-              background: `radial-gradient(ellipse, ${bandLight} 0%, ${bandLight}60 30%, transparent 65%)`,
-              filter: 'blur(10px)',
+              position: 'absolute', left: '15%', top: '30%', width: 60, height: 40,
+              borderRadius: '45% 55% 50% 50% / 50% 45% 55% 50%',
+              background: `
+                repeating-conic-gradient(rgba(210,205,200,0.9) 0% 25%, rgba(230,225,220,0.7) 0% 50%) 0 0 / 2px 2px
+              `,
+              maskImage: 'radial-gradient(ellipse at 50% 60%, black 10%, rgba(0,0,0,0.3) 40%, transparent 65%)',
+              WebkitMaskImage: 'radial-gradient(ellipse at 50% 60%, black 10%, rgba(0,0,0,0.3) 40%, transparent 65%)',
               opacity: 0.5,
             }} />
-            {/* Light outer dust — spreading left */}
+            {/* Soft dust haze around edges */}
             <div style={{
-              position: 'absolute', left: '15%', top: '45%', width: 45, height: 25,
+              position: 'absolute', left: '18%', top: '15%', width: '65%', height: '75%',
               borderRadius: '50%',
-              background: `radial-gradient(ellipse, ${bandLight} 0%, transparent 65%)`,
-              filter: 'blur(9px)',
-              opacity: 0.4,
-            }} />
-            {/* White/silver powder mixed in (like Humantra's silver) */}
-            <div style={{
-              position: 'absolute', left: '20%', top: '35%', width: 55, height: 30,
-              borderRadius: '50%',
-              background: 'radial-gradient(ellipse, rgba(220,215,210,0.6) 0%, rgba(200,195,190,0.3) 30%, transparent 65%)',
-              filter: 'blur(8px)',
+              background: `radial-gradient(ellipse, ${bandLight}40 0%, transparent 55%)`,
+              filter: 'blur(6px)',
               opacity: 0.5,
             }} />
-            {/* Very faint outer mist */}
-            <div style={{
-              position: 'absolute', left: '10%', top: '20%', width: '80%', height: '70%',
-              borderRadius: '50%',
-              background: `radial-gradient(ellipse, ${bandLight}30 0%, transparent 60%)`,
-              filter: 'blur(14px)',
-              opacity: 0.4,
-            }} />
-            {/* Top wispy dust */}
-            <div style={{
-              position: 'absolute', left: '35%', top: '10%', width: 35, height: 20,
-              borderRadius: '50%',
-              background: `radial-gradient(ellipse, ${bandLight}50 0%, transparent 70%)`,
-              filter: 'blur(10px)',
-              opacity: 0.35,
-            }} />
+            {/* Scattered fine grains — tiny specs outside main pile */}
+            {[...Array(20)].map((_, i) => {
+              const x = 10 + i * 4.2 + Math.sin(i * 3) * 8
+              const y = 15 + Math.cos(i * 2) * 20 + (i % 3) * 5
+              const s = 0.8 + (i % 3) * 0.4
+              return (
+                <div key={i} style={{
+                  position: 'absolute', left: `${x}%`, top: y,
+                  width: s, height: s * (0.6 + (i % 3) * 0.3),
+                  borderRadius: '30%',
+                  background: i % 3 === 0 ? bandColor : i % 3 === 1 ? bandLight : 'rgba(215,210,205,0.7)',
+                  opacity: 0.4 + (i % 4) * 0.1,
+                  transform: `rotate(${i * 25}deg)`,
+                }} />
+              )
+            })}
           </div>
         )}
 
@@ -189,22 +191,36 @@ function Sachet({
             </div>
           )}
 
-          {/* Watery energy effect */}
+          {/* Watery energy effect — STRONG */}
           {waterEffect && (
             <>
+              {/* Aqua wash across bottom half of white area */}
               <div style={{
-                position: 'absolute', bottom: '10%', left: '35%', right: 0, height: '35%',
-                background: 'linear-gradient(0deg, rgba(100,210,220,0.15) 0%, rgba(130,220,230,0.08) 50%, transparent 100%)',
+                position: 'absolute', bottom: '5%', left: '30%', right: 0, height: '50%',
+                background: 'linear-gradient(0deg, rgba(70,200,215,0.25) 0%, rgba(100,220,230,0.15) 30%, rgba(140,230,240,0.06) 60%, transparent 100%)',
+                pointerEvents: 'none',
+              }} />
+              {/* Water ripple lines */}
+              <div style={{
+                position: 'absolute', bottom: '15%', left: '40%', right: '5%', height: 1.5,
+                background: 'linear-gradient(90deg, transparent, rgba(70,200,215,0.5), rgba(100,220,230,0.3), transparent)',
                 pointerEvents: 'none',
               }} />
               <div style={{
-                position: 'absolute', bottom: '20%', left: '45%', right: '10%', height: 1,
-                background: 'linear-gradient(90deg, transparent, rgba(100,210,220,0.3), transparent)',
+                position: 'absolute', bottom: '22%', left: '45%', right: '8%', height: 1,
+                background: 'linear-gradient(90deg, transparent, rgba(70,200,215,0.35), transparent)',
                 pointerEvents: 'none',
               }} />
               <div style={{
-                position: 'absolute', bottom: '28%', left: '50%', right: '5%', height: 1,
-                background: 'linear-gradient(90deg, transparent, rgba(100,210,220,0.2), transparent)',
+                position: 'absolute', bottom: '30%', left: '50%', right: '10%', height: 1,
+                background: 'linear-gradient(90deg, transparent, rgba(70,200,215,0.2), transparent)',
+                pointerEvents: 'none',
+              }} />
+              {/* Shimmer spot — like light on water */}
+              <div style={{
+                position: 'absolute', bottom: '18%', right: '15%', width: 8, height: 8,
+                borderRadius: '50%',
+                background: 'radial-gradient(circle, rgba(180,240,250,0.4) 0%, transparent 70%)',
                 pointerEvents: 'none',
               }} />
             </>
@@ -359,8 +375,11 @@ export default function SachetLab() {
           <SectionDesc>Aqua shimmer, water ripple lines, blue-green tint on the white area.</SectionDesc>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, justifyContent: 'center' }}>
             <Sachet bandColor="#70D4C0" bandLight="#B0F0E0" bandDark="#105840" name="Clarity" angle={-5} waterEffect={false} label="6A. No water" />
-            <Sachet bandColor="#70D4C0" bandLight="#B0F0E0" bandDark="#105840" name="Clarity" angle={-5} waterEffect={true} label="6B. Aqua shimmer" />
-            <Sachet bandColor="#90C8E8" bandLight="#C0E0F8" bandDark="#1A4060" name="Clarity" angle={-5} waterEffect={true} shade="pearl" label="6C. Sky + pearl + water" />
+            <Sachet bandColor="#70D4C0" bandLight="#B0F0E0" bandDark="#105840" name="Clarity" angle={-5} waterEffect={true} label="6B. Teal + water" />
+            <Sachet bandColor="#90C8E8" bandLight="#C0E0F8" bandDark="#1A4060" name="Clarity" angle={-5} waterEffect={true} shade="pearl" label="6C. Sky + pearl" />
+            <Sachet bandColor="#78D0E0" bandLight="#B8E8F0" bandDark="#105058" name="Clarity" angle={-5} waterEffect={true} shade="white" label="6D. Aqua band + water" />
+            <Sachet bandColor="#60C8D8" bandLight="#A0E0EC" bandDark="#084048" name="Clarity" angle={-5} waterEffect={true} shade="pearl" label="6E. Deep aqua + pearl" />
+            <Sachet bandColor="#70D4C0" bandLight="#B0F0E0" bandDark="#105840" name="Clarity" angle={-5} waterEffect={true} shade="silver" label="6F. Teal + silver" />
           </div>
         </div>
       </div>
