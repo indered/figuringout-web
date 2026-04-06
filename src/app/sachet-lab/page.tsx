@@ -1,472 +1,342 @@
 'use client'
 
 /**
- * Sachet Lab — CSS 3D sachet explorations
- * Real stick pack proportions: 30mm x 130mm (1:4.3 ratio)
- * 3 concepts to compare side by side
+ * Sachet Lab v5 — Based on actual Humantra reference photos
+ *
+ * Key learnings from real product:
+ * - Stick pack, ~1:6 ratio, very long and narrow
+ * - WHITE base, flavor color as a band on one side
+ * - Pillow/tube shape — has volume, slight organic curve
+ * - Crimped sealed edges at both ends
+ * - Shown at diagonal angle with realistic shadow
+ * - Brand name bold across center
  */
 
-import { coreFlavors } from '@/data/flavors'
+const W = 38  // narrow — real sachets are ~22mm wide
+const H = 220 // ~1:5.8 ratio
 
-// Real stick pack dimensions scaled for screen
-const W = 100 // px width
-const H = 430 // px height (1:4.3 ratio)
+// Figuring Out flavor colors — soft, not garish
+const flavors = [
+  {
+    name: 'Broke But Hydrated',
+    taste: 'Berry & Pomegranate',
+    bandColor: '#D4A0B0',   // soft dusty rose
+    bandDark: '#B8849A',
+  },
+  {
+    name: 'Hot Ex',
+    taste: 'Citrus Energy',
+    bandColor: '#E8B090',   // warm peach/terracotta
+    bandDark: '#C89878',
+  },
+  {
+    name: 'Clarity',
+    taste: 'Himalayan Lime',
+    bandColor: '#90C8B8',   // soft sage teal
+    bandDark: '#70A898',
+  },
+]
 
-function SachetA({ color, name, rotate = 0 }: { color: string; name: string; rotate?: number }) {
-  // Concept A: "Matte Foil" — dark body, flavor color bottom third, clean type
+function Sachet({
+  name,
+  taste,
+  bandColor,
+  bandDark,
+  angle = 0,
+}: {
+  name: string
+  taste: string
+  bandColor: string
+  bandDark: string
+  angle?: number
+}) {
   return (
-    <div
-      style={{
-        width: W,
-        height: H,
-        borderRadius: '6px 6px 4px 4px',
+    <div style={{
+      width: W,
+      height: H,
+      position: 'relative',
+      transform: `rotate(${angle}deg)`,
+      transition: 'transform 0.4s ease',
+    }}>
+      {/* Drop shadow — follows angle */}
+      <div style={{
+        position: 'absolute',
+        bottom: -6,
+        left: 4,
+        right: 4,
+        height: 8,
+        borderRadius: '50%',
+        background: 'radial-gradient(ellipse, rgba(0,0,0,0.18) 0%, transparent 70%)',
+        filter: 'blur(3px)',
+      }} />
+
+      {/* Sachet body — pillow/tube shape */}
+      <div style={{
+        width: '100%',
+        height: '100%',
+        // Pillow shape — more rounded on sides to simulate tube volume
+        borderRadius: '4px 4px 3px 3px',
         position: 'relative',
         overflow: 'hidden',
-        transform: `perspective(800px) rotateY(${rotate}deg) rotateX(2deg)`,
-        transformStyle: 'preserve-3d',
-        // Matte dark base
-        background: `linear-gradient(180deg,
-          #1A1A1A 0%,
-          #1A1A1A 60%,
-          ${color}22 70%,
-          ${color} 100%
+        // White/cream base — like real Humantra
+        background: `linear-gradient(
+          90deg,
+          #F5F2EE 0%,
+          #FAFAF8 15%,
+          #FFFFFF 40%,
+          #FDFCFB 60%,
+          #FAF9F7 80%,
+          #F2EFEB 100%
         )`,
-        // Realistic shadow
+        // Multi-layer shadow for 3D tube feel
         boxShadow: `
-          ${rotate < 0 ? '8' : '-8'}px 12px 30px rgba(0,0,0,0.4),
-          ${rotate < 0 ? '3' : '-3'}px 4px 8px rgba(0,0,0,0.2),
-          inset 0 1px 0 rgba(255,255,255,0.06),
-          inset 0 -1px 0 rgba(0,0,0,0.3)
+          2px 4px 12px rgba(0,0,0,0.1),
+          1px 2px 4px rgba(0,0,0,0.06),
+          inset -3px 0 8px rgba(0,0,0,0.03),
+          inset 3px 0 6px rgba(255,255,255,0.8)
         `,
-      }}
-    >
-      {/* Top seal — heat sealed edge */}
-      <div style={{
-        height: 8,
-        background: 'rgba(255,255,255,0.04)',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
-      }} />
-
-      {/* Tear notch */}
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        right: 18,
-        width: 0,
-        height: 0,
-        borderLeft: '5px solid transparent',
-        borderRight: '5px solid transparent',
-        borderTop: `6px solid ${color}`,
-      }} />
-
-      {/* Foil highlight — diagonal */}
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        width: 30,
-        height: '100%',
-        background: 'linear-gradient(160deg, transparent 0%, rgba(255,255,255,0.04) 40%, rgba(255,255,255,0.07) 50%, rgba(255,255,255,0.04) 60%, transparent 100%)',
-      }} />
-
-      {/* Left edge highlight */}
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: 3,
-        height: '100%',
-        background: 'linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%)',
-      }} />
-
-      {/* Content */}
-      <div style={{
-        padding: '30px 12px 20px',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        position: 'relative',
-        zIndex: 1,
       }}>
-        {/* Brand */}
-        <div>
-          <p style={{
-            color: 'rgba(255,255,255,0.55)',
-            fontSize: 7,
-            fontWeight: 700,
-            letterSpacing: 2.5,
-            textAlign: 'center',
-            fontFamily: 'system-ui, -apple-system, sans-serif',
-          }}>
-            FIGURING OUT.
-          </p>
+
+        {/* Cylindrical highlight — simulates tube volume */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: '30%',
+          width: '25%',
+          height: '100%',
+          background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)',
+          pointerEvents: 'none',
+        }} />
+
+        {/* Right edge shadow — depth */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          width: 4,
+          height: '100%',
+          background: 'linear-gradient(270deg, rgba(0,0,0,0.06), transparent)',
+          pointerEvents: 'none',
+        }} />
+
+        {/* === FLAVOR COLOR BAND — left 35% === */}
+        <div style={{
+          position: 'absolute',
+          top: 12,
+          left: 0,
+          width: '38%',
+          bottom: 12,
+          background: `linear-gradient(90deg, ${bandColor} 0%, ${bandColor} 70%, transparent 100%)`,
+          borderRadius: '0 2px 2px 0',
+        }}>
+          {/* Diagonal lines pattern on the band */}
           <div style={{
-            width: 20,
-            height: 0.5,
-            background: 'rgba(255,255,255,0.15)',
-            margin: '8px auto',
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: `repeating-linear-gradient(
+              -45deg,
+              transparent,
+              transparent 2px,
+              rgba(255,255,255,0.2) 2px,
+              rgba(255,255,255,0.2) 3px
+            )`,
           }} />
         </div>
 
-        {/* Flavor name — the hero */}
-        <div style={{ textAlign: 'center' }}>
-          {name.split(' ').map((word, i) => (
-            <p key={i} style={{
-              color: 'white',
-              fontSize: 13,
-              fontWeight: 800,
-              letterSpacing: 0.5,
-              lineHeight: 1.3,
-              fontFamily: 'system-ui, -apple-system, sans-serif',
-            }}>
-              {word.toUpperCase()}
-            </p>
-          ))}
-          <p style={{
-            color: 'rgba(255,255,255,0.35)',
-            fontSize: 5.5,
-            fontWeight: 500,
-            letterSpacing: 2.5,
-            marginTop: 10,
-            fontFamily: 'system-ui, -apple-system, sans-serif',
-          }}>
-            ELECTROLYTE MIX
-          </p>
+        {/* === TOP CRIMP SEAL === */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 12,
+          background: `linear-gradient(180deg, #E8E4E0 0%, #F0EDEA 50%, #F5F2EE 100%)`,
+          borderBottom: '0.5px solid rgba(0,0,0,0.08)',
+        }}>
+          {/* Zigzag crimp pattern */}
+          <div style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: 4,
+            backgroundImage: `repeating-linear-gradient(
+              90deg,
+              rgba(0,0,0,0.04) 0px,
+              rgba(0,0,0,0.04) 1.5px,
+              transparent 1.5px,
+              transparent 3.5px
+            )`,
+          }} />
         </div>
 
-        {/* Bottom */}
-        <div style={{ textAlign: 'center' }}>
-          <p style={{
-            color: 'rgba(255,255,255,0.2)',
-            fontSize: 5,
-            letterSpacing: 1,
-            fontFamily: 'system-ui, -apple-system, sans-serif',
-          }}>
-            NET WT 6g
-          </p>
+        {/* === BOTTOM CRIMP SEAL === */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: 12,
+          background: `linear-gradient(0deg, #E8E4E0 0%, #F0EDEA 50%, #F5F2EE 100%)`,
+          borderTop: '0.5px solid rgba(0,0,0,0.08)',
+        }}>
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 4,
+            backgroundImage: `repeating-linear-gradient(
+              90deg,
+              rgba(0,0,0,0.04) 0px,
+              rgba(0,0,0,0.04) 1.5px,
+              transparent 1.5px,
+              transparent 3.5px
+            )`,
+          }} />
         </div>
-      </div>
 
-      {/* Bottom seal */}
-      <div style={{
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: 6,
-        background: 'rgba(0,0,0,0.15)',
-        borderTop: '1px solid rgba(255,255,255,0.04)',
-      }} />
-
-      {/* Flavor color stripe at very bottom */}
-      <div style={{
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: 3,
-        background: color,
-      }} />
-    </div>
-  )
-}
-
-function SachetB({ color, name, rotate = 0 }: { color: string; name: string; rotate?: number }) {
-  // Concept B: "Bold Color" — full flavor color body, white text, LMNT-inspired
-  return (
-    <div
-      style={{
-        width: W,
-        height: H,
-        borderRadius: '6px 6px 4px 4px',
-        position: 'relative',
-        overflow: 'hidden',
-        transform: `perspective(800px) rotateY(${rotate}deg) rotateX(2deg)`,
-        transformStyle: 'preserve-3d',
-        background: `linear-gradient(180deg,
-          ${color} 0%,
-          ${color} 85%,
-          ${color}CC 100%
-        )`,
-        boxShadow: `
-          ${rotate < 0 ? '8' : '-8'}px 12px 30px rgba(0,0,0,0.35),
-          ${rotate < 0 ? '3' : '-3'}px 4px 8px rgba(0,0,0,0.15),
-          inset 0 1px 0 rgba(255,255,255,0.15),
-          inset 0 -1px 0 rgba(0,0,0,0.2)
-        `,
-      }}
-    >
-      {/* Top seal */}
-      <div style={{ height: 8, background: 'rgba(0,0,0,0.1)' }} />
-
-      {/* Dark overlay top half — depth */}
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        height: '45%',
-        background: 'linear-gradient(180deg, rgba(0,0,0,0.2) 0%, transparent 100%)',
-      }} />
-
-      {/* Foil highlight */}
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 8,
-        width: 18,
-        height: '100%',
-        background: 'linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.08) 100%)',
-      }} />
-
-      {/* Content */}
-      <div style={{
-        padding: '30px 12px 20px',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        position: 'relative',
-        zIndex: 1,
-      }}>
-        <div>
+        {/* === TEXT CONTENT (rotated 90deg — reads bottom to top like real sachets) === */}
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%) rotate(-90deg)',
+          whiteSpace: 'nowrap',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 3,
+        }}>
+          {/* Brand name */}
           <p style={{
-            color: 'rgba(255,255,255,0.7)',
-            fontSize: 7,
-            fontWeight: 700,
-            letterSpacing: 2.5,
-            textAlign: 'center',
-            fontFamily: 'system-ui, -apple-system, sans-serif',
+            color: '#1A1A1A',
+            fontSize: 8,
+            fontWeight: 800,
+            letterSpacing: 2,
+            fontFamily: 'var(--font-space-grotesk), system-ui',
           }}>
             FIGURING OUT.
           </p>
+
+          {/* Claims row */}
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <span style={{ color: '#6B7280', fontSize: 3.5, fontWeight: 600, letterSpacing: 0.5, fontFamily: 'system-ui' }}>
+              0g SUGAR
+            </span>
+            <span style={{ color: '#6B7280', fontSize: 2.5 }}>•</span>
+            <span style={{ color: '#6B7280', fontSize: 3.5, fontWeight: 600, letterSpacing: 0.5, fontFamily: 'system-ui' }}>
+              ELECTROLYTES
+            </span>
+            <span style={{ color: '#6B7280', fontSize: 2.5 }}>•</span>
+            <span style={{ color: '#6B7280', fontSize: 3.5, fontWeight: 600, letterSpacing: 0.5, fontFamily: 'system-ui' }}>
+              VEGAN
+            </span>
+          </div>
         </div>
 
-        <div style={{ textAlign: 'center' }}>
-          {name.split(' ').map((word, i) => (
-            <p key={i} style={{
-              color: 'white',
-              fontSize: 14,
-              fontWeight: 800,
-              letterSpacing: 0.3,
-              lineHeight: 1.25,
-              fontFamily: 'system-ui, -apple-system, sans-serif',
-              textShadow: '0 2px 8px rgba(0,0,0,0.2)',
-            }}>
-              {word.toUpperCase()}
-            </p>
-          ))}
+        {/* Flavor name on the color band (also rotated) */}
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '12%',
+          transform: 'translate(-50%, -50%) rotate(-90deg)',
+          whiteSpace: 'nowrap',
+        }}>
           <p style={{
-            color: 'rgba(255,255,255,0.45)',
-            fontSize: 5.5,
-            letterSpacing: 2.5,
-            marginTop: 10,
-            fontFamily: 'system-ui, -apple-system, sans-serif',
+            color: bandDark,
+            fontSize: 3.8,
+            fontWeight: 700,
+            letterSpacing: 0.8,
+            fontFamily: 'var(--font-space-grotesk), system-ui',
+            mixBlendMode: 'multiply',
           }}>
-            ELECTROLYTE MIX
+            {name.toUpperCase()}
           </p>
-        </div>
-
-        <div style={{ textAlign: 'center' }}>
           <p style={{
-            color: 'rgba(255,255,255,0.3)',
-            fontSize: 5,
-            letterSpacing: 1,
-            fontFamily: 'system-ui, -apple-system, sans-serif',
+            color: bandDark,
+            fontSize: 2.8,
+            fontWeight: 500,
+            letterSpacing: 0.5,
+            marginTop: 2,
+            fontFamily: 'system-ui',
+            opacity: 0.7,
           }}>
-            NET WT 6g
+            {taste}
           </p>
         </div>
-      </div>
 
-      {/* Bottom seal */}
-      <div style={{
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: 6,
-        background: 'rgba(0,0,0,0.15)',
-      }} />
-    </div>
-  )
-}
-
-function SachetC({ color, name, rotate = 0 }: { color: string; name: string; rotate?: number }) {
-  // Concept C: "Split" — dark top half, color bottom half, white brand area in center
-  return (
-    <div
-      style={{
-        width: W,
-        height: H,
-        borderRadius: '6px 6px 4px 4px',
-        position: 'relative',
-        overflow: 'hidden',
-        transform: `perspective(800px) rotateY(${rotate}deg) rotateX(2deg)`,
-        transformStyle: 'preserve-3d',
-        background: '#1A1A1A',
-        boxShadow: `
-          ${rotate < 0 ? '8' : '-8'}px 12px 30px rgba(0,0,0,0.4),
-          ${rotate < 0 ? '3' : '-3'}px 4px 8px rgba(0,0,0,0.2),
-          inset 0 1px 0 rgba(255,255,255,0.06)
-        `,
-      }}
-    >
-      {/* Top seal */}
-      <div style={{ height: 8, background: 'rgba(255,255,255,0.03)' }} />
-
-      {/* Color bottom half */}
-      <div style={{
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: '45%',
-        background: `linear-gradient(180deg, ${color}88 0%, ${color} 40%)`,
-      }} />
-
-      {/* White label area — center */}
-      <div style={{
-        position: 'absolute',
-        top: '28%',
-        left: 10,
-        right: 10,
-        height: '30%',
-        background: 'rgba(255,255,255,0.95)',
-        borderRadius: 4,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '10px 6px',
-        boxShadow: '0 2px 12px rgba(0,0,0,0.1)',
-      }}>
-        <p style={{
-          color: '#1A1A1A',
-          fontSize: 6.5,
-          fontWeight: 700,
-          letterSpacing: 2,
-          fontFamily: 'system-ui, -apple-system, sans-serif',
-          marginBottom: 6,
+        {/* Net weight on bottom area (rotated) */}
+        <div style={{
+          position: 'absolute',
+          bottom: 20,
+          left: '65%',
+          transform: 'rotate(-90deg)',
+          transformOrigin: 'left center',
         }}>
-          FIGURING OUT.
-        </p>
-        {name.split(' ').map((word, i) => (
-          <p key={i} style={{
-            color,
-            fontSize: 11,
-            fontWeight: 800,
-            letterSpacing: 0.3,
-            lineHeight: 1.3,
-            fontFamily: 'system-ui, -apple-system, sans-serif',
+          <p style={{
+            color: '#9CA3AF',
+            fontSize: 2.5,
+            letterSpacing: 0.5,
+            fontFamily: 'system-ui',
           }}>
-            {word.toUpperCase()}
+            Net Wt. 6g
           </p>
-        ))}
-      </div>
-
-      {/* Foil highlight */}
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        width: 25,
-        height: '100%',
-        background: 'linear-gradient(160deg, transparent 30%, rgba(255,255,255,0.05) 50%, transparent 70%)',
-      }} />
-
-      {/* Bottom detail */}
-      <div style={{
-        position: 'absolute',
-        bottom: 15,
-        left: 0,
-        right: 0,
-        textAlign: 'center',
-      }}>
-        <p style={{
-          color: 'rgba(255,255,255,0.5)',
-          fontSize: 5,
-          letterSpacing: 2,
-          fontFamily: 'system-ui, -apple-system, sans-serif',
-        }}>
-          ELECTROLYTE MIX
-        </p>
-        <p style={{
-          color: 'rgba(255,255,255,0.25)',
-          fontSize: 4.5,
-          letterSpacing: 1,
-          marginTop: 4,
-          fontFamily: 'system-ui, -apple-system, sans-serif',
-        }}>
-          NET WT 6g
-        </p>
+        </div>
       </div>
     </div>
   )
 }
 
 export default function SachetLab() {
-  const f = coreFlavors
-
   return (
-    <div style={{ backgroundColor: '#0D0D0D', minHeight: '100vh', padding: '40px 16px' }}>
-      <div style={{ maxWidth: 900, margin: '0 auto' }}>
-        <h1 style={{ color: '#F5F5F5', fontSize: 20, fontWeight: 700, marginBottom: 4, fontFamily: 'system-ui' }}>
-          Sachet Lab
+    <div style={{ backgroundColor: '#FAFAF8', minHeight: '100vh', padding: '40px 16px' }}>
+      <div style={{ maxWidth: 500, margin: '0 auto' }}>
+        <p style={{ color: '#14B8A6', fontSize: 10, fontWeight: 600, letterSpacing: 3, marginBottom: 8, fontFamily: 'system-ui', textAlign: 'center' }}>
+          SACHET LAB
+        </p>
+        <h1 style={{ color: '#1A1A1A', fontSize: 22, fontWeight: 700, textAlign: 'center', marginBottom: 6, fontFamily: 'system-ui' }}>
+          The Sachet
         </h1>
-        <p style={{ color: '#6B7280', fontSize: 12, marginBottom: 40, fontFamily: 'system-ui' }}>
-          3 concepts × 3 flavors. CSS 3D with perspective, foil, shadows.
+        <p style={{ color: '#6B7280', fontSize: 11, textAlign: 'center', marginBottom: 50, fontFamily: 'system-ui', lineHeight: 1.5 }}>
+          White matte foil. Soft flavor band. Tube shape.<br/>
+          Based on Humantra reference.
         </p>
 
-        {/* Concept A: Matte Foil */}
-        <div style={{ marginBottom: 60 }}>
-          <p style={{ color: '#14B8A6', fontSize: 11, fontWeight: 600, letterSpacing: 2, marginBottom: 20, fontFamily: 'system-ui' }}>
-            CONCEPT A — MATTE FOIL
-          </p>
-          <p style={{ color: '#6B7280', fontSize: 10, marginBottom: 20, fontFamily: 'system-ui' }}>
-            Dark matte body. Flavor color bleeds in from bottom. Restrained. AG1 energy.
-          </p>
-          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: 20 }}>
-            <SachetA color={f[0]?.color || '#8B5CF6'} name={f[0]?.name || ''} rotate={-8} />
-            <div style={{ transform: 'translateY(-20px)' }}>
-              <SachetA color={f[2]?.color || '#14B8A6'} name={f[2]?.name || ''} rotate={0} />
-            </div>
-            <SachetA color={f[1]?.color || '#FF4D00'} name={f[1]?.name || ''} rotate={8} />
+        {/* Fanned display — diagonal angles like Humantra hero shot */}
+        <div style={{
+          position: 'relative',
+          height: 300,
+          marginBottom: 60,
+        }}>
+          <div style={{ position: 'absolute', left: '10%', top: 30 }}>
+            <Sachet {...flavors[0]} angle={-35} />
+          </div>
+          <div style={{ position: 'absolute', left: '35%', top: 10 }}>
+            <Sachet {...flavors[2]} angle={-25} />
+          </div>
+          <div style={{ position: 'absolute', left: '58%', top: 0 }}>
+            <Sachet {...flavors[1]} angle={-15} />
           </div>
         </div>
 
-        {/* Concept B: Bold Color */}
-        <div style={{ marginBottom: 60 }}>
-          <p style={{ color: '#FFD700', fontSize: 11, fontWeight: 600, letterSpacing: 2, marginBottom: 20, fontFamily: 'system-ui' }}>
-            CONCEPT B — BOLD COLOR
-          </p>
-          <p style={{ color: '#6B7280', fontSize: 10, marginBottom: 20, fontFamily: 'system-ui' }}>
-            Full flavor color body. Bold and loud. LMNT energy. Each flavor owns its color completely.
-          </p>
-          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: 20 }}>
-            <SachetB color={f[0]?.color || '#8B5CF6'} name={f[0]?.name || ''} rotate={-8} />
-            <div style={{ transform: 'translateY(-20px)' }}>
-              <SachetB color={f[2]?.color || '#14B8A6'} name={f[2]?.name || ''} rotate={0} />
-            </div>
-            <SachetB color={f[1]?.color || '#FF4D00'} name={f[1]?.name || ''} rotate={8} />
-          </div>
+        {/* Upright display */}
+        <p style={{ color: '#9CA3AF', fontSize: 10, textAlign: 'center', marginBottom: 20, fontFamily: 'system-ui' }}>
+          Upright
+        </p>
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: 16, marginBottom: 60 }}>
+          {flavors.map((f, i) => (
+            <Sachet key={f.name} {...f} angle={0} />
+          ))}
         </div>
 
-        {/* Concept C: Split */}
-        <div style={{ marginBottom: 60 }}>
-          <p style={{ color: '#FF6B9D', fontSize: 11, fontWeight: 600, letterSpacing: 2, marginBottom: 20, fontFamily: 'system-ui' }}>
-            CONCEPT C — SPLIT
-          </p>
-          <p style={{ color: '#6B7280', fontSize: 10, marginBottom: 20, fontFamily: 'system-ui' }}>
-            Dark top, color bottom, white label center. Humantra meets luxury skincare. Most distinctive.
-          </p>
-          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: 20 }}>
-            <SachetC color={f[0]?.color || '#8B5CF6'} name={f[0]?.name || ''} rotate={-8} />
-            <div style={{ transform: 'translateY(-20px)' }}>
-              <SachetC color={f[2]?.color || '#14B8A6'} name={f[2]?.name || ''} rotate={0} />
-            </div>
-            <SachetC color={f[1]?.color || '#FF4D00'} name={f[1]?.name || ''} rotate={8} />
+        {/* Single close-up */}
+        <p style={{ color: '#9CA3AF', fontSize: 10, textAlign: 'center', marginBottom: 20, fontFamily: 'system-ui' }}>
+          Close-up — 2.5x
+        </p>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 40 }}>
+          <div style={{ transform: 'scale(2.5)', transformOrigin: 'top center' }}>
+            <Sachet {...flavors[2]} angle={-20} />
           </div>
         </div>
       </div>
