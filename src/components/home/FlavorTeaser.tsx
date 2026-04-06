@@ -20,7 +20,7 @@ export default function FlavorTeaser() {
           </p>
         </div>
 
-        {/* Desktop — cards with sachet */}
+        {/* Desktop */}
         <div className="hidden sm:grid sm:grid-cols-3 gap-4">
           {coreFlavors.map((flavor) => {
             const colors = sachetColors[flavor.slug] || sachetColors['clarity']
@@ -33,6 +33,7 @@ export default function FlavorTeaser() {
                 <div className="flex justify-center mb-4">
                   <Sachet3D
                     bandColor={colors.bandColor}
+                    bandLight={colors.bandLight}
                     bandDark={colors.bandDark}
                     name={flavor.name}
                     taste={flavor.taste}
@@ -50,7 +51,7 @@ export default function FlavorTeaser() {
           })}
         </div>
 
-        {/* Mobile — colored band cards */}
+        {/* Mobile */}
         <div className="sm:hidden space-y-3">
           {coreFlavors.map((flavor) => {
             const colors = sachetColors[flavor.slug] || sachetColors['clarity']
@@ -63,6 +64,7 @@ export default function FlavorTeaser() {
                 <div className="flex-shrink-0">
                   <Sachet3D
                     bandColor={colors.bandColor}
+                    bandLight={colors.bandLight}
                     bandDark={colors.bandDark}
                     name={flavor.name}
                     taste={flavor.taste}

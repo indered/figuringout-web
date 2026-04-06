@@ -15,26 +15,12 @@
 const W = 38  // narrow — real sachets are ~22mm wide
 const H = 220 // ~1:5.8 ratio
 
-// Figuring Out flavor colors — soft, not garish
+import { sachetColors } from '@/components/home/Sachet3D'
+
 const flavors = [
-  {
-    name: 'Broke But Hydrated',
-    taste: 'Berry & Pomegranate',
-    bandColor: '#D4A0B0',   // soft dusty rose
-    bandDark: '#B8849A',
-  },
-  {
-    name: 'Hot Ex',
-    taste: 'Citrus Energy',
-    bandColor: '#E8B090',   // warm peach/terracotta
-    bandDark: '#C89878',
-  },
-  {
-    name: 'Clarity',
-    taste: 'Himalayan Lime',
-    bandColor: '#90C8B8',   // soft sage teal
-    bandDark: '#70A898',
-  },
+  { name: 'Broke But Hydrated', taste: 'Berry & Pomegranate', ...sachetColors['broke-but-hydrated'] },
+  { name: 'Hot Ex', taste: 'Citrus Energy', ...sachetColors['hot-ex'] },
+  { name: 'Clarity', taste: 'Himalayan Lime', ...sachetColors['clarity'] },
 ]
 
 function Sachet({

@@ -9,7 +9,7 @@ export default function CoastalHero() {
   const wavesY = useTransform(scrollY, [0, 500], [0, 40])
 
   return (
-    <section className="relative min-h-[75vh] sm:min-h-screen flex flex-col justify-center overflow-hidden">
+    <section className="relative min-h-[60vh] sm:min-h-[80vh] flex flex-col justify-center overflow-hidden">
       {/* Sky gradient */}
       <div
         className="absolute inset-0 z-0"
@@ -181,7 +181,7 @@ export default function CoastalHero() {
 
       {/* Content */}
       <div
-        className="relative z-[60] max-w-4xl mx-auto px-4 sm:px-6 text-center pt-14 sm:pt-20 pb-12 sm:pb-28"
+        className="relative z-[60] max-w-4xl mx-auto px-4 sm:px-6 text-center pt-12 sm:pt-16 pb-8 sm:pb-16"
       >
         <motion.div
           className="flex justify-center mb-4 sm:mb-6"
@@ -198,7 +198,7 @@ export default function CoastalHero() {
         </motion.div>
 
         <motion.h1
-          className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-3 sm:mb-4"
+          className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold leading-tight mb-2 sm:mb-3"
           style={{ color: '#1A1A1A' }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

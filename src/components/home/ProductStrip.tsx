@@ -5,22 +5,24 @@ export default function ProductStrip() {
   return (
     <section className="py-8 sm:py-12 px-4 sm:px-6" style={{ backgroundColor: '#FDF8F3' }}>
       <div className="max-w-md sm:max-w-lg mx-auto text-center">
-        {/* Fanned sachet display */}
-        <div className="relative mx-auto mb-5 sm:mb-6" style={{ height: 200 }}>
+        {/* Fanned sachet display — one torn with powder */}
+        <div className="relative mx-auto mb-5 sm:mb-6" style={{ height: 220 }}>
           {coreFlavors.map((f, i) => {
             const colors = sachetColors[f.slug] || sachetColors['clarity']
             const angles = [-30, -15, -5]
-            const lefts = ['15%', '35%', '55%']
-            const tops = [20, 5, 0]
+            const lefts = ['12%', '34%', '56%']
+            const tops = [25, 5, 0]
             return (
-              <div key={f.slug} style={{ position: 'absolute', left: lefts[i], top: tops[i] }}>
+              <div key={f.slug} style={{ position: 'absolute', left: lefts[i], top: tops[i], zIndex: 3 - i }}>
                 <Sachet3D
                   bandColor={colors.bandColor}
+                  bandLight={colors.bandLight}
                   bandDark={colors.bandDark}
                   name={f.name}
                   taste={f.taste}
                   angle={angles[i]}
-                  size={32}
+                  size={34}
+                  torn={i === 0}
                 />
               </div>
             )
