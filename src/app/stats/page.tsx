@@ -16,6 +16,10 @@ interface Stats {
   topCountries: { _id: string; count: number }[]
   topCities: { _id: { city: string; country: string }; count: number }[]
   topPages: { _id: string; count: number }[]
+  trafficSources: { _id: string; count: number }[]
+  devices: { _id: string; count: number }[]
+  scrollStats: { avg: number; max: number; samples: number }
+  conversionRate: number
   daily: { _id: string; count: number }[]
   recent: { country?: string; city?: string; page: string; timestamp: string }[]
 }
@@ -75,6 +79,39 @@ export default function StatsPage() {
             </div>
           ))}
         </div>
+
+        {/* Business metrics row */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8">
+          <div className="rounded-xl p-4" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
+            <p className="text-2xl font-bold" style={{ color: '#14B8A6' }}>{stats.conversionRate}%</p>
+            <p className="text-[10px] mt-1" style={{ color: '#9CA3AF' }}>Conversion Rate</p>
+          </div>
+          <div className="rounded-xl p-4" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
+            <p className="text-2xl font-bold" style={{ color: '#FFD700' }}>{stats.scrollStats.avg}%</p>
+            <p className="text-[10px] mt-1" style={{ color: '#9CA3AF' }}>Avg Scroll Depth</p>
+          </div>
+          {stats.devices.map(d => (
+            <div key={d._id || 'unknown'} className="rounded-xl p-4" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
+              <p className="text-2xl font-bold" style={{ color: '#FF6B9D' }}>{d.count}</p>
+              <p className="text-[10px] mt-1 capitalize" style={{ color: '#9CA3AF' }}>{d._id || 'Unknown'}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Traffic sources */}
+        {stats.trafficSources.length > 0 && (
+          <div className="rounded-xl p-4 sm:p-5 mb-8" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
+            <p className="text-xs font-semibold mb-3" style={{ color: '#9CA3AF' }}>Traffic Sources</p>
+            <div className="flex flex-wrap gap-3">
+              {stats.trafficSources.map(s => (
+                <div key={s._id || 'unknown'} className="flex items-center gap-2">
+                  <span className="text-sm font-bold" style={{ color: '#14B8A6' }}>{s.count}</span>
+                  <span className="text-xs capitalize" style={{ color: '#9CA3AF' }}>{s._id || 'unknown'}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Waitlist breakdown */}
         <div className="rounded-xl p-4 sm:p-5 mb-8" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>

@@ -11,6 +11,15 @@ interface VisitorEntry {
   page: string
   userAgent?: string
   referrer?: string
+  source?: string
+  device?: string
+  screenWidth?: number
+  timestamp: Date
+}
+
+interface ScrollEntry {
+  page: string
+  scrollDepth: number
   timestamp: Date
 }
 
@@ -52,6 +61,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ ok: true, skipped: true })
     }
 
+    // Handle scroll depth events
+    if (body.type === 'scroll') {
+      const scroll: ScrollEntry = {
+        page: body.page || '/',
+        scrollDepth: body.scrollDepth || 0,
+        timestamp: new Date(),
+      }
+      await db.collection('fig_out_scroll').insertOne(scroll)
+      return NextResponse.json({ ok: true })
+    }
+
     const geo = await getGeo(ip)
 
     const entry: VisitorEntry = {
@@ -62,6 +82,9 @@ export async function POST(request: NextRequest) {
       page: body.page || '/',
       userAgent: request.headers.get('user-agent') || undefined,
       referrer: request.headers.get('referer') || body.referrer || undefined,
+      source: body.source || undefined,
+      device: body.device || undefined,
+      screenWidth: body.screenWidth || undefined,
       timestamp: new Date(),
     }
 
@@ -138,6 +161,30 @@ export async function GET() {
       { $limit: 10 },
     ]).toArray()
 
+    // Traffic sources
+    const trafficSources = await visitors.aggregate([
+      { $match: excludeFilter },
+      { $group: { _id: '$source', count: { $sum: 1 } } },
+      { $sort: { count: -1 } },
+    ]).toArray()
+
+    // Device split
+    const devices = await visitors.aggregate([
+      { $match: excludeFilter },
+      { $group: { _id: '$device', count: { $sum: 1 } } },
+      { $sort: { count: -1 } },
+    ]).toArray()
+
+    // Avg scroll depth (homepage)
+    const scrollData = await db.collection('fig_out_scroll').aggregate([
+      { $match: { page: '/' } },
+      { $group: { _id: null, avg: { $avg: '$scrollDepth' }, max: { $max: '$scrollDepth' }, count: { $sum: 1 } } },
+    ]).toArray()
+    const scrollStats = scrollData[0] || { avg: 0, max: 0, count: 0 }
+
+    // Conversion rate (waitlist signups / unique homepage visitors)
+    const homepageVisitors = await visitors.countDocuments({ ...excludeFilter, page: '/' })
+
     // Waitlist data
     const emailCollection = db.collection('fig_out_emails')
     const phoneCollection = db.collection('fig_out_mobile')
@@ -155,6 +202,9 @@ export async function GET() {
       .project({ _id: 0, phone: 1, countryCode: 1, country: 1, createdAt: 1, ipCountry: 1, ipCity: 1 })
       .toArray()
 
+    const waitlistTotal = emailCount + phoneCount
+    const conversionRate = homepageVisitors > 0 ? Math.round((waitlistTotal / homepageVisitors) * 1000) / 10 : 0
+
     return NextResponse.json({
       total,
       today,
@@ -162,13 +212,17 @@ export async function GET() {
       waitlist: {
         email: emailCount,
         phone: phoneCount,
-        total: emailCount + phoneCount,
+        total: waitlistTotal,
         emailList,
         phoneList,
       },
       topCountries,
       topCities,
       topPages,
+      trafficSources,
+      devices,
+      scrollStats: { avg: Math.round(scrollStats.avg || 0), max: scrollStats.max || 0, samples: scrollStats.count || 0 },
+      conversionRate,
       daily,
       recent,
     })

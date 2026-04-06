@@ -1,6 +1,7 @@
 import Navbar from '@/components/layout/Navbar'
 import ScrollProgress from '@/components/home/ScrollProgress'
 import CoastalHero from '@/components/home/CoastalHero'
+import ProductStrip from '@/components/home/ProductStrip'
 import WhatsInside from '@/components/home/WhatsInside'
 import FlavorTeaser from '@/components/home/FlavorTeaser'
 import Marquee from '@/components/home/Marquee'
@@ -65,6 +66,7 @@ export default function Home() {
       <ScrollProgress />
       <Navbar />
       <CoastalHero />
+      <ProductStrip />
       <WhatsInside />
       <FlavorTeaser />
       <Marquee />
