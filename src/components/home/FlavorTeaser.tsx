@@ -1,31 +1,5 @@
-'use client'
-
 import { coreFlavors } from '@/data/flavors'
-
-function Sachet({ color, size = 'md' }: { color: string; size?: 'sm' | 'md' }) {
-  const w = size === 'sm' ? 50 : 70
-  const h = size === 'sm' ? 68 : 95
-  return (
-    <div className="relative mx-auto" style={{ width: w, height: h }}>
-      <svg width={w} height={h} viewBox="0 0 90 120" fill="none">
-        <ellipse cx="45" cy="115" rx="30" ry="5" fill="black" fillOpacity="0.08" />
-        <path d="M12 18 L20 6 L70 6 L78 18" fill={color} style={{ filter: 'brightness(0.7)' }} />
-        <rect x="10" y="18" width="70" height="95" rx="4" fill={color} />
-        <rect x="10" y="18" width="8" height="95" rx="2" fill="black" fillOpacity="0.12" />
-        <rect x="10" y="18" width="70" height="12" fill={color} style={{ filter: 'brightness(0.85)' }} />
-        <line x1="10" y1="30" x2="80" y2="30" stroke="black" strokeOpacity="0.08" strokeWidth="1" />
-        <path d="M73 20 L80 14 L80 26 Z" fill="white" fillOpacity="0.25" />
-        <circle cx="76" cy="23" r="2.5" fill="white" fillOpacity="0.4" />
-        <rect x="18" y="36" width="54" height="44" rx="5" fill="white" fillOpacity="0.95" />
-        <text x="45" y="54" textAnchor="middle" fill={color} fontSize="11" fontWeight="800" fontFamily="system-ui, sans-serif">FIGURING</text>
-        <text x="45" y="68" textAnchor="middle" fill={color} fontSize="11" fontWeight="800" fontFamily="system-ui, sans-serif">OUT.</text>
-        <path d="M15 88 Q32 82 45 88 Q58 94 75 88" stroke="white" strokeWidth="2.5" fill="none" strokeOpacity="0.5" />
-        <path d="M15 96 Q32 90 45 96 Q58 102 75 96" stroke="white" strokeWidth="2" fill="none" strokeOpacity="0.3" />
-        <rect x="62" y="35" width="10" height="50" rx="5" fill="white" fillOpacity="0.12" transform="rotate(12, 67, 60)" />
-      </svg>
-    </div>
-  )
-}
+import Sachet3D from './Sachet3D'
 
 const flavorLine: Record<string, string> = {
   'broke-but-hydrated': 'Tastes like berry & pomegranate',
@@ -46,7 +20,7 @@ export default function FlavorTeaser() {
           </p>
         </div>
 
-        {/* Desktop */}
+        {/* Desktop — white cards with 3D sachet */}
         <div className="hidden sm:grid sm:grid-cols-3 gap-4">
           {coreFlavors.map((flavor) => (
             <div
@@ -57,8 +31,8 @@ export default function FlavorTeaser() {
                 boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
               }}
             >
-              <div className="mb-4">
-                <Sachet color={flavor.color} />
+              <div className="flex justify-center mb-4">
+                <Sachet3D color={flavor.color} label={flavor.name} size={55} />
               </div>
               <h3 className="text-base font-bold mb-0.5" style={{ color: '#1A1A1A' }}>{flavor.name}</h3>
               <p className="text-xs font-medium mb-1" style={{ color: flavor.color }}>
@@ -69,7 +43,7 @@ export default function FlavorTeaser() {
           ))}
         </div>
 
-        {/* Mobile — colored cards with full sachet */}
+        {/* Mobile — colored cards with 3D sachet */}
         <div className="sm:hidden space-y-3">
           {coreFlavors.map((flavor) => (
             <div
@@ -78,7 +52,7 @@ export default function FlavorTeaser() {
               style={{ backgroundColor: flavor.color }}
             >
               <div className="flex-shrink-0">
-                <Sachet color={flavor.color} size="sm" />
+                <Sachet3D color={flavor.color} label={flavor.name} size={38} />
               </div>
               <div>
                 <h3 className="text-base font-bold text-white">{flavor.name}</h3>
