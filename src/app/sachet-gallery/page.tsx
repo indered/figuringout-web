@@ -182,7 +182,7 @@ const BoldSachet = ({ flavorName, bgColor, microText, illustration, dotColor, sc
         position: 'absolute', top: 20 * scale, left: 0, width: '100%',
         textAlign: 'center', fontSize: 5 * scale, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
         color: 'rgba(255,255,255,0.7)', letterSpacing: 1.5 * scale, fontWeight: 400,
-        textTransform: 'uppercase', zIndex: 3,
+        zIndex: 3,
       }}>
         Figuring Out<span style={{color:'#14B8A6'}}>.</span>
       </div>
@@ -765,8 +765,7 @@ const WildSachet = ({ concept }: { concept: 1 | 2 | 3 | 4 | 5 }) => {
               <div style={{
                 fontSize: 5.5, color: '#8B4513', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
                 textAlign: 'center', fontWeight: 700, lineHeight: 1.2,
-                textTransform: 'uppercase',
-              }}>figuring<br />out</div>
+              }}>Figuring<br />Out<span style={{color:'#14B8A6'}}>.</span></div>
             </div>
             {/* ink splash */}
             <div style={{
