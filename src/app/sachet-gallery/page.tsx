@@ -6,7 +6,7 @@ import React from 'react';
 
 const SectionHeader = ({ num, title, desc }: { num: string; title: string; desc: string }) => (
   <div style={{ marginBottom: 48 }}>
-    <span style={{ color: '#14B8A6', fontFamily: 'monospace', fontSize: 13, letterSpacing: 2, textTransform: 'uppercase' }}>
+    <span style={{ color: '#14B8A6', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif', fontSize: 13, letterSpacing: 2, textTransform: 'uppercase' }}>
       Section {num}
     </span>
     <h2 style={{ color: '#fff', fontSize: 32, fontWeight: 700, margin: '8px 0 12px', letterSpacing: -0.5 }}>{title}</h2>
@@ -195,7 +195,7 @@ const SignedSachet = ({ flavorName, accent, microText, illustration, scale = 1, 
       {/* Brand name top */}
       <div style={{
         position: 'absolute', top: 20 * scale, left: 0, width: '100%',
-        textAlign: 'center', fontSize: 7 * scale, fontFamily: 'system-ui, sans-serif',
+        textAlign: 'center', fontSize: 7 * scale, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
         color: '#1A1714', letterSpacing: 1.5 * scale, fontWeight: 400,
       }}>
         figuring out
@@ -213,7 +213,7 @@ const SignedSachet = ({ flavorName, accent, microText, illustration, scale = 1, 
       {/* Flavor name */}
       <div style={{
         position: 'absolute', bottom: 50 * scale, left: 0, width: '100%',
-        textAlign: 'center', fontSize: 8.5 * scale, fontFamily: 'Georgia, serif',
+        textAlign: 'center', fontSize: 8.5 * scale, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
         color: accent, fontStyle: 'italic', transform: 'rotate(1deg)',
         fontWeight: 600, letterSpacing: 0.3 * scale,
       }}>
@@ -223,7 +223,7 @@ const SignedSachet = ({ flavorName, accent, microText, illustration, scale = 1, 
       {/* Micro text */}
       <div style={{
         position: 'absolute', bottom: 28 * scale, left: 4 * scale, right: 4 * scale,
-        textAlign: 'center', fontSize: 4.5 * scale, fontFamily: 'system-ui, sans-serif',
+        textAlign: 'center', fontSize: 4.5 * scale, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
         color: '#6B6459', lineHeight: 1.4, letterSpacing: 0.2,
       }}>
         {microText}
@@ -287,7 +287,7 @@ const WaterSachet = ({ variant }: { variant: '2A' | '2B' | '2C' | '2D' }) => {
         {/* brand */}
         <div style={{
           position: 'absolute', top: 22, left: 0, width: '100%',
-          textAlign: 'center', fontSize: 6.5, fontFamily: 'system-ui, sans-serif',
+          textAlign: 'center', fontSize: 6.5, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
           color: variant === '2D' ? '#fff' : '#1A1714', letterSpacing: 1.2,
         }}>
           figuring out
@@ -296,7 +296,7 @@ const WaterSachet = ({ variant }: { variant: '2A' | '2B' | '2C' | '2D' }) => {
         {/* flavor name center */}
         <div style={{
           position: 'absolute', top: '45%', left: 0, width: '100%',
-          textAlign: 'center', fontSize: 8, fontFamily: 'Georgia, serif',
+          textAlign: 'center', fontSize: 8, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
           color: variant === '2D' ? '#1A7A7A' : '#333', fontStyle: 'italic',
         }}>
           Still Loading
@@ -327,7 +327,7 @@ const WaterSachet = ({ variant }: { variant: '2A' | '2B' | '2C' | '2D' }) => {
           </>
         )}
       </div>
-      <div style={{ marginTop: 10, fontSize: 11, color: '#14B8A6', fontFamily: 'monospace', fontWeight: 600 }}>{cfg.label}</div>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#14B8A6', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif', fontWeight: 600 }}>{cfg.label}</div>
       <div style={{ fontSize: 10, color: '#666', marginTop: 2 }}>{cfg.sublabel}</div>
     </div>
   );
@@ -370,17 +370,17 @@ const WildSachet = ({ concept }: { concept: 1 | 2 | 3 | 4 | 5 }) => {
             ))}
             <div style={{
               position: 'absolute', top: 16, left: 0, width: '100%',
-              textAlign: 'center', fontSize: 6, color: '#fff', fontFamily: 'monospace',
+              textAlign: 'center', fontSize: 6, color: '#fff', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
               letterSpacing: 1.5, fontWeight: 700,
             }}>ADMIT ONE</div>
             <div style={{
               position: 'absolute', top: '50%', left: 0, width: '100%',
-              textAlign: 'center', fontSize: 7.5, color: '#FF4D00', fontFamily: 'system-ui, sans-serif',
+              textAlign: 'center', fontSize: 7.5, color: '#FF4D00', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
               fontWeight: 700, letterSpacing: 0.5,
             }}>Left On Read</div>
             <div style={{
               position: 'absolute', bottom: 20, left: 0, width: '100%',
-              textAlign: 'center', fontSize: 5, color: '#555', fontFamily: 'monospace',
+              textAlign: 'center', fontSize: 5, color: '#555', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
             }}>figuring out</div>
           </div>
         );
@@ -396,14 +396,14 @@ const WildSachet = ({ concept }: { concept: 1 | 2 | 3 | 4 | 5 }) => {
             <div style={{ position: 'absolute', top: 12, left: 4, right: 4, borderBottom: '1.5px solid #1A1714' }} />
             <div style={{
               position: 'absolute', top: 16, left: 0, width: '100%',
-              textAlign: 'center', fontSize: 6, color: '#1A1714', fontFamily: 'Georgia, serif',
+              textAlign: 'center', fontSize: 6, color: '#1A1714', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
               letterSpacing: 1, fontWeight: 700, fontStyle: 'italic',
             }}>THE DAILY HYDRATE</div>
             <div style={{ position: 'absolute', top: 28, left: 4, right: 4, borderBottom: '0.5px solid #1A1714' }} />
             {/* headline */}
             <div style={{
               position: 'absolute', top: 40, left: 6, right: 6,
-              fontSize: 8, color: '#1A1714', fontFamily: 'Georgia, serif',
+              fontSize: 8, color: '#1A1714', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
               fontWeight: 700, lineHeight: 1.3, textAlign: 'center',
             }}>Therapy Is Expensive</div>
             {/* body text lines */}
@@ -415,7 +415,7 @@ const WildSachet = ({ concept }: { concept: 1 | 2 | 3 | 4 | 5 }) => {
             ))}
             <div style={{
               position: 'absolute', bottom: 16, left: 0, width: '100%',
-              textAlign: 'center', fontSize: 5, color: '#888', fontFamily: 'Georgia, serif',
+              textAlign: 'center', fontSize: 5, color: '#888', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
             }}>figuring out</div>
           </div>
         );
@@ -429,13 +429,13 @@ const WildSachet = ({ concept }: { concept: 1 | 2 | 3 | 4 | 5 }) => {
             <div style={{
               position: 'absolute', top: '50%', left: '50%',
               transform: 'translate(-50%, -50%) rotate(-90deg)',
-              fontSize: 18, color: '#fff', fontFamily: 'system-ui, sans-serif',
+              fontSize: 18, color: '#fff', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
               fontWeight: 900, letterSpacing: -1, whiteSpace: 'nowrap',
               textTransform: 'uppercase',
             }}>SITUATIONSHIP</div>
             <div style={{
               position: 'absolute', bottom: 10, left: 0, width: '100%',
-              textAlign: 'center', fontSize: 5, color: 'rgba(255,255,255,0.6)', fontFamily: 'monospace',
+              textAlign: 'center', fontSize: 5, color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
             }}>figuring out</div>
           </div>
         );
@@ -449,17 +449,17 @@ const WildSachet = ({ concept }: { concept: 1 | 2 | 3 | 4 | 5 }) => {
           }}>
             <div style={{
               position: 'absolute', top: 14, left: 0, width: '100%',
-              textAlign: 'center', fontSize: 5, color: '#999', fontFamily: 'monospace',
+              textAlign: 'center', fontSize: 5, color: '#999', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
               letterSpacing: 1,
             }}>BOARDING PASS</div>
             {/* FROM */}
             <div style={{
               position: 'absolute', top: 40, left: 6,
-              fontSize: 5, color: '#999', fontFamily: 'monospace',
+              fontSize: 5, color: '#999', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
             }}>FROM</div>
             <div style={{
               position: 'absolute', top: 48, left: 6,
-              fontSize: 10, color: '#1A1A1A', fontFamily: 'system-ui, sans-serif', fontWeight: 800,
+              fontSize: 10, color: '#1A1A1A', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif', fontWeight: 800,
             }}>DRY</div>
             {/* arrow */}
             <div style={{
@@ -469,11 +469,11 @@ const WildSachet = ({ concept }: { concept: 1 | 2 | 3 | 4 | 5 }) => {
             {/* TO */}
             <div style={{
               position: 'absolute', top: 90, left: 6,
-              fontSize: 5, color: '#999', fontFamily: 'monospace',
+              fontSize: 5, color: '#999', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
             }}>TO</div>
             <div style={{
               position: 'absolute', top: 98, left: 6,
-              fontSize: 8, color: '#1A1A1A', fontFamily: 'system-ui, sans-serif', fontWeight: 800,
+              fontSize: 8, color: '#1A1A1A', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif', fontWeight: 800,
             }}>COCONUT LIME</div>
             {/* barcode bars at bottom */}
             <div style={{ position: 'absolute', bottom: 14, left: 6, right: 6, display: 'flex', gap: 1, height: 24 }}>
@@ -487,7 +487,7 @@ const WildSachet = ({ concept }: { concept: 1 | 2 | 3 | 4 | 5 }) => {
             </div>
             <div style={{
               position: 'absolute', bottom: 4, left: 0, width: '100%',
-              textAlign: 'center', fontSize: 4, color: '#CCC', fontFamily: 'monospace',
+              textAlign: 'center', fontSize: 4, color: '#CCC', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
             }}>FIG-OUT-2026</div>
           </div>
         );
@@ -516,7 +516,7 @@ const WildSachet = ({ concept }: { concept: 1 | 2 | 3 | 4 | 5 }) => {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
               <div style={{
-                fontSize: 5.5, color: '#8B4513', fontFamily: 'Georgia, serif',
+                fontSize: 5.5, color: '#8B4513', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
                 textAlign: 'center', fontWeight: 700, lineHeight: 1.2,
                 textTransform: 'uppercase',
               }}>figuring<br />out</div>
@@ -535,12 +535,12 @@ const WildSachet = ({ concept }: { concept: 1 | 2 | 3 | 4 | 5 }) => {
             {/* flavor */}
             <div style={{
               position: 'absolute', bottom: 45, left: 0, width: '100%',
-              textAlign: 'center', fontSize: 7, color: '#5C4033', fontFamily: 'Georgia, serif',
+              textAlign: 'center', fontSize: 7, color: '#5C4033', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
               fontStyle: 'italic', fontWeight: 600,
             }}>Still Loading</div>
             <div style={{
               position: 'absolute', bottom: 25, left: 0, width: '100%',
-              textAlign: 'center', fontSize: 4.5, color: '#8B7355', fontFamily: 'system-ui, sans-serif',
+              textAlign: 'center', fontSize: 4.5, color: '#8B7355', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
             }}>coconut &amp; lime</div>
           </div>
         );
@@ -550,7 +550,7 @@ const WildSachet = ({ concept }: { concept: 1 | 2 | 3 | 4 | 5 }) => {
   return (
     <div style={{ textAlign: 'center' }}>
       {renderContent()}
-      <div style={{ marginTop: 10, fontSize: 11, color: '#14B8A6', fontFamily: 'monospace', fontWeight: 600 }}>
+      <div style={{ marginTop: 10, fontSize: 11, color: '#14B8A6', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif', fontWeight: 600 }}>
         {concept}. {labels[concept]}
       </div>
     </div>
@@ -582,7 +582,7 @@ const EarlierSachet = ({ accent, flavorName }: { accent: string; flavorName: str
       {/* brand */}
       <div style={{
         position: 'absolute', top: 22, left: 0, width: '100%',
-        textAlign: 'center', fontSize: 6, fontFamily: 'system-ui, sans-serif',
+        textAlign: 'center', fontSize: 6, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
         color: 'rgba(255,255,255,0.5)', letterSpacing: 1.5,
       }}>
         figuring out
@@ -595,7 +595,7 @@ const EarlierSachet = ({ accent, flavorName }: { accent: string; flavorName: str
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
         <div style={{
-          fontSize: 7.5, color: '#fff', fontFamily: 'Georgia, serif',
+          fontSize: 7.5, color: '#fff', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
           fontStyle: 'italic', fontWeight: 600, textAlign: 'center',
           letterSpacing: 0.3, padding: '0 4px',
         }}>
@@ -607,7 +607,7 @@ const EarlierSachet = ({ accent, flavorName }: { accent: string; flavorName: str
       <div style={{
         position: 'absolute', bottom: 22, left: 0, width: '100%',
         textAlign: 'center', fontSize: 4.5, color: 'rgba(255,255,255,0.35)',
-        fontFamily: 'monospace',
+        fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
       }}>
         electrolyte mix
       </div>
@@ -642,7 +642,7 @@ export default function SachetGalleryPage() {
 
           {/* Display A: Fanned at diagonal angles */}
           <div style={{ marginBottom: 60 }}>
-            <div style={{ fontSize: 11, color: '#555', fontFamily: 'monospace', marginBottom: 16, letterSpacing: 1 }}>
+            <div style={{ fontSize: 11, color: '#555', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif', marginBottom: 16, letterSpacing: 1 }}>
               FANNED DISPLAY
             </div>
             <div style={{
@@ -669,7 +669,7 @@ export default function SachetGalleryPage() {
 
           {/* Display B: Upright side by side */}
           <div style={{ marginBottom: 60 }}>
-            <div style={{ fontSize: 11, color: '#555', fontFamily: 'monospace', marginBottom: 16, letterSpacing: 1 }}>
+            <div style={{ fontSize: 11, color: '#555', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif', marginBottom: 16, letterSpacing: 1 }}>
               UPRIGHT LINEUP
             </div>
             <div style={{ display: 'flex', justifyContent: 'center', gap: 24, flexWrap: 'wrap' }}>
@@ -687,7 +687,7 @@ export default function SachetGalleryPage() {
 
           {/* Display C: 2.5x Close-up */}
           <div>
-            <div style={{ fontSize: 11, color: '#555', fontFamily: 'monospace', marginBottom: 16, letterSpacing: 1 }}>
+            <div style={{ fontSize: 11, color: '#555', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif', marginBottom: 16, letterSpacing: 1 }}>
               CLOSE-UP (2.5x)
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
