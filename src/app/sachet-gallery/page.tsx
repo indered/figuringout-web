@@ -177,11 +177,23 @@ const BoldSachet = ({ flavorName, bgColor, microText, illustration, dotColor, sc
       <BoldCrimpEdge position="top" />
       <BoldCrimpEdge position="bottom" />
 
-      {/* Brand name top */}
+      {/* F. logo mark top */}
       <div style={{
-        position: 'absolute', top: 20 * scale, left: 0, width: '100%',
-        textAlign: 'center', fontSize: 5 * scale, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
-        color: 'rgba(255,255,255,0.7)', letterSpacing: 1.5 * scale, fontWeight: 400,
+        position: 'absolute', top: 14 * scale, left: 0, width: '100%',
+        textAlign: 'center', zIndex: 3,
+      }}>
+        <span style={{
+          fontSize: 10 * scale, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
+          color: 'rgba(255,255,255,0.9)', fontWeight: 700,
+        }}>
+          F<span style={{color:'#14B8A6'}}>.</span>
+        </span>
+      </div>
+      {/* Brand name below F. */}
+      <div style={{
+        position: 'absolute', top: 28 * scale, left: 0, width: '100%',
+        textAlign: 'center', fontSize: 3.5 * scale, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
+        color: 'rgba(255,255,255,0.45)', letterSpacing: 1 * scale, fontWeight: 400,
         zIndex: 3,
       }}>
         Figuring Out<span style={{color:'#14B8A6'}}>.</span>
@@ -1089,6 +1101,86 @@ export default function SachetGalleryPage() {
             <EarlierSachet accent="#D46A2E" flavorName="Left On Read" />
             <EarlierSachet accent="#C4687A" flavorName="Situationship" />
             <EarlierSachet accent="#7A9B76" flavorName="Still Loading" />
+          </div>
+        </section>
+
+        {/* ═══════════ SECTION 5: Sachet Back (FSSAI Compliant) ═══════════ */}
+        <section style={{ marginBottom: 40 }}>
+          <SectionHeader
+            num="05"
+            title="5. SACHET BACK DESIGN"
+            desc="FSSAI compliant layout for Indian market. All mandatory fields."
+          />
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 24, flexWrap: 'wrap' }}>
+            {[
+              { bg: '#E8173A', name: 'Broke But Hydrated', taste: 'Berry & Pomegranate' },
+              { bg: '#4169E1', name: 'Hot Ex', taste: 'Citrus Energy' },
+              { bg: '#14B8A6', name: 'Clarity', taste: 'Himalayan Lime' },
+            ].map((f) => (
+              <div key={f.name} style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+                <div style={{
+                  width: 60, height: 240, borderRadius: '4px 4px 3px 3px',
+                  position: 'relative', overflow: 'hidden',
+                  background: f.bg, boxShadow: '2px 6px 16px rgba(0,0,0,0.3)',
+                }}>
+                  <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.08)' }} />
+                  {/* Crimps */}
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 8, background: 'rgba(0,0,0,0.1)', borderBottom: '0.5px solid rgba(255,255,255,0.1)' }} />
+                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 8, background: 'rgba(0,0,0,0.1)', borderTop: '0.5px solid rgba(255,255,255,0.1)' }} />
+
+                  {/* Back content rotated */}
+                  <div style={{
+                    position: 'absolute', top: '50%', left: '50%',
+                    transform: 'translate(-50%, -50%) rotate(-90deg)',
+                    whiteSpace: 'nowrap', width: 210,
+                    display: 'flex', flexDirection: 'column', gap: 1.5,
+                  }}>
+                    {/* FSSAI + Veg */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <div style={{ width: 7, height: 7, borderRadius: '50%', border: '0.8px solid rgba(255,255,255,0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 3.5, color: 'rgba(255,255,255,0.7)', fontWeight: 700, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif' }}>f</div>
+                      <span style={{ fontSize: 2.5, color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif' }}>FSSAI Lic. XXXXXXXXXXXXXX</span>
+                      <div style={{ width: 5, height: 5, border: '0.5px solid rgba(0,200,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: 4 }}>
+                        <div style={{ width: 2.5, height: 2.5, borderRadius: '50%', background: 'rgba(0,200,0,0.7)' }} />
+                      </div>
+                    </div>
+
+                    {/* Product */}
+                    <div style={{ fontSize: 3.2, color: 'rgba(255,255,255,0.75)', fontWeight: 700, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif' }}>
+                      {f.name} · Electrolyte Mix
+                    </div>
+                    <div style={{ fontSize: 2.5, color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif' }}>
+                      {f.taste} · Health Supplement
+                    </div>
+
+                    {/* Nutrition */}
+                    <div style={{ fontSize: 2.2, color: 'rgba(255,255,255,0.45)', lineHeight: 1.5, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif', marginTop: 1 }}>
+                      <span style={{ fontWeight: 600, fontSize: 2.5 }}>Per 6g serving:</span> Energy 10kcal · Sodium 300mg · Potassium 200mg · Magnesium 60mg · Calcium 40mg · Zinc 5mg · Vit C 100mg · B12 100mcg · Sugar 0g
+                    </div>
+
+                    {/* Directions + warnings */}
+                    <div style={{ fontSize: 2, color: 'rgba(255,255,255,0.35)', lineHeight: 1.4, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif', marginTop: 1 }}>
+                      Mix 1 sachet in 500ml water · NOT FOR MEDICINAL USE · Store cool &amp; dry
+                    </div>
+
+                    {/* Mfg details */}
+                    <div style={{ fontSize: 1.8, color: 'rgba(255,255,255,0.28)', lineHeight: 1.4, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif', marginTop: 1 }}>
+                      Mfg: [TBD] · Mktd: Figuring Out · Net Wt 6g · MRP ₹XX · Batch XXX · Best Before XX mo.
+                    </div>
+
+                    {/* Barcode + website */}
+                    <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, marginTop: 2 }}>
+                      <div style={{ display: 'flex', gap: 0.4 }}>
+                        {[...Array(16)].map((_, i) => (
+                          <div key={i} style={{ width: 0.8, height: 4 + (i % 3) * 1.5, background: 'rgba(255,255,255,0.35)' }} />
+                        ))}
+                      </div>
+                      <span style={{ fontSize: 2.2, color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif' }}>figuringout.club</span>
+                    </div>
+                  </div>
+                </div>
+                <div style={{ fontSize: 9, color: '#666', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif' }}>Back — {f.name}</div>
+              </div>
+            ))}
           </div>
         </section>
 
