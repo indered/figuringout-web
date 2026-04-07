@@ -184,7 +184,7 @@ const BoldSachet = ({ flavorName, bgColor, microText, illustration, dotColor, sc
         color: 'rgba(255,255,255,0.7)', letterSpacing: 1.5 * scale, fontWeight: 400,
         textTransform: 'uppercase', zIndex: 3,
       }}>
-        Figuring Out.
+        Figuring Out<span style={{color:'#14B8A6'}}>.</span>
       </div>
 
       {/* Illustration center */}
@@ -445,7 +445,7 @@ const SignedSachet = ({ flavorName, accent, microText, illustration, scale = 1, 
         textAlign: 'center', fontSize: 7 * scale, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
         color: '#1A1714', letterSpacing: 1.5 * scale, fontWeight: 400,
       }}>
-        Figuring Out.
+        Figuring Out<span style={{color:'#14B8A6'}}>.</span>
       </div>
 
       {/* Illustration center */}
@@ -537,7 +537,7 @@ const WaterSachet = ({ variant }: { variant: '2A' | '2B' | '2C' | '2D' }) => {
           textAlign: 'center', fontSize: 6.5, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
           color: variant === '2D' ? '#fff' : '#1A1714', letterSpacing: 1.2,
         }}>
-          Figuring Out.
+          Figuring Out<span style={{color:'#14B8A6'}}>.</span>
         </div>
 
         {/* flavor name center */}
@@ -628,7 +628,7 @@ const WildSachet = ({ concept }: { concept: 1 | 2 | 3 | 4 | 5 }) => {
             <div style={{
               position: 'absolute', bottom: 20, left: 0, width: '100%',
               textAlign: 'center', fontSize: 5, color: '#555', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
-            }}>Figuring Out.</div>
+            }}>Figuring Out<span style={{color:'#14B8A6'}}>.</span></div>
           </div>
         );
       case 2: // Broadsheet
@@ -663,7 +663,7 @@ const WildSachet = ({ concept }: { concept: 1 | 2 | 3 | 4 | 5 }) => {
             <div style={{
               position: 'absolute', bottom: 16, left: 0, width: '100%',
               textAlign: 'center', fontSize: 5, color: '#888', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
-            }}>Figuring Out.</div>
+            }}>Figuring Out<span style={{color:'#14B8A6'}}>.</span></div>
           </div>
         );
       case 3: // Brutalist
@@ -683,7 +683,7 @@ const WildSachet = ({ concept }: { concept: 1 | 2 | 3 | 4 | 5 }) => {
             <div style={{
               position: 'absolute', bottom: 10, left: 0, width: '100%',
               textAlign: 'center', fontSize: 5, color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
-            }}>Figuring Out.</div>
+            }}>Figuring Out<span style={{color:'#14B8A6'}}>.</span></div>
           </div>
         );
       case 4: // Boarding Pass
@@ -832,7 +832,7 @@ const EarlierSachet = ({ accent, flavorName }: { accent: string; flavorName: str
         textAlign: 'center', fontSize: 6, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
         color: 'rgba(255,255,255,0.5)', letterSpacing: 1.5,
       }}>
-        Figuring Out.
+        Figuring Out<span style={{color:'#14B8A6'}}>.</span>
       </div>
 
       {/* accent band */}
