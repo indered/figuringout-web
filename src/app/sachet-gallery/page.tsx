@@ -184,7 +184,7 @@ const BoldSachet = ({ flavorName, bgColor, microText, illustration, dotColor, sc
         color: 'rgba(255,255,255,0.7)', letterSpacing: 1.5 * scale, fontWeight: 400,
         textTransform: 'uppercase', zIndex: 3,
       }}>
-        figuring out
+        Figuring Out.
       </div>
 
       {/* Illustration center */}
@@ -235,28 +235,28 @@ const BOLD_FLAVORS = [
   {
     name: 'Broke But\nHydrated',
     displayName: 'Broke But Hydrated',
-    bgColor: '#7B2FFF',
+    bgColor: '#E8173A',
     micro: 'rent is a concept. hydration is a fact.',
     illustration: <BoldWalletPlantIllustration />,
-    dotColor: '#FF4D00',
+    dotColor: '#14B8A6',
     powder: '/powder-color2.png',
   },
   {
     name: 'Hot\nEx',
     displayName: 'Hot Ex',
-    bgColor: '#FF4D00',
+    bgColor: '#4169E1',
     micro: "if you have to ask what this is, it isn\u2019t.",
     illustration: <BoldMatchstickIllustration />,
-    dotColor: '#FFFFFF',
+    dotColor: '#14B8A6',
     powder: '/powder-red.png',
   },
   {
     name: 'Clarity',
     displayName: 'Clarity',
-    bgColor: '#00E676',
+    bgColor: '#14B8A6',
     micro: 'buffering is not the same as broken.',
     illustration: <BoldLoadingBarIllustration />,
-    dotColor: '#FF4D00',
+    dotColor: '#E8173A',
     powder: '/powder-burst.png',
   },
 ];
@@ -445,7 +445,7 @@ const SignedSachet = ({ flavorName, accent, microText, illustration, scale = 1, 
         textAlign: 'center', fontSize: 7 * scale, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
         color: '#1A1714', letterSpacing: 1.5 * scale, fontWeight: 400,
       }}>
-        figuring out
+        Figuring Out.
       </div>
 
       {/* Illustration center */}
@@ -537,7 +537,7 @@ const WaterSachet = ({ variant }: { variant: '2A' | '2B' | '2C' | '2D' }) => {
           textAlign: 'center', fontSize: 6.5, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
           color: variant === '2D' ? '#fff' : '#1A1714', letterSpacing: 1.2,
         }}>
-          figuring out
+          Figuring Out.
         </div>
 
         {/* flavor name center */}
@@ -628,7 +628,7 @@ const WildSachet = ({ concept }: { concept: 1 | 2 | 3 | 4 | 5 }) => {
             <div style={{
               position: 'absolute', bottom: 20, left: 0, width: '100%',
               textAlign: 'center', fontSize: 5, color: '#555', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
-            }}>figuring out</div>
+            }}>Figuring Out.</div>
           </div>
         );
       case 2: // Broadsheet
@@ -663,7 +663,7 @@ const WildSachet = ({ concept }: { concept: 1 | 2 | 3 | 4 | 5 }) => {
             <div style={{
               position: 'absolute', bottom: 16, left: 0, width: '100%',
               textAlign: 'center', fontSize: 5, color: '#888', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
-            }}>figuring out</div>
+            }}>Figuring Out.</div>
           </div>
         );
       case 3: // Brutalist
@@ -683,7 +683,7 @@ const WildSachet = ({ concept }: { concept: 1 | 2 | 3 | 4 | 5 }) => {
             <div style={{
               position: 'absolute', bottom: 10, left: 0, width: '100%',
               textAlign: 'center', fontSize: 5, color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
-            }}>figuring out</div>
+            }}>Figuring Out.</div>
           </div>
         );
       case 4: // Boarding Pass
@@ -832,7 +832,7 @@ const EarlierSachet = ({ accent, flavorName }: { accent: string; flavorName: str
         textAlign: 'center', fontSize: 6, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
         color: 'rgba(255,255,255,0.5)', letterSpacing: 1.5,
       }}>
-        figuring out
+        Figuring Out.
       </div>
 
       {/* accent band */}
@@ -884,7 +884,7 @@ export default function SachetGalleryPage() {
           <SectionHeader
             num="00"
             title="0. THE BOLD DIRECTION"
-            desc="The loud camp wins. Electric colors, white line art, glossy names, powder explosions. Designed for phone screens, sweaty hands, and golden hour."
+            desc="Razzle Red, Royal Blue, Teal. White line art, glossy names, powder explosions. Designed for phone screens, sweaty hands, and golden hour."
           />
 
           {/* Display A: Hero shot — fanned with powder explosions */}
