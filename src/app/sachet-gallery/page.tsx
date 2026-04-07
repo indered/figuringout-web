@@ -14,6 +14,253 @@ const SectionHeader = ({ num, title, desc }: { num: string; title: string; desc:
   </div>
 );
 
+/* ─────────── SECTION 0: THE BOLD DIRECTION ─────────── */
+
+const BOLD_SACHET_W = 60;
+const BOLD_SACHET_H = 240;
+
+const BoldCrimpEdge = ({ position }: { position: 'top' | 'bottom' }) => {
+  const isTop = position === 'top';
+  return (
+    <div style={{
+      position: 'absolute',
+      [isTop ? 'top' : 'bottom']: 0,
+      left: 0,
+      width: '100%',
+      height: 14,
+      background: 'repeating-linear-gradient(90deg, rgba(255,255,255,0.12) 0px, rgba(255,255,255,0.12) 2px, transparent 2px, transparent 5px)',
+      opacity: 0.5,
+      borderRadius: isTop ? '3px 3px 0 0' : '0 0 3px 3px',
+      zIndex: 4,
+    }} />
+  );
+};
+
+/* ── Bold Illustration: Wallet with plant (white) ── */
+const BoldWalletPlantIllustration = () => (
+  <div style={{ position: 'relative', width: 36, height: 50 }}>
+    <div style={{
+      position: 'absolute', bottom: 0, left: 2, width: 32, height: 22,
+      border: '1.5px solid #fff', borderRadius: 3,
+    }} />
+    <div style={{
+      position: 'absolute', bottom: 16, left: 2, width: 32, height: 12,
+      borderTop: '1.5px solid #fff', borderLeft: '1.5px solid #fff', borderRight: '1.5px solid #fff',
+      borderRadius: '3px 3px 0 0',
+    }} />
+    <div style={{
+      position: 'absolute', bottom: 22, left: 16, width: 2, height: 18,
+      background: '#fff', borderRadius: 1,
+    }} />
+    <div style={{
+      position: 'absolute', bottom: 32, left: 8, width: 10, height: 6,
+      borderRadius: '50% 0 50% 0', border: '1.5px solid #fff',
+      transform: 'rotate(-15deg)',
+    }} />
+    <div style={{
+      position: 'absolute', bottom: 37, left: 19, width: 10, height: 6,
+      borderRadius: '0 50% 0 50%', border: '1.5px solid #fff',
+      transform: 'rotate(15deg)',
+    }} />
+    <div style={{
+      position: 'absolute', bottom: 40, left: 13, width: 8, height: 8,
+      borderRadius: '50% 0 50% 0', border: '1.5px solid #fff',
+      transform: 'rotate(-5deg)',
+    }} />
+  </div>
+);
+
+/* ── Bold Illustration: Matchstick with spiral (white) ── */
+const BoldMatchstickIllustration = () => (
+  <div style={{ position: 'relative', width: 30, height: 55 }}>
+    <div style={{
+      position: 'absolute', bottom: 0, left: 13, width: 2.5, height: 32,
+      background: '#fff', borderRadius: 1,
+    }} />
+    <div style={{
+      position: 'absolute', bottom: 30, left: 10, width: 9, height: 6,
+      background: 'rgba(255,255,255,0.7)', borderRadius: '3px 3px 1px 1px',
+    }} />
+    <div style={{
+      position: 'absolute', bottom: 34, left: 5, width: 18, height: 18,
+      border: '1.5px solid #fff', borderRadius: '50%',
+      borderBottomColor: 'transparent',
+      transform: 'rotate(-30deg)',
+    }} />
+    <div style={{
+      position: 'absolute', bottom: 38, left: 9, width: 10, height: 10,
+      border: '1.5px solid #fff', borderRadius: '50%',
+      borderBottomColor: 'transparent',
+      borderLeftColor: 'transparent',
+      transform: 'rotate(-60deg)',
+    }} />
+    <div style={{
+      position: 'absolute', bottom: 48, left: 11, width: 5, height: 5,
+      border: '1.5px solid #fff', borderRadius: '50%',
+      borderBottomColor: 'transparent',
+      borderLeftColor: 'transparent',
+    }} />
+  </div>
+);
+
+/* ── Bold Illustration: Loading bar with runner dot (white) ── */
+const BoldLoadingBarIllustration = () => (
+  <div style={{ position: 'relative', width: 40, height: 30 }}>
+    {/* outer bar */}
+    <div style={{
+      position: 'absolute', top: 10, left: 0, width: 40, height: 10,
+      border: '1.5px solid #fff', borderRadius: 2,
+    }} />
+    {/* filled portion ~47% */}
+    <div style={{
+      position: 'absolute', top: 12, left: 2, width: 17, height: 6,
+      background: 'rgba(255,255,255,0.6)', borderRadius: 1,
+    }} />
+    {/* runner dot at 47% mark */}
+    <div style={{
+      position: 'absolute', top: 3, left: 18, width: 4, height: 4,
+      background: '#fff', borderRadius: '50%',
+    }} />
+    {/* tiny legs on runner */}
+    <div style={{
+      position: 'absolute', top: 6, left: 17, width: 1, height: 3,
+      background: '#fff', transform: 'rotate(-20deg)',
+    }} />
+    <div style={{
+      position: 'absolute', top: 6, left: 22, width: 1, height: 3,
+      background: '#fff', transform: 'rotate(20deg)',
+    }} />
+  </div>
+);
+
+interface BoldSachetProps {
+  flavorName: string;
+  bgColor: string;
+  microText: string;
+  illustration: React.ReactNode;
+  dotColor: string;
+  scale?: number;
+  rotate?: number;
+}
+
+const BoldSachet = ({ flavorName, bgColor, microText, illustration, dotColor, scale = 1, rotate = 0 }: BoldSachetProps) => {
+  const w = BOLD_SACHET_W * scale;
+  const h = BOLD_SACHET_H * scale;
+  return (
+    <div style={{
+      width: w, height: h,
+      background: bgColor,
+      borderRadius: 4,
+      position: 'relative',
+      overflow: 'hidden',
+      transform: `rotate(${rotate}deg)`,
+      flexShrink: 0,
+      boxShadow: '0 4px 24px rgba(0,0,0,0.4)',
+    }}>
+      {/* Matte texture noise */}
+      <div style={{
+        position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
+        background: 'repeating-conic-gradient(rgba(255,255,255,0.03) 0% 25%, transparent 0% 50%)',
+        backgroundSize: '4px 4px',
+        zIndex: 1,
+        pointerEvents: 'none',
+      }} />
+
+      {/* Glossy highlight on flavor name area */}
+      <div style={{
+        position: 'absolute', bottom: 0, left: 0, width: '100%', height: '40%',
+        background: 'linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 40%, transparent 70%)',
+        zIndex: 2,
+        pointerEvents: 'none',
+      }} />
+
+      <BoldCrimpEdge position="top" />
+      <BoldCrimpEdge position="bottom" />
+
+      {/* Brand name top */}
+      <div style={{
+        position: 'absolute', top: 20 * scale, left: 0, width: '100%',
+        textAlign: 'center', fontSize: 5 * scale, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
+        color: 'rgba(255,255,255,0.7)', letterSpacing: 1.5 * scale, fontWeight: 400,
+        textTransform: 'uppercase', zIndex: 3,
+      }}>
+        figuring out
+      </div>
+
+      {/* Illustration center */}
+      <div style={{
+        position: 'absolute', top: '32%', left: '50%',
+        transform: `translate(-50%, -50%) scale(${scale})`,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        zIndex: 3,
+      }}>
+        {illustration}
+      </div>
+
+      {/* Flavor name — HUGE, bold, left-aligned, bottom third */}
+      <div style={{
+        position: 'absolute', bottom: 18 * scale, left: 4 * scale, right: 4 * scale,
+        fontSize: 10 * scale, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
+        color: '#fff', fontWeight: 800, lineHeight: 1.05,
+        textAlign: 'left', textShadow: '0 1px 3px rgba(0,0,0,0.25)',
+        zIndex: 3, letterSpacing: -0.3 * scale,
+      }}>
+        {flavorName}
+      </div>
+
+      {/* Micro text — rotated 90deg along right edge */}
+      <div style={{
+        position: 'absolute', right: -20 * scale, top: '50%',
+        transform: 'rotate(90deg) translateX(-50%)',
+        transformOrigin: 'center center',
+        fontSize: 3.5 * scale, fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif',
+        color: 'rgba(255,255,255,0.5)', whiteSpace: 'nowrap',
+        zIndex: 3, letterSpacing: 0.3,
+      }}>
+        {microText}
+      </div>
+
+      {/* Orange signed dot */}
+      <div style={{
+        position: 'absolute', bottom: 8 * scale, right: 6 * scale,
+        width: 3 * scale, height: 3 * scale,
+        borderRadius: '50%', background: dotColor,
+        zIndex: 3,
+      }} />
+    </div>
+  );
+};
+
+const BOLD_FLAVORS = [
+  {
+    name: 'Broke But\nHydrated',
+    displayName: 'Broke But Hydrated',
+    bgColor: '#7B2FFF',
+    micro: 'rent is a concept. hydration is a fact.',
+    illustration: <BoldWalletPlantIllustration />,
+    dotColor: '#FF4D00',
+    powder: '/powder-color2.png',
+  },
+  {
+    name: 'Hot\nEx',
+    displayName: 'Hot Ex',
+    bgColor: '#FF4D00',
+    micro: "if you have to ask what this is, it isn\u2019t.",
+    illustration: <BoldMatchstickIllustration />,
+    dotColor: '#FFFFFF',
+    powder: '/powder-red.png',
+  },
+  {
+    name: 'Clarity',
+    displayName: 'Clarity',
+    bgColor: '#00E676',
+    micro: 'buffering is not the same as broken.',
+    illustration: <BoldLoadingBarIllustration />,
+    dotColor: '#FF4D00',
+    powder: '/powder-burst.png',
+  },
+];
+
 /* ─────────── SECTION 1: Signed Print sachet base ─────────── */
 
 const SACHET_W = 60;
@@ -631,6 +878,108 @@ export default function SachetGalleryPage() {
             Every direction explored. Every concept tested. All in one place.
           </p>
         </div>
+
+        {/* ═══════════ SECTION 0: THE BOLD DIRECTION ═══════════ */}
+        <section style={{ marginBottom: 100 }}>
+          <SectionHeader
+            num="00"
+            title="0. THE BOLD DIRECTION"
+            desc="The loud camp wins. Electric colors, white line art, glossy names, powder explosions. Designed for phone screens, sweaty hands, and golden hour."
+          />
+
+          {/* Display A: Hero shot — fanned with powder explosions */}
+          <div style={{ marginBottom: 60 }}>
+            <div style={{ fontSize: 11, color: '#555', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif', marginBottom: 16, letterSpacing: 1 }}>
+              HERO SHOT
+            </div>
+            <div style={{
+              display: 'flex', justifyContent: 'center', alignItems: 'flex-end',
+              gap: 0, position: 'relative', height: 340, paddingBottom: 20,
+            }}>
+              {BOLD_FLAVORS.map((f, i) => {
+                const angles = [-25, -10, 5];
+                const offsets = [-50, 0, 50];
+                const powderPositions = [
+                  { top: 20, left: -30 },
+                  { top: 10, left: -20 },
+                  { top: 30, left: -25 },
+                ];
+                return (
+                  <div key={f.displayName} style={{
+                    position: 'absolute',
+                    left: `calc(50% + ${offsets[i]}px - 30px)`,
+                    bottom: 20,
+                    zIndex: i + 1,
+                  }}>
+                    {/* Powder explosion behind sachet */}
+                    <img
+                      src={f.powder}
+                      alt=""
+                      style={{
+                        position: 'absolute',
+                        top: powderPositions[i].top,
+                        left: powderPositions[i].left,
+                        width: 150,
+                        height: 150,
+                        objectFit: 'contain',
+                        opacity: 0.7,
+                        zIndex: 0,
+                        mixBlendMode: 'screen',
+                        pointerEvents: 'none',
+                      }}
+                    />
+                    <div style={{ position: 'relative', zIndex: 1 }}>
+                      <BoldSachet
+                        flavorName={f.name}
+                        bgColor={f.bgColor}
+                        microText={f.micro}
+                        illustration={f.illustration}
+                        dotColor={f.dotColor}
+                        rotate={angles[i]}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Display B: Upright side by side — clean, no powder */}
+          <div style={{ marginBottom: 60 }}>
+            <div style={{ fontSize: 11, color: '#555', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif', marginBottom: 16, letterSpacing: 1 }}>
+              UPRIGHT LINEUP
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: 24, flexWrap: 'wrap' }}>
+              {BOLD_FLAVORS.map(f => (
+                <BoldSachet
+                  key={f.displayName}
+                  flavorName={f.name}
+                  bgColor={f.bgColor}
+                  microText={f.micro}
+                  illustration={f.illustration}
+                  dotColor={f.dotColor}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Display C: Close-up 2.5x of Broke But Hydrated */}
+          <div>
+            <div style={{ fontSize: 11, color: '#555', fontFamily: 'var(--font-space-grotesk), system-ui, sans-serif', marginBottom: 16, letterSpacing: 1 }}>
+              CLOSE-UP (2.5x)
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <BoldSachet
+                flavorName={BOLD_FLAVORS[0].name}
+                bgColor={BOLD_FLAVORS[0].bgColor}
+                microText={BOLD_FLAVORS[0].micro}
+                illustration={BOLD_FLAVORS[0].illustration}
+                dotColor={BOLD_FLAVORS[0].dotColor}
+                scale={2.5}
+              />
+            </div>
+          </div>
+        </section>
 
         {/* ═══════════ SECTION 1: The Signed Print ═══════════ */}
         <section style={{ marginBottom: 100 }}>
