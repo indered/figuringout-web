@@ -116,68 +116,114 @@ export default function CoastalHero() {
         </svg>
       </motion.div>
 
-      {/* Running sachet — cute little packet with legs */}
-      <motion.div
-        className="absolute bottom-[11%] sm:bottom-[11%] z-[55]"
-        initial={{ left: '-15%' }}
-        animate={{ left: '115%' }}
-        transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
-      >
-        <motion.svg
-          className="w-8 h-12 sm:w-10 sm:h-14 md:w-12 md:h-16"
-          viewBox="0 0 50 70"
-          fill="none"
-          animate={{ y: [0, -3, 0], rotate: [-3, 3, -3] }}
-          transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut' }}
-        >
-          {/* Shadow */}
-          <ellipse cx="25" cy="67" rx="12" ry="3" fill="black" fillOpacity="0.1" />
-          {/* Sachet body */}
-          <rect x="10" y="8" width="30" height="40" rx="4" fill="#14B8A6" />
-          {/* Top fold */}
-          <path d="M10 14 L16 6 L34 6 L40 14" fill="#0D9488" />
-          {/* White label */}
-          <rect x="14" y="18" width="22" height="18" rx="3" fill="white" fillOpacity="0.9" />
-          {/* Brand text */}
-          <text x="25" y="29" textAnchor="middle" fill="#14B8A6" fontSize="5.5" fontWeight="800" fontFamily="system-ui">FO.</text>
-          {/* Cute eyes */}
-          <circle cx="21" cy="25" r="1.2" fill="#14B8A6" />
-          <circle cx="29" cy="25" r="1.2" fill="#14B8A6" />
-          {/* Tiny smile */}
-          <path d="M23 31 Q25 33 27 31" stroke="#14B8A6" strokeWidth="0.8" strokeLinecap="round" fill="none" />
-          {/* Left leg — stepping */}
-          <motion.path
-            d="M18 48 L14 58 L11 58"
-            stroke="#1A1A1A"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            animate={{ d: ["M18 48 L14 58 L11 58", "M18 48 L22 58 L25 58", "M18 48 L14 58 L11 58"] }}
-            transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut' }}
+      {/* Wet sand shimmer — glassy reflection between sand and waves */}
+      <div className="absolute bottom-[9%] left-0 right-0 z-[42] h-[2%] overflow-hidden">
+        <motion.div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent, rgba(255,255,255,0.1), transparent)',
+            backgroundSize: '200% 100%',
+          }}
+          animate={{ backgroundPosition: ['0% 0%', '200% 0%'] }}
+          transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+        />
+      </div>
+
+      {/* Footprints in the sand — appear one by one, then wash away */}
+      <div className="absolute bottom-[4%] sm:bottom-[5%] left-[10%] right-[10%] z-[45] hidden sm:block" aria-hidden="true">
+        {[0, 1, 2, 3, 4, 5].map((i) => (
+          <motion.div
+            key={i}
+            className="absolute"
+            style={{
+              left: `${8 + i * 16}%`,
+              bottom: i % 2 === 0 ? '2px' : '8px',
+            }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{
+              opacity: [0, 0.35, 0.35, 0],
+              scale: [0.95, 1, 1, 1],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              delay: i * 0.5,
+              times: [0, 0.15, 0.7, 1],
+              ease: 'easeInOut',
+            }}
+          >
+            {/* Single footprint — ball + heel ovals */}
+            <svg width="12" height="20" viewBox="0 0 12 20" fill="none"
+              style={{ transform: `rotate(${i % 2 === 0 ? -15 : 15}deg)` }}
+            >
+              <ellipse cx="6" cy="5" rx="4" ry="3.5" fill="#C4A882" fillOpacity="0.5" />
+              <ellipse cx="6" cy="15" rx="3" ry="3" fill="#C4A882" fillOpacity="0.4" />
+            </svg>
+          </motion.div>
+        ))}
+
+        {/* Wave wash that erases footprints */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-full"
+          style={{
+            background: 'linear-gradient(90deg, rgba(20,184,166,0.08) 0%, rgba(255,255,255,0.06) 50%, transparent 100%)',
+          }}
+          animate={{
+            x: ['-110%', '110%'],
+            opacity: [0, 0.6, 0.6, 0],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: 4,
+          }}
+        />
+      </div>
+
+      {/* Dune grass — left edge */}
+      <div className="absolute bottom-[8%] left-[2%] z-[46] hidden md:block" aria-hidden="true">
+        {[0, 1, 2, 3].map((i) => (
+          <motion.div
+            key={i}
+            className="absolute"
+            style={{
+              left: i * 4,
+              bottom: 0,
+              width: 1.5,
+              height: 18 + (i % 2) * 6,
+              background: 'linear-gradient(0deg, #8B9A6B 0%, #6B7A4B 100%)',
+              borderRadius: '1px 1px 0 0',
+              transformOrigin: 'bottom center',
+              opacity: 0.4,
+            }}
+            animate={{ rotate: [-4 - i * 2, 4 + i * 2, -4 - i * 2] }}
+            transition={{ duration: 2.5 + i * 0.5, repeat: Infinity, ease: 'easeInOut' }}
           />
-          {/* Right leg — stepping */}
-          <motion.path
-            d="M32 48 L36 58 L39 58"
-            stroke="#1A1A1A"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            animate={{ d: ["M32 48 L36 58 L39 58", "M32 48 L28 58 L25 58", "M32 48 L36 58 L39 58"] }}
-            transition={{ duration: 0.4, repeat: Infinity, ease: 'easeInOut' }}
+        ))}
+      </div>
+
+      {/* Dune grass — right edge */}
+      <div className="absolute bottom-[8%] right-[3%] z-[46] hidden md:block" aria-hidden="true">
+        {[0, 1, 2].map((i) => (
+          <motion.div
+            key={i}
+            className="absolute"
+            style={{
+              right: i * 5,
+              bottom: 0,
+              width: 1.5,
+              height: 15 + (i % 2) * 8,
+              background: 'linear-gradient(0deg, #8B9A6B 0%, #6B7A4B 100%)',
+              borderRadius: '1px 1px 0 0',
+              transformOrigin: 'bottom center',
+              opacity: 0.35,
+            }}
+            animate={{ rotate: [3 + i, -5 - i, 3 + i] }}
+            transition={{ duration: 3 + i * 0.4, repeat: Infinity, ease: 'easeInOut' }}
           />
-          {/* Tiny sweat drops */}
-          <motion.circle
-            cx="42" cy="15" r="1.5" fill="#87CEEB"
-            animate={{ opacity: [1, 0], y: [0, 8], x: [0, 3] }}
-            transition={{ duration: 0.8, repeat: Infinity, delay: 0.2 }}
-          />
-          <motion.circle
-            cx="44" cy="20" r="1" fill="#87CEEB"
-            animate={{ opacity: [1, 0], y: [0, 6], x: [0, 2] }}
-            transition={{ duration: 0.8, repeat: Infinity, delay: 0.5 }}
-          />
-        </motion.svg>
-      </motion.div>
+        ))}
+      </div>
 
       {/* Content */}
       <div
