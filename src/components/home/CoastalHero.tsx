@@ -59,44 +59,79 @@ export default function CoastalHero() {
         }}
       />
 
-      {/* Far clouds — slow drift */}
+      {/* ===== CLOUDS — big, soft, visible ===== */}
+
+      {/* Cloud 1 — large, left side, slow drift */}
+      <motion.div
+        className="absolute z-[5] will-change-transform"
+        style={{ top: '4%', left: '2%', y: cloudFarY, opacity: cloudFarOpacity }}
+        animate={rm ? {} : { x: [0, 80, 0] }}
+        transition={{ duration: 35, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <svg width="400" height="100" viewBox="0 0 400 100" fill="none" className="w-[250px] sm:w-[350px] md:w-[400px]">
+          <ellipse cx="160" cy="60" rx="140" ry="35" fill="white" fillOpacity="0.7" />
+          <ellipse cx="240" cy="50" rx="100" ry="30" fill="white" fillOpacity="0.6" />
+          <ellipse cx="100" cy="55" rx="80" ry="28" fill="white" fillOpacity="0.5" />
+          <ellipse cx="300" cy="58" rx="60" ry="20" fill="white" fillOpacity="0.4" />
+        </svg>
+      </motion.div>
+
+      {/* Cloud 2 — right side, slightly lower, faster drift opposite direction */}
+      <motion.div
+        className="absolute z-[5] will-change-transform"
+        style={{ top: '8%', right: '0%', y: cloudNearY, opacity: cloudNearOpacity }}
+        animate={rm ? {} : { x: [0, -100, 0] }}
+        transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <svg width="350" height="90" viewBox="0 0 350 90" fill="none" className="w-[200px] sm:w-[280px] md:w-[350px]">
+          <ellipse cx="150" cy="50" rx="120" ry="32" fill="white" fillOpacity="0.75" />
+          <ellipse cx="230" cy="45" rx="80" ry="25" fill="white" fillOpacity="0.55" />
+          <ellipse cx="80" cy="48" rx="70" ry="22" fill="white" fillOpacity="0.45" />
+        </svg>
+      </motion.div>
+
+      {/* Cloud 3 — small wispy, center-left, very slow */}
       <motion.div
         className="absolute z-[5] will-change-transform hidden sm:block"
-        style={{ top: '8%', left: '10%', y: cloudFarY, opacity: cloudFarOpacity }}
-        animate={rm ? {} : { x: [0, 40, 0] }}
-        transition={{ duration: 30, repeat: Infinity, ease: 'easeInOut' }}
+        style={{ top: '14%', left: '30%', y: cloudFarY }}
+        animate={rm ? {} : { x: [0, 50, 0], opacity: [0.3, 0.5, 0.3] }}
+        transition={{ duration: 40, repeat: Infinity, ease: 'easeInOut' }}
       >
         <svg width="200" height="60" viewBox="0 0 200 60" fill="none">
-          <ellipse cx="80" cy="35" rx="80" ry="20" fill="white" fillOpacity="0.5" />
-          <ellipse cx="120" cy="30" rx="50" ry="18" fill="white" fillOpacity="0.4" />
-          <ellipse cx="60" cy="28" rx="40" ry="15" fill="white" fillOpacity="0.3" />
+          <ellipse cx="100" cy="30" rx="90" ry="22" fill="white" fillOpacity="0.4" />
+          <ellipse cx="140" cy="28" rx="50" ry="16" fill="white" fillOpacity="0.3" />
         </svg>
       </motion.div>
 
-      {/* Near clouds — faster drift */}
+      {/* ===== BIRDS — bigger, visible, two groups ===== */}
+
+      {/* Bird group 1 — right side */}
       <motion.div
-        className="absolute z-[5] will-change-transform hidden sm:block"
-        style={{ top: '12%', right: '5%', y: cloudNearY, opacity: cloudNearOpacity }}
-        animate={rm ? {} : { x: [0, -60, 0] }}
-        transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute z-[6] hidden sm:block will-change-transform"
+        style={{ top: '15%', right: '20%', y: birdsY, opacity: birdsOpacity }}
+        animate={rm ? {} : { x: [0, 30, 0], y: [0, -8, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <svg width="160" height="50" viewBox="0 0 160 50" fill="none">
-          <ellipse cx="70" cy="28" rx="65" ry="18" fill="white" fillOpacity="0.6" />
-          <ellipse cx="110" cy="25" rx="40" ry="14" fill="white" fillOpacity="0.4" />
+        <svg width="120" height="40" viewBox="0 0 120 40" fill="none" stroke="#4A3A2A" strokeWidth="2" strokeLinecap="round">
+          <path d="M5,20 Q15,8 25,20" />
+          <path d="M35,14 Q44,4 53,14" />
+          <path d="M60,22 Q68,12 76,22" />
+          <path d="M85,16 Q92,8 99,16" />
+          <path d="M105,24 Q110,18 115,24" />
         </svg>
       </motion.div>
 
-      {/* Distant birds */}
+      {/* Bird group 2 — left side, slightly lower, different timing */}
       <motion.div
         className="absolute z-[6] hidden md:block will-change-transform"
-        style={{ top: '18%', right: '25%', y: birdsY, opacity: birdsOpacity }}
-        animate={rm ? {} : { x: [0, 20, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+        style={{ top: '20%', left: '15%', y: birdsY }}
+        animate={rm ? {} : { x: [0, -20, 0], y: [0, -5, 0], opacity: [0.3, 0.5, 0.3] }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <svg width="60" height="20" viewBox="0 0 60 20" fill="none" stroke="#5A4A3A" strokeWidth="1.2" strokeLinecap="round">
-          <path d="M2,10 Q8,4 14,10" />
-          <path d="M20,6 Q25,1 30,6" />
-          <path d="M38,12 Q43,7 48,12" />
+        <svg width="80" height="30" viewBox="0 0 80 30" fill="none" stroke="#5A4A3A" strokeWidth="1.8" strokeLinecap="round">
+          <path d="M5,18 Q12,8 19,18" />
+          <path d="M28,12 Q34,4 40,12" />
+          <path d="M50,20 Q56,12 62,20" />
         </svg>
       </motion.div>
 
@@ -206,61 +241,78 @@ export default function CoastalHero() {
         />
       </div>
 
-      {/* Footprints in the sand */}
-      <div className="absolute bottom-[4%] sm:bottom-[5%] left-[10%] right-[10%] z-[45] hidden sm:block" aria-hidden="true">
-        {[0, 1, 2, 3, 4, 5].map((i) => (
+      {/* Footprints in the sand — bigger, visible, all screens */}
+      <div className="absolute bottom-[2%] sm:bottom-[3%] left-[5%] right-[5%] z-[45]" aria-hidden="true">
+        {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
           <motion.div
             key={i}
             className="absolute"
-            style={{ left: `${8 + i * 16}%`, bottom: i % 2 === 0 ? '2px' : '8px' }}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={rm ? {} : { opacity: [0, 0.35, 0.35, 0], scale: [0.95, 1, 1, 1] }}
-            transition={{ duration: 8, repeat: Infinity, delay: i * 0.5, times: [0, 0.15, 0.7, 1], ease: 'easeInOut' }}
+            style={{ left: `${5 + i * 12}%`, bottom: i % 2 === 0 ? '0px' : '10px' }}
+            initial={{ opacity: 0 }}
+            animate={rm ? {} : { opacity: [0, 0.55, 0.55, 0] }}
+            transition={{ duration: 10, repeat: Infinity, delay: i * 0.6, times: [0, 0.12, 0.75, 1], ease: 'easeInOut' }}
           >
-            <svg width="12" height="20" viewBox="0 0 12 20" fill="none"
-              style={{ transform: `rotate(${i % 2 === 0 ? -15 : 15}deg)` }}
+            <svg width="16" height="28" viewBox="0 0 16 28" fill="none"
+              className="w-[12px] h-[20px] sm:w-[16px] sm:h-[28px]"
+              style={{ transform: `rotate(${i % 2 === 0 ? -12 : 12}deg)` }}
             >
-              <ellipse cx="6" cy="5" rx="4" ry="3.5" fill="#C4A882" fillOpacity="0.5" />
-              <ellipse cx="6" cy="15" rx="3" ry="3" fill="#C4A882" fillOpacity="0.4" />
+              {/* Ball of foot */}
+              <ellipse cx="8" cy="7" rx="5.5" ry="5" fill="#B8A080" fillOpacity="0.6" />
+              {/* Heel */}
+              <ellipse cx="8" cy="21" rx="4" ry="4.5" fill="#B8A080" fillOpacity="0.5" />
+              {/* Arch gap */}
+              <ellipse cx="8" cy="14" rx="2.5" ry="2" fill="#D4C4B5" fillOpacity="0.4" />
+              {/* Toe impressions */}
+              <circle cx="4" cy="2" r="1.2" fill="#B8A080" fillOpacity="0.4" />
+              <circle cx="7" cy="1" r="1.3" fill="#B8A080" fillOpacity="0.45" />
+              <circle cx="10" cy="1.5" r="1.1" fill="#B8A080" fillOpacity="0.4" />
+              <circle cx="12.5" cy="3" r="1" fill="#B8A080" fillOpacity="0.35" />
             </svg>
           </motion.div>
         ))}
+
+        {/* Wave wash */}
         <motion.div
-          className="absolute bottom-0 left-0 right-0 h-full"
-          style={{ background: 'linear-gradient(90deg, rgba(20,184,166,0.08) 0%, rgba(255,255,255,0.06) 50%, transparent 100%)' }}
-          animate={rm ? {} : { x: ['-110%', '110%'], opacity: [0, 0.6, 0.6, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
+          className="absolute bottom-0 left-0 right-0 h-[30px]"
+          style={{
+            background: 'linear-gradient(90deg, transparent 0%, rgba(20,184,166,0.12) 20%, rgba(255,255,255,0.1) 50%, rgba(20,184,166,0.08) 80%, transparent 100%)',
+            borderRadius: '0 0 4px 4px',
+          }}
+          animate={rm ? {} : { x: ['-110%', '110%'] }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 5 }}
         />
       </div>
 
-      {/* Dune grass — left */}
-      <div className="absolute bottom-[8%] left-[2%] z-[46] hidden md:block" aria-hidden="true">
-        {[0, 1, 2, 3].map((i) => (
+      {/* Dune grass — left cluster */}
+      <div className="absolute bottom-[7%] left-[2%] sm:left-[4%] z-[46]" aria-hidden="true">
+        {[0, 1, 2, 3, 4, 5].map((i) => (
           <motion.div
             key={i} className="absolute"
             style={{
-              left: i * 4, bottom: 0, width: 1.5, height: 18 + (i % 2) * 6,
-              background: 'linear-gradient(0deg, #8B9A6B 0%, #6B7A4B 100%)',
-              borderRadius: '1px 1px 0 0', transformOrigin: 'bottom center', opacity: 0.4,
+              left: i * 5, bottom: 0, width: 2,
+              height: 25 + (i % 3) * 10 + (i % 2) * 5,
+              background: `linear-gradient(0deg, #7A8A5B 0%, ${i % 2 === 0 ? '#5B6A3B' : '#6B7A4B'} 100%)`,
+              borderRadius: '2px 2px 0 0', transformOrigin: 'bottom center', opacity: 0.55,
             }}
-            animate={rm ? {} : { rotate: [-4 - i * 2, 4 + i * 2, -4 - i * 2] }}
-            transition={{ duration: 2.5 + i * 0.5, repeat: Infinity, ease: 'easeInOut' }}
+            animate={rm ? {} : { rotate: [-5 - i * 1.5, 5 + i * 1.5, -5 - i * 1.5] }}
+            transition={{ duration: 2 + i * 0.4, repeat: Infinity, ease: 'easeInOut' }}
           />
         ))}
       </div>
 
-      {/* Dune grass — right */}
-      <div className="absolute bottom-[8%] right-[3%] z-[46] hidden md:block" aria-hidden="true">
-        {[0, 1, 2].map((i) => (
+      {/* Dune grass — right cluster */}
+      <div className="absolute bottom-[7%] right-[2%] sm:right-[4%] z-[46]" aria-hidden="true">
+        {[0, 1, 2, 3, 4].map((i) => (
           <motion.div
             key={i} className="absolute"
             style={{
-              right: i * 5, bottom: 0, width: 1.5, height: 15 + (i % 2) * 8,
-              background: 'linear-gradient(0deg, #8B9A6B 0%, #6B7A4B 100%)',
-              borderRadius: '1px 1px 0 0', transformOrigin: 'bottom center', opacity: 0.35,
+              right: i * 5, bottom: 0, width: 2,
+              height: 20 + (i % 3) * 12 + (i % 2) * 4,
+              background: `linear-gradient(0deg, #7A8A5B 0%, ${i % 2 === 0 ? '#6B7A4B' : '#5B6A3B'} 100%)`,
+              borderRadius: '2px 2px 0 0', transformOrigin: 'bottom center', opacity: 0.5,
             }}
-            animate={rm ? {} : { rotate: [3 + i, -5 - i, 3 + i] }}
-            transition={{ duration: 3 + i * 0.4, repeat: Infinity, ease: 'easeInOut' }}
+            animate={rm ? {} : { rotate: [4 + i, -6 - i, 4 + i] }}
+            transition={{ duration: 2.5 + i * 0.3, repeat: Infinity, ease: 'easeInOut' }}
           />
         ))}
       </div>
