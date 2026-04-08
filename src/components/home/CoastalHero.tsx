@@ -33,9 +33,6 @@ export default function CoastalHero() {
   const cloudFarOpacity = useTransform(scrollY, [0, 400], rm ? [0.4, 0.4] : [0.4, 0])
   const cloudNearOpacity = useTransform(scrollY, [0, 500], rm ? [0.5, 0.5] : [0.5, 0.1])
 
-  // Birds parallax
-  const birdsY = useTransform(scrollY, [0, 500], rm ? [0, 0] : [0, -50])
-  const birdsOpacity = useTransform(scrollY, [0, 300], rm ? [0.4, 0.4] : [0.4, 0])
 
   // Sand grows on scroll (transition to next section)
   const sandHeight = useTransform(scrollY, [200, 500], rm ? ['10%', '10%'] : ['10%', '20%'])
@@ -152,51 +149,6 @@ export default function CoastalHero() {
         </svg>
       </motion.div>
 
-      {/* ===== BIRDS — bigger, visible, two groups ===== */}
-
-      {/* Bird group 1 — right side, V-formation flock */}
-      <motion.div
-        className="absolute z-[6] hidden sm:block will-change-transform"
-        style={{ top: '13%', right: '18%', y: birdsY, opacity: birdsOpacity }}
-        animate={rm ? {} : { x: [0, 40, 0], y: [0, -10, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        <svg width="140" height="60" viewBox="0 0 140 60" fill="none" strokeLinecap="round" strokeLinejoin="round">
-          {/* Lead bird — largest */}
-          <path d="M60,25 C55,18 48,12 40,15" stroke="#3A2A1A" strokeWidth="2.2" fill="none" />
-          <path d="M60,25 C65,18 72,12 80,15" stroke="#3A2A1A" strokeWidth="2.2" fill="none" />
-          {/* Right wing birds */}
-          <path d="M85,20 C82,15 78,11 73,13" stroke="#4A3A2A" strokeWidth="1.8" fill="none" />
-          <path d="M85,20 C88,15 92,11 97,13" stroke="#4A3A2A" strokeWidth="1.8" fill="none" />
-          <path d="M105,18 C103,14 100,11 96,12.5" stroke="#5A4A3A" strokeWidth="1.5" fill="none" />
-          <path d="M105,18 C107,14 110,11 114,12.5" stroke="#5A4A3A" strokeWidth="1.5" fill="none" />
-          {/* Left wing birds */}
-          <path d="M35,22 C32,17 28,13 23,15" stroke="#4A3A2A" strokeWidth="1.8" fill="none" />
-          <path d="M35,22 C38,17 42,13 47,15" stroke="#4A3A2A" strokeWidth="1.8" fill="none" />
-          <path d="M15,20 C13,16 10,13 6,14.5" stroke="#5A4A3A" strokeWidth="1.5" fill="none" />
-          <path d="M15,20 C17,16 20,13 24,14.5" stroke="#5A4A3A" strokeWidth="1.5" fill="none" />
-          {/* Trailing bird — smaller, drifting behind */}
-          <path d="M70,38 C68,34 65,31 61,32.5" stroke="#6A5A4A" strokeWidth="1.3" fill="none" />
-          <path d="M70,38 C72,34 75,31 79,32.5" stroke="#6A5A4A" strokeWidth="1.3" fill="none" />
-        </svg>
-      </motion.div>
-
-      {/* Bird group 2 — left side, scattered trio, different timing */}
-      <motion.div
-        className="absolute z-[6] hidden md:block will-change-transform"
-        style={{ top: '20%', left: '12%', y: birdsY }}
-        animate={rm ? {} : { x: [0, -25, 0], y: [0, -6, 0], opacity: [0.35, 0.55, 0.35] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        <svg width="100" height="45" viewBox="0 0 100 45" fill="none" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M40,18 C36,12 30,8 24,11" stroke="#4A3A2A" strokeWidth="1.8" fill="none" />
-          <path d="M40,18 C44,12 50,8 56,11" stroke="#4A3A2A" strokeWidth="1.8" fill="none" />
-          <path d="M65,25 C63,21 60,18 56,19.5" stroke="#5A4A3A" strokeWidth="1.5" fill="none" />
-          <path d="M65,25 C67,21 70,18 74,19.5" stroke="#5A4A3A" strokeWidth="1.5" fill="none" />
-          <path d="M20,30 C18,27 16,24 13,25" stroke="#6A5A4A" strokeWidth="1.3" fill="none" />
-          <path d="M20,30 C22,27 24,24 27,25" stroke="#6A5A4A" strokeWidth="1.3" fill="none" />
-        </svg>
-      </motion.div>
 
       {/* Sun — with soft glow rings */}
       <motion.div
@@ -274,71 +226,35 @@ export default function CoastalHero() {
         }}
       />
 
-      {/* Palm tree left — curved trunk, layered fronds, coconuts */}
+      {/* Palm tree left — simple, clean silhouette */}
       <motion.div
-        className="absolute bottom-[6%] left-[3%] z-50 hidden md:block"
+        className="absolute bottom-[6%] left-[5%] z-50 hidden md:block"
         style={{ transformOrigin: 'bottom center' }}
-        animate={rm ? {} : { rotate: [-1.5, 1.5, -1.5] }}
+        animate={rm ? {} : { rotate: [-2, 2, -2] }}
         transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <svg width="160" height="240" viewBox="0 0 160 240">
-          {/* Trunk — curved, tapered, with bark texture */}
-          <path d="M70,240 C68,200 65,170 62,140 C58,110 55,80 60,40" stroke="#6B5B3E" strokeWidth="14" fill="none" strokeLinecap="round"/>
-          <path d="M70,240 C68,200 65,170 62,140 C58,110 55,80 60,40" stroke="#7A6B4E" strokeWidth="10" fill="none" strokeLinecap="round"/>
-          {/* Bark rings */}
-          <path d="M64,180 C66,178 68,179 69,181" stroke="#5A4B2E" strokeWidth="1" fill="none" opacity="0.4"/>
-          <path d="M62,150 C64,148 66,149 67,151" stroke="#5A4B2E" strokeWidth="1" fill="none" opacity="0.4"/>
-          <path d="M60,120 C62,118 64,119 65,121" stroke="#5A4B2E" strokeWidth="1" fill="none" opacity="0.4"/>
-          <path d="M58,90 C60,88 62,89 63,91" stroke="#5A4B2E" strokeWidth="1" fill="none" opacity="0.35"/>
-          {/* Coconuts */}
-          <circle cx="56" cy="42" r="4.5" fill="#5D4E37" />
-          <circle cx="64" cy="40" r="4" fill="#6B5B3E" />
-          <circle cx="60" cy="46" r="4.2" fill="#4D3E27" />
-          {/* Fronds — each a curved path with leaflet lines */}
-          {/* Right drooping frond */}
-          <path d="M60,38 C80,25 110,20 140,35" stroke="#2D6B45" strokeWidth="3" fill="none" strokeLinecap="round"/>
-          <path d="M85,24 L90,30 M95,23 L98,29 M105,22 L107,28 M115,24 L116,30 M125,28 L124,33" stroke="#2D6B45" strokeWidth="1.2" fill="none" opacity="0.6"/>
-          {/* Right upper frond */}
-          <path d="M60,36 C75,18 100,8 130,15" stroke="#3D7B55" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-          <path d="M80,14 L84,20 M90,12 L93,18 M100,10 L102,16 M110,11 L111,17" stroke="#3D7B55" strokeWidth="1" fill="none" opacity="0.5"/>
-          {/* Left drooping frond */}
-          <path d="M60,38 C40,25 15,25 -5,45" stroke="#2D5A45" strokeWidth="3" fill="none" strokeLinecap="round"/>
-          <path d="M35,27 L32,33 M25,28 L22,34 M15,32 L12,38 M8,38 L5,42" stroke="#2D5A45" strokeWidth="1.2" fill="none" opacity="0.6"/>
-          {/* Left upper frond */}
-          <path d="M60,36 C42,20 20,15 -5,22" stroke="#3D6B55" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-          <path d="M38,18 L35,24 M28,17 L25,23 M18,18 L15,24 M8,20 L6,25" stroke="#3D6B55" strokeWidth="1" fill="none" opacity="0.5"/>
-          {/* Top frond */}
-          <path d="M60,36 C58,18 52,5 40,-8" stroke="#3D7B55" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-          <path d="M57,15 L52,18 M55,8 L50,11 M53,0 L48,3" stroke="#3D7B55" strokeWidth="1" fill="none" opacity="0.5"/>
-          {/* Back frond */}
-          <path d="M60,38 C70,15 85,-2 105,-8" stroke="#1D4A35" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.5"/>
+        <svg width="120" height="200" viewBox="0 0 120 200">
+          <path d="M55,200 Q60,150 65,100 Q68,50 60,30" stroke="#8B7355" strokeWidth="12" fill="none" strokeLinecap="round"/>
+          <ellipse cx="30" cy="25" rx="35" ry="12" fill="#2D5A45" transform="rotate(-30, 60, 30)"/>
+          <ellipse cx="90" cy="25" rx="35" ry="12" fill="#2D5A45" transform="rotate(30, 60, 30)"/>
+          <ellipse cx="60" cy="10" rx="30" ry="10" fill="#3D6B55"/>
+          <ellipse cx="20" cy="40" rx="30" ry="10" fill="#2D5A45" transform="rotate(-50, 60, 30)"/>
+          <ellipse cx="100" cy="40" rx="30" ry="10" fill="#2D5A45" transform="rotate(50, 60, 30)"/>
         </svg>
       </motion.div>
 
-      {/* Palm tree right — shorter, leaning */}
+      {/* Palm tree right — smaller */}
       <motion.div
-        className="absolute bottom-[6%] right-[3%] z-50 hidden md:block"
+        className="absolute bottom-[6%] right-[5%] z-50 hidden md:block"
         style={{ transformOrigin: 'bottom center' }}
-        animate={rm ? {} : { rotate: [1.5, -1.5, 1.5] }}
+        animate={rm ? {} : { rotate: [2, -2, 2] }}
         transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <svg width="140" height="210" viewBox="0 0 140 210">
-          {/* Trunk */}
-          <path d="M75,210 C78,175 80,145 78,115 C76,85 72,60 68,35" stroke="#6B5B3E" strokeWidth="12" fill="none" strokeLinecap="round"/>
-          <path d="M75,210 C78,175 80,145 78,115 C76,85 72,60 68,35" stroke="#7A6B4E" strokeWidth="8" fill="none" strokeLinecap="round"/>
-          {/* Bark */}
-          <path d="M77,160 C79,158 81,159 82,161" stroke="#5A4B2E" strokeWidth="1" fill="none" opacity="0.35"/>
-          <path d="M78,130 C80,128 82,129 83,131" stroke="#5A4B2E" strokeWidth="1" fill="none" opacity="0.35"/>
-          {/* Coconuts */}
-          <circle cx="64" cy="38" r="4" fill="#5D4E37" />
-          <circle cx="72" cy="36" r="3.5" fill="#6B5B3E" />
-          {/* Fronds */}
-          <path d="M68,33 C85,20 110,18 135,30" stroke="#2D6B45" strokeWidth="2.8" fill="none" strokeLinecap="round"/>
-          <path d="M90,20 L93,26 M100,19 L102,25 M110,20 L111,26 M120,24 L120,29" stroke="#2D6B45" strokeWidth="1.1" fill="none" opacity="0.6"/>
-          <path d="M68,33 C50,22 25,22 5,38" stroke="#2D5A45" strokeWidth="2.8" fill="none" strokeLinecap="round"/>
-          <path d="M45,24 L42,30 M35,25 L32,31 M25,29 L22,34 M15,34 L13,38" stroke="#2D5A45" strokeWidth="1.1" fill="none" opacity="0.6"/>
-          <path d="M68,32 C60,15 55,2 48,-10" stroke="#3D7B55" strokeWidth="2.2" fill="none" strokeLinecap="round"/>
-          <path d="M68,33 C80,12 95,0 110,-5" stroke="#1D4A35" strokeWidth="1.8" fill="none" strokeLinecap="round" opacity="0.5"/>
+        <svg width="100" height="180" viewBox="0 0 120 200">
+          <path d="M55,200 Q58,140 62,90 Q65,50 58,25" stroke="#7A6548" strokeWidth="10" fill="none" strokeLinecap="round"/>
+          <ellipse cx="30" cy="20" rx="30" ry="10" fill="#2D5A45" transform="rotate(-35, 58, 25)"/>
+          <ellipse cx="86" cy="20" rx="30" ry="10" fill="#2D5A45" transform="rotate(35, 58, 25)"/>
+          <ellipse cx="58" cy="8" rx="25" ry="8" fill="#3D6B55"/>
         </svg>
       </motion.div>
 
@@ -355,7 +271,7 @@ export default function CoastalHero() {
         />
       </div>
 
-      {/* Footprints in the sand — realistic with depth and displaced sand */}
+      {/* Footprints in the sand — horizontal, walking left to right */}
       <div className="absolute bottom-[2%] sm:bottom-[3%] left-[8%] right-[8%] z-[45]" aria-hidden="true">
         {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
           const isLeft = i % 2 === 0
@@ -363,41 +279,40 @@ export default function CoastalHero() {
             <motion.div
               key={i}
               className="absolute"
-              style={{ left: `${3 + i * 12}%`, bottom: isLeft ? '0px' : '12px' }}
+              style={{ left: `${3 + i * 12}%`, bottom: isLeft ? '4px' : '16px' }}
               initial={{ opacity: 0 }}
               animate={rm ? {} : { opacity: [0, 0.6, 0.6, 0] }}
               transition={{ duration: 10, repeat: Infinity, delay: i * 0.6, times: [0, 0.12, 0.75, 1], ease: 'easeInOut' }}
             >
-              <svg width="22" height="38" viewBox="0 0 22 38" fill="none"
-                className="w-[14px] h-[25px] sm:w-[20px] sm:h-[36px]"
-                style={{ transform: `rotate(${isLeft ? -10 : 10}deg)` }}
+              <svg width="38" height="22" viewBox="0 0 38 22" fill="none"
+                className="w-[25px] h-[14px] sm:w-[36px] sm:h-[20px]"
               >
-                {/* Displaced sand ring (lighter outer edge) */}
-                <ellipse cx="11" cy="9" rx="8" ry="7" fill="#C8B898" fillOpacity="0.25" />
-                <ellipse cx="11" cy="27" rx="6.5" ry="6.5" fill="#C8B898" fillOpacity="0.2" />
-                {/* Shadow depth (darker inner impression) */}
-                <ellipse cx="11" cy="9" rx="6" ry="5.5" fill="#9A8A6A" fillOpacity="0.35" />
-                <ellipse cx="11" cy="27" rx="4.5" ry="5" fill="#9A8A6A" fillOpacity="0.3" />
-                {/* Ball of foot */}
-                <ellipse cx="11" cy="9" rx="5" ry="4.5" fill="#A89878" fillOpacity="0.5" />
-                {/* Heel */}
-                <ellipse cx="11" cy="27" rx="3.8" ry="4.2" fill="#A89878" fillOpacity="0.45" />
-                {/* Arch — lighter gap between ball and heel */}
-                <ellipse cx="11" cy="18" rx="2" ry="3.5" fill="#D4C4B5" fillOpacity="0.3" />
-                {/* Toe impressions — 5 toes with varying depth */}
-                <ellipse cx="5.5" cy="3.5" rx="1.8" ry="1.4" fill="#9A8A6A" fillOpacity="0.35" />
-                <ellipse cx="8.5" cy="2" rx="1.6" ry="1.3" fill="#9A8A6A" fillOpacity="0.4" />
-                <ellipse cx="11.5" cy="1.5" rx="1.5" ry="1.2" fill="#9A8A6A" fillOpacity="0.4" />
-                <ellipse cx="14" cy="2.5" rx="1.3" ry="1.1" fill="#9A8A6A" fillOpacity="0.35" />
-                <ellipse cx="16" cy="4" rx="1.1" ry="1" fill="#9A8A6A" fillOpacity="0.3" />
-                {/* Subtle highlight (wet sand reflection) */}
-                <ellipse cx="10" cy="8" rx="2.5" ry="1.5" fill="white" fillOpacity="0.08" />
+                {/* Displaced sand ring */}
+                <ellipse cx="29" cy="11" ry="8" rx="7" fill="#C8B898" fillOpacity="0.25" />
+                <ellipse cx="11" cy="11" ry="6.5" rx="6.5" fill="#C8B898" fillOpacity="0.2" />
+                {/* Shadow depth */}
+                <ellipse cx="29" cy="11" ry="6" rx="5.5" fill="#9A8A6A" fillOpacity="0.35" />
+                <ellipse cx="11" cy="11" ry="4.5" rx="5" fill="#9A8A6A" fillOpacity="0.3" />
+                {/* Ball of foot (toes point right) */}
+                <ellipse cx="29" cy="11" ry="5" rx="4.5" fill="#A89878" fillOpacity="0.5" />
+                {/* Heel (left side) */}
+                <ellipse cx="11" cy="11" ry="3.8" rx="4.2" fill="#A89878" fillOpacity="0.45" />
+                {/* Arch gap */}
+                <ellipse cx="20" cy="11" ry="2" rx="3.5" fill="#D4C4B5" fillOpacity="0.3" />
+                {/* 5 toes — pointing right */}
+                <ellipse cx="34.5" cy="5.5" ry="1.8" rx="1.4" fill="#9A8A6A" fillOpacity="0.35" />
+                <ellipse cx="36" cy="8.5" ry="1.6" rx="1.3" fill="#9A8A6A" fillOpacity="0.4" />
+                <ellipse cx="36.5" cy="11.5" ry="1.5" rx="1.2" fill="#9A8A6A" fillOpacity="0.4" />
+                <ellipse cx="35.5" cy="14" ry="1.3" rx="1.1" fill="#9A8A6A" fillOpacity="0.35" />
+                <ellipse cx="34" cy="16" ry="1.1" rx="1" fill="#9A8A6A" fillOpacity="0.3" />
+                {/* Wet sand highlight */}
+                <ellipse cx="30" cy="10" ry="2.5" rx="1.5" fill="white" fillOpacity="0.08" />
               </svg>
             </motion.div>
           )
         })}
 
-        {/* Wave wash — gentle water creeping up the sand */}
+        {/* Wave wash */}
         <motion.div
           className="absolute bottom-0 left-0 right-0 h-[35px] rounded-[50%_50%_0_0]"
           style={{
